@@ -17,7 +17,12 @@ class DatabaseSeeder extends Seeder
             MenteeSeeder::class,
             AdminSeeder::class,
             CourseSeeder::class,
-            ModuleSeeder::class
+            ModuleSeeder::class,
+            VideoSeeder::class,
+            discussionmentorSeeder::class,
+            discussionadminSeeder::class,
+            CompanySeeder::class,
+            companyjobSeeder::class,
             ]);    
     }
 }
