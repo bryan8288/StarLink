@@ -13,7 +13,7 @@ class CreateDiscussmentorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('discussmentors', function (Blueprint $table) {
+        Schema::create('discussion_mentors', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('mentor_id');
             $table->foreign('mentor_id')->references('id')->on('mentors')->onDelete('cascade');

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class discussionadminSeeder extends Seeder
+class DiscussionAdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class discussionadminSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('discussadmins')->insert(array(
+        DB::table('discussion_admins')->insert(array(
             array(
                 'admin_id' => '1',
                 'description' => 'Sample description for discussion room exclusively for admin',

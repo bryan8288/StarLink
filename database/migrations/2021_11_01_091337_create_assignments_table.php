@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDiscussadminsTable extends Migration
+class CreateAssignmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateDiscussadminsTable extends Migration
      */
     public function up()
     {
-        Schema::create('discussion_admins', function (Blueprint $table) {
+        Schema::create('assignments', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('admin_id');
-            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+            $table->unsignedInteger('module_id');
+            $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
+            $table->string('title');
             $table->longText('description');
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->string('url');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('assignment_file');
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ class CreateDiscussadminsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('discussadmins');
+        Schema::dropIfExists('assignments');
     }
 }

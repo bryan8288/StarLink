@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ClassDetailSeeder extends Seeder
+class ApplicantSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,10 +11,11 @@ class ClassDetailSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('class_details')->insert(array(
+        DB::table('applicants')->insert(array(
             array(
-                'class_id' => '1',
                 'mentee_id' => '1',
+                'job_id' => '1',
+                'status' => 'Accepted'
             )
         ));
     }

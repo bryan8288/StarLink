@@ -13,7 +13,7 @@ class CreateCompanyjobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('companyjobs', function (Blueprint $table) {
+        Schema::create('company_jobs', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');

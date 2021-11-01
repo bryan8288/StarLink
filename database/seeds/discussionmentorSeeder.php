@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class discussionmentorSeeder extends Seeder
+class DiscussionMentorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class discussionmentorSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('discussmentors')->insert(array(
+        DB::table('discussion_mentors')->insert(array(
             array(
                 'mentor_id' => '1',
                 'description' => 'Sample description for discussion room exclusively for mentor',

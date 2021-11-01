@@ -19,10 +19,21 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             ModuleSeeder::class,
             VideoSeeder::class,
-            discussionmentorSeeder::class,
-            discussionadminSeeder::class,
+            DiscussionMentorSeeder::class,
+            DiscussionAdminSeeder::class,
             CompanySeeder::class,
-            companyjobSeeder::class,
-            ]);    
+            CompanyJobSeeder::class,
+            ClassSeeder::class,
+            ClassDetailSeeder::class,
+            AssignmentSeeder::class,
+            CourseTransactionSeeder::class,
+            ExamSeeder::class,
+            RequestedMentoringSeeder::class,
+            ScoreSeeder::class,
+            SubmittedAssignmentSeeder::class,
+            SubmittedExamSeeder::class,
+            ProgressMenteeSeeder::class,
+            ApplicantSeeder::class
+            ]);
     }
 }

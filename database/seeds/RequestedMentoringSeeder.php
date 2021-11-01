@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ClassDetailSeeder extends Seeder
+class RequestedMentoringSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,10 +11,10 @@ class ClassDetailSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('class_details')->insert(array(
+        DB::table('requested_mentorings')->insert(array(
             array(
-                'class_id' => '1',
                 'mentee_id' => '1',
+                'name' => 'Ruby Programming'
             )
         ));
     }

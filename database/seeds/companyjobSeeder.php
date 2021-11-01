@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class companyjobSeeder extends Seeder
+class CompanyJobSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class companyjobSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('companyjobs')->insert(array(
+        DB::table('company_jobs')->insert(array(
             array(
                 'company_id' => '1',
                 'name' => 'Software Developer',
