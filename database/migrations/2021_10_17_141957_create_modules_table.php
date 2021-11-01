@@ -21,6 +21,7 @@ class CreateModulesTable extends Migration
             $table->longText('description');
             $table->time('exam_time');
             $table->integer('kkm');
+            $table->string('learning_material');
             $table->timestamps();
         });
     }

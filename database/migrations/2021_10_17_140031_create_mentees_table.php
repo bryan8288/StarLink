@@ -27,6 +27,7 @@ class CreateMenteesTable extends Migration
             $table->string('profile_picture');
             $table->string('portofolio');
             $table->string('cv');
+            $table->boolean('is_working');
             $table->timestamps();
         });
     }

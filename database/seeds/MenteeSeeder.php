@@ -24,6 +24,7 @@ class MenteeSeeder extends Seeder
                 'profile_picture' => 'image/user1.jpg',
                 'portofolio' => 'portofolio/user1.pdf',
                 'cv' => 'cv/user1.pdf',
+                'is_working' => true
             )
         ));
     }

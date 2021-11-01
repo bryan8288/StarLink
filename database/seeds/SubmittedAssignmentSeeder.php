@@ -15,7 +15,7 @@ class SubmittedAssignmentSeeder extends Seeder
             array(
                 'assignment_id' => '1',
                 'mentee_id' => '1',
-                'file' => 'file/submittedassignment.docx',
+                'file' => 'submittedassignment/submittedassignment1.docx',
                 'uploaded_date' => '2021-11-02',
                 'score' => 92
             )

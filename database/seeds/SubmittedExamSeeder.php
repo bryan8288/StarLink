@@ -14,7 +14,7 @@ class SubmittedExamSeeder extends Seeder
         DB::table('submitted_exams')->insert(array(
             array(
                 'mentee_id' => '1',
-                'file' => 'file/submittedexam.docx',
+                'file' => 'submittedexam/submittedexam1.docx',
                 'is_finalized' => true
             )
         ));
