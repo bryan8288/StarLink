@@ -20,7 +20,7 @@ class CreateVideosTable extends Migration
             $table->string('name');
             $table->longText('description');
             $table->string('other_reference');
-            $table->string('video_file');
+            $table->string('video_file')->nullable();
             $table->timestamps();
         });
     }
