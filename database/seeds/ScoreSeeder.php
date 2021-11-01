@@ -15,7 +15,7 @@ class ScoreSeeder extends Seeder
             array(
                 'course_id' => '1',
                 'mentee_id' => '1',
-                'score' => 90
+                'score' => 95
             )
         ));
     }
