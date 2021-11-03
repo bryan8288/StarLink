@@ -18,16 +18,16 @@ class CreateMenteesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
-            $table->longText('address');
-            $table->string('phone');
-            $table->date('birth_date');
-            $table->string('birth_place');
-            $table->string('gender');
+            $table->longText('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->string('birth_place')->nullable();
+            $table->string('gender')->nullable();
             $table->string('email');
-            $table->string('profile_picture');
-            $table->string('portofolio');
-            $table->string('cv');
-            $table->boolean('is_working');
+            $table->string('profile_picture')->nullable();
+            $table->string('portofolio')->nullable();
+            $table->string('cv')->nullable();
+            $table->boolean('is_working')->nullable();
             $table->timestamps();
         });
     }

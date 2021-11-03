@@ -15,7 +15,6 @@ class RegisterController extends Controller
     public function addRegisterData(Request $request){ //buat validasi inputan dan menambahkan data user yang melakukan register kedalam database
         $this->validate($request,[
             'username' => 'required|min:5|unique:users',
-            'name' => 'required|min:5',
             'email' => 'required|email',
             'password' => 'required|alphaNum|confirmed|min:6'
         ]);
@@ -23,11 +22,11 @@ class RegisterController extends Controller
         $user = new User();
         $user->username = $request->username;
         $user->password = bcrypt($request->password);
-        $user->user_role = 'mentee';
+        $user->role = 'mentee';
         $user->save();
-
+        
         $mentee = new Mentee();
-        $mentee->name = $request->fullname;
+        $mentee->name = $request->username;
         $mentee->email = $request->email;
         $mentee->user_id = $user->id;
         $mentee->save();

@@ -13,11 +13,11 @@ class LoginController extends Controller
 
     public function validateLogin(Request $request){ //buat validasi inputan dan validasi bahwa data yang dimasukkan user saat login itu ada dalam database (jika tidak ada akan pop up error)
         $this->validate($request,[
-            'email' => 'required|email',
+            'username' => 'required|min:5',
             'password' => 'required|alphaNum|min:6'
         ]);
-        $remember_me  = ( !empty( $request->remember_me ) )? TRUE : FALSE;
-        $userData = $request->only('email','password');
+        $remember_me  = (!empty( $request->remember_me ) )? TRUE : FALSE;
+        $userData = $request->only('username','password');
 
         if(Auth::attempt($userData,$remember_me)){
             return redirect('/home');

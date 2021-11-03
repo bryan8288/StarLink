@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/login','LoginController@getLoginPage');
 Route::get('/register','RegisterController@getRegisterPage');
 
+Route::post('/login','LoginController@validateLogin');
+
+Route::post('/register','RegisterController@addRegisterData');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
