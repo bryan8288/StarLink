@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AdminSeeder extends Seeder
 {
@@ -20,7 +21,6 @@ class AdminSeeder extends Seeder
                 'birth_date' => '1999-05-01',
                 'birth_place' => 'semarang',
                 'gender' => 'male',
-                'email' => 'budi333@gmail.com',
                 'profile_picture' => 'image/user3.jpg'
             )
         ));

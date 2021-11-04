@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class MentorSeeder extends Seeder
 {
@@ -20,7 +21,6 @@ class MentorSeeder extends Seeder
                 'birth_date' => '1995-05-01',
                 'birth_place' => 'solo',
                 'gender' => 'male',
-                'email' => 'daryono123@gmail.com',
                 'profile_picture' => 'image/user2.jpg'
             )
         ));

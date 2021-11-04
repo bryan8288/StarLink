@@ -6,12 +6,12 @@
             @include('layout.sidebar')
             <main class="col ps-md-2 pt-2">
                 <a href="{{'/login/'}}">
-                    <button class="btn btn-light" style="position:absolute;top:15;right:0;margin-right:10px;">
+                    <button class="btn btn-light" style="position:absolute;top:10;right:0;margin-right:10px;">
                         LOGIN
                     </button>
                 </a>
                 <a href="{{'/register/'}}">
-                    <button class="btn btn-light" style="position:absolute;top:15;right:100px;">
+                    <button class="btn btn-light" style="position:absolute;top:10;right:100px;">
                         REGISTER
                     </button>
                 </a>
@@ -19,7 +19,7 @@
                     <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse"
                         class="border rounded-3 p-1 text-decoration-none" style="display: table;"><i></i>
                         Menu</a>
-                    <div class="col-md-8" style="margin-left: 25px">
+                    <div class="col-md-10">
                         <center>
                             <h4 style="margin-top: 5px;text-align: center"><a class="title" href="{{'/'}}">Starlink</a>
                             </h4>
@@ -94,7 +94,6 @@
 <style>
     .title {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
-        margin-left: 150px;
         text-decoration: none;
         color: black;
     }

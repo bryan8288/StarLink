@@ -23,7 +23,6 @@ class CreateMenteesTable extends Migration
             $table->date('birth_date')->nullable();
             $table->string('birth_place')->nullable();
             $table->string('gender')->nullable();
-            $table->string('email');
             $table->string('profile_picture')->nullable();
             $table->string('portofolio')->nullable();
             $table->string('cv')->nullable();

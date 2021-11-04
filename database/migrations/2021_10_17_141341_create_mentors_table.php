@@ -23,7 +23,6 @@ class CreateMentorsTable extends Migration
             $table->date('birth_date');
             $table->string('birth_place');
             $table->string('gender');
-            $table->string('email');
             $table->string('profile_picture');
             $table->timestamps();
         });

@@ -25,6 +25,11 @@ Route::post('/login','LoginController@validateLogin');
 
 Route::post('/register','RegisterController@addRegisterData');
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/forgot-password', 'ForgotPasswordController@getEmail');
+Route::post('/forgot-password', 'ForgotPasswordController@postEmail');
+
+Route::get('/reset-password/{token}', 'ResetPasswordController@getPassword');
+Route::post('/reset-password', 'ResetPasswordController@updatePassword');
+

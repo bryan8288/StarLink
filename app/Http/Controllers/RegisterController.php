@@ -21,13 +21,13 @@ class RegisterController extends Controller
 
         $user = new User();
         $user->username = $request->username;
+        $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->role = 'mentee';
         $user->save();
         
         $mentee = new Mentee();
         $mentee->name = $request->username;
-        $mentee->email = $request->email;
         $mentee->user_id = $user->id;
         $mentee->save();
 
