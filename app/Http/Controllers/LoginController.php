@@ -20,7 +20,7 @@ class LoginController extends Controller
         $userData = $request->only('username','password');
 
         if(Auth::attempt($userData,$remember_me)){
-            return redirect('/home');
+            return redirect('/dashboard');
         }
         else{
             return back()->with('error','Wrong Login Datas');

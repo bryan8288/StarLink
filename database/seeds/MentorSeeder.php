@@ -14,7 +14,7 @@ class MentorSeeder extends Seeder
     {
         DB::table('mentors')->insert(array(
             array(
-                'user_id' => '3',
+                'user_id' => '12',
                 'name' => 'daryono tononami',
                 'address' => 'jl.apel no 11 jakarta barat',
                 'phone' => '0813143141',
