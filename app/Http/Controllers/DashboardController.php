@@ -34,4 +34,9 @@ class DashboardController extends Controller
         return view('dashboard',compact('userData','auth','totalMentee','totalMentor','companyJobs','totalRequestedMentoring','totalWorkingMentee'));
     }
 
+    public function logout(){ //buat logout untuk user dan diredirect ke page Login
+        Auth::logout();
+        return redirect('/login');
+    }
+
 }

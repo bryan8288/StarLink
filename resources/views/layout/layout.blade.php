@@ -29,4 +29,88 @@
     @show
 </body>
 
+<style>
+    .cardText{
+        overflow: hidden;
+        -webkit-line-clamp: 4;
+        height: 100px;
+        display: -webkit-box;
+        max-width: 200;
+        -webkit-box-orient:vertical;
+        text-overflow: ellipsis;
+    }
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        text-align: center;
+        font-family: arial;
+        border-radius: 10px;
+        height: 300px;
+        margin-left: 30px;
+    }   
+
+        #sidebar-nav {
+        width: 160px;
+    }
+
+    .price {
+        color: grey;
+        font-size: 22px;
+    }
+    a:hover {
+        text-decoration: none;
+        color: black;
+    }
+
+    .text {
+        width: 800px;
+    }
+
+    .vl {
+        border-left: 3px solid;
+        height: 358px;
+    }
+
+    .title {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+        text-decoration: none;
+        color: black;
+    }
+
+    #background {
+        margin-top: 20px;
+        width: 100%;
+        height: 852px;
+        background-color: #218eed;
+        overflow: visible;
+        border-radius: 1px;
+    }
+
+    #frame2 {
+        background-color: #ffffff;
+        overflow: visible;
+        border-radius: 10px;
+    }
+
+    #subBackground {
+        height: 224px;
+        background-color: #99eeff;
+        overflow: visible;
+        display: table-cell;
+        border-radius: 10px;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    #subBackground2 {
+        width: 250px;
+        height: 168px;
+        background-color: #44ccff;
+        overflow: visible;
+        display: inline-block;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+</style>
 </html>

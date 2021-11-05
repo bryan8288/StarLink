@@ -79,25 +79,3 @@
 
 </div>
 </div>
-
-<style>
-    .title {
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
-        text-decoration: none;
-        color: black;
-    }
-
-    a:hover {
-        text-decoration: none;
-        color: black;
-    }
-
-    .text {
-        width: 800px;
-    }
-
-    #sidebar-nav {
-        width: 160px;
-    }
-
-</style>

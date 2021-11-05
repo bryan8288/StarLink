@@ -26,7 +26,7 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             style="margin-left: 20px; color: black; background-color: white">{{$userData[0]->username}}</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/home/logout">Logout</a>
+                            <a class="dropdown-item" href="/dashboard/logout">Logout</a>
                             <a class="dropdown-item" href="/home/logout">View Profile</a>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                             <center>
                                 <h4>Top 5 Requested Job By Company</h4>
                             </center>
-                            <div class="col-md-4" id="subBackground">
+                            <div class="col-md-3" id="subBackground">
                                 <div>
                                     @foreach ($companyJobs as $job)
                                     <div class="col-md-12" style="display: flex; justify-content: center;">
@@ -87,59 +87,6 @@
     </div>
 </div>
 @endsection
-
-<style>
-    .vl {
-        border-left: 3px solid;
-        height: 358px;
-    }
-
-    .title {
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
-        text-decoration: none;
-        color: black;
-    }
-
-    #sidebar-nav {
-        width: 160px;
-    }
-
-    #background {
-        margin-top: 20px;
-        width: 100%;
-        height: 852px;
-        background-color: #218eed;
-        overflow: visible;
-        border-radius: 1px;
-    }
-
-    #frame2 {
-        background-color: #ffffff;
-        overflow: visible;
-        border-radius: 10px;
-    }
-
-    #subBackground {
-        height: 224px;
-        background-color: #99eeff;
-        overflow: visible;
-        display: table-cell;
-        border-radius: 10px;
-        vertical-align: middle;
-        text-align: center;
-    }
-
-    #subBackground2 {
-        width: 250px;
-        height: 168px;
-        background-color: #44ccff;
-        overflow: visible;
-        display: inline-block;
-        border-radius: 10px;
-        text-align: center;
-    }
-
-</style>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">

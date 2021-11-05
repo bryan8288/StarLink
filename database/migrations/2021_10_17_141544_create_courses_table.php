@@ -20,6 +20,7 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->longText('description');
             $table->integer('weeks');
+            $table->integer('price');
             $table->string('category');
             $table->integer('kkm');
             $table->timestamps();

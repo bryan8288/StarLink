@@ -35,3 +35,10 @@ Route::post('/reset-password', 'ResetPasswordController@updatePassword');
 
 Route::get('/dashboard','DashboardController@getDashboardPage');
 
+Route::get('/dashboard/logout','DashboardController@logout');
+
+Route::get('/course','CourseController@getCourseList');
+Route::get('/course','CourseController@getProductbySearch');
+
+// Route::get('/course',[CourseController::class,'getCourseList']);
+
