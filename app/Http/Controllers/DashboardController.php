@@ -10,14 +10,19 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+    
     public function getDashboardPage (){ //buat nampilin page Home beserta list semua produk dalam website
+        
         $auth = Auth::check();
+        
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
+            
             ->join('admins','users.id','=','admins.user_id')
-            ->select('users.username','admins.profile_picture')
+            ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->get();
         }
+
         $mentor = Mentor::all();
         $totalMentor = $mentor->count();
 

@@ -130,5 +130,40 @@
         text-align: center;
     }
 
+    .media{
+        padding: 20px;
+        margin-bottom: 0
+    }
+    .about-text p {
+    font-size: 18px;
+    max-width: 450px;
+    }
+    .about-text p mark {
+    font-weight: 600;
+    color: #20247b;
+    }
+
+    .about-list {
+    padding-top: 10px;
+    }
+    .about-list .media {
+    padding: 25px 25px;
+    }
+    .about-list label {
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+    
+    font-weight:normal;
+    width: 165px;
+    margin: 0;
+    font-size: 30px;
+    position: relative;
+    }
+    .upload{
+    /* display:block; */
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    }
+
 </style>
 </html>

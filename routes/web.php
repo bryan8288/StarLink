@@ -52,4 +52,7 @@ Route::get('/mentor','ViewMentorController@getProductbySearch');
 Route::get('/company','ViewCompanyController@getMentorList');
 Route::get('/company','ViewCompanyController@getProductbySearch');
 
+Route::get('/profile/{id}','ViewProfileController@show');
+Route::put('/profile/update/{id}','ViewProfileController@edit');
+
 
