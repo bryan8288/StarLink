@@ -30,6 +30,24 @@
 </body>
 
 <style>
+
+.modules {
+  box-sizing: border-box;
+  height: auto; /* 661px */
+  width: 1281px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 5px 73px 5px 73px;
+  background-color: #99eeff;
+  overflow: visible;
+  border-radius: 10px;
+}
+    .courseDetail{
+        display: flex;
+        margin-top: 20px;
+    }
     .cardText{
         overflow: hidden;
         -webkit-line-clamp: 4;

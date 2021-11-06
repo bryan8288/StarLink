@@ -18,12 +18,12 @@ class CreateMentorsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
-            $table->longText('address');
-            $table->string('phone');
-            $table->date('birth_date');
-            $table->string('birth_place');
-            $table->string('gender');
-            $table->string('profile_picture');
+            $table->longText('address')->nullable();;
+            $table->string('phone')->nullable();;
+            $table->date('birth_date')->nullable();;
+            $table->string('birth_place')->nullable();;
+            $table->string('gender')->nullable();;
+            $table->string('profile_picture')->nullable();
             $table->timestamps();
         });
     }

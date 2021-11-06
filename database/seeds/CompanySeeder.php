@@ -14,7 +14,7 @@ class CompanySeeder extends Seeder
     {
         DB::table('companies')->insert(array(
             array(
-                'user_id' => '13',
+                'user_id' => '17',
                 'name' => 'PT. Freeport Indonesia',
                 'address' => 'jl.apel no 11 jakarta barat',
                 'phone' => '0813143141',

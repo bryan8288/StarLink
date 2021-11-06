@@ -5,7 +5,8 @@
         <div class="row flex-nowrap">
             @include('layout.sidebar')
             <main class="col ps-md-2 pt-2">
-
+                
+           
                 <div class="col-md-12" style="display: flex; margin-top:10px">
                     <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse"
                         class="border rounded-3 p-1 text-decoration-none" style="display: table;"><i class="fa fa-bars"
@@ -18,7 +19,7 @@
                         </center>
                     </div>
                 </div>
-                <div class="col-md-2" style="display: flex; position: absolute;right: 0;top: 0; padding-left: 50px">
+                <div class="col-md-2" style="display: flex; position: absolute;right: 0;top: 0; padding-left: 64px">
                     <img src="{{url('storage/'.$userData[0]->profile_picture)}}"
                         style="height:60px; border-radius: 50%; border: 6px solid #218EED;margin-top:10px; width: 50px;">
                     <div class="dropdown" style="margin-top: 20px">
@@ -27,7 +28,7 @@
                             style="margin-left: 20px; color: black; background-color: white">{{$userData[0]->username}}</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="/dashboard/logout">Logout</a>
-                            <a class="dropdown-item" href="/home/logout">View Profile</a>
+                            <a class="dropdown-item" href="">View Profile</a>
                         </div>
                     </div>
                 </div>
@@ -82,7 +83,12 @@
                         </div>
                     </div>
                 </div>
-        </div>
+                @if(session('status'))
+                <div class="alert alert-success" style="margin-top :20px;">
+                    {{session('status')}}
+                </div>
+                @endif
+            </div>
         </main>
     </div>
 </div>

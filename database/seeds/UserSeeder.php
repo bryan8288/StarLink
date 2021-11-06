@@ -86,6 +86,30 @@ class UserSeeder extends Seeder
                 'role' => 'mentor',
             ),
             array(
+                'username' => 'dandi22',
+                'password' => bcrypt('dandi22'),
+                'email' => 'dandi22@gmail.com',
+                'role' => 'mentor',
+            ),
+            array(
+                'username' => 'haha2222',
+                'password' => bcrypt('haha2222'),
+                'email' => 'haha2222@gmail.com',
+                'role' => 'mentor',
+            ),
+            array(
+                'username' => 'sulaiman21',
+                'password' => bcrypt('sulaiman21'),
+                'email' => 'sulaiman21@gmail.com',
+                'role' => 'mentor',
+            ),
+            array(
+                'username' => 'desti23',
+                'password' => bcrypt('desti23'),
+                'email' => 'desti23@gmail.com',
+                'role' => 'mentor',
+            ),
+            array(
                 'username' => 'ptABC',
                 'password' => bcrypt('ABC123'),
                 'email' => 'abc@gmail.com',

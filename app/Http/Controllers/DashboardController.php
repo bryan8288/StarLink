@@ -18,7 +18,6 @@ class DashboardController extends Controller
             ->select('users.username','admins.profile_picture')
             ->get();
         }
-
         $mentor = Mentor::all();
         $totalMentor = $mentor->count();
 

@@ -17,7 +17,7 @@
                         </center>
                     </div>
                 </div>
-                <div class="col-md-2" style="display: flex; position: absolute;right: 0;top: 0; padding-left: 50px">
+                <div class="col-md-2" style="display: flex; position: absolute;right: 0;top: 0; padding-left: 64px">
                     <img src="{{url('storage/'.$userData[0]->profile_picture)}}"
                         style="height:60px; border-radius: 50%; border: 6px solid #218EED;margin-top:10px; width: 50px;">
                     <div class="dropdown" style="margin-top: 20px">
@@ -34,15 +34,18 @@
                     <div class="container-fluid" style="padding-top: 50px">
                         <form action="{{'/course/'}}">
                         <div style="display:flex;">
-                            <h5 style="color: white; margin-left: 30px">Course</h5>
+                            <h5 style="color: white; margin-left: 30px; margin-top:5px">Course</h5>
                             <input type="text" name="keyword" class="form-control" placeholder="Search for Product"
                                 style="width: 500px; margin-left: 40px; padding-bottom: 5px; position: absolute; right: 140px;">
                             <input type="submit" class="btn btn-primary" value="Search"
-                                style="margin-left: 10px; margin-bottom: 5px; position: absolute; right: 50px;">
+                                style="margin-left: 10px; margin-bottom: 5px; position: absolute; right: 50px; background-color: #27353F">
                         </div>
                         </form>
                         <hr style="color: #FFFFFF;height: 3px">
-                        <div style="display: flex">
+                        <a href="{{'/addCourse/'}}">
+                            <button class="btn btn-primary" style="background-color: #27353F; margin-left: 30px;">Create</button>
+                        </a>
+                        <div style="display: flex; margin-top :20px">
                             @foreach ($course as $item)
                             <div class="col-md-2 card">
                                 <div style="margin-top: 20px">
@@ -52,8 +55,14 @@
                                         <p class="cardText" style="overflow: hidden">{{$item->description}}</p>
                                     </div>
                                     <div style="display: flex">
-                                        <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
-                                        <button class="btn btn-danger" style="margin-left: 30px;margin-top: 20px">Delete</button>
+                                        <a href="{{'/editCourse/'.$item->id}}">
+                                            <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
+                                        </a>
+                                        <form action="{{'/editCourse/delete/'.$item->id}}" method="post">
+                                            {{csrf_field()}}
+                                            {{method_field('post')}}
+                                            <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Course?')" style="margin-left: 30px;margin-top: 20px">Delete</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

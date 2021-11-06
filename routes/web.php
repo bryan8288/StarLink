@@ -39,6 +39,12 @@ Route::get('/dashboard/logout','DashboardController@logout');
 
 Route::get('/course','CourseController@getCourseList');
 Route::get('/course','CourseController@getProductbySearch');
+Route::get('/editCourse/{id}','CourseController@goEditPage');
+Route::put('/editCourse/update/{id}','CourseController@editCourseDetail');
+Route::post('editCourse/delete/{id}','CourseController@deleteCourse');
+Route::get('/addCourse','CourseController@getAddCoursePage');
+Route::post('/addCourse/add','CourseController@addCourse');
+
 
 Route::get('/mentor','ViewMentorController@getMentorList');
 Route::get('/mentor','ViewMentorController@getProductbySearch');
@@ -46,5 +52,4 @@ Route::get('/mentor','ViewMentorController@getProductbySearch');
 Route::get('/company','ViewCompanyController@getMentorList');
 Route::get('/company','ViewCompanyController@getProductbySearch');
 
-// Route::get('/course',[CourseController::class,'getCourseList']);
 
