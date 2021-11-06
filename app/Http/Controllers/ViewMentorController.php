@@ -17,7 +17,7 @@ class ViewMentorController extends Controller
             ->get();
         }
         $auth = Auth::check();
-        $mentorList = Mentor::paginate(3);
+        $mentor = Mentor::paginate(3);
         return view('admin/view_mentor',compact('auth','mentor','userData'));
     }
 
@@ -29,7 +29,7 @@ class ViewMentorController extends Controller
             ->get();
         }
         $auth = Auth::check();
-        $mentorList = Mentor::where('name','like',"%{$request->keyword}%")->paginate(3);
-        return view('admin/view_mentor',compact('userData','course','auth'));
+        $mentor = Mentor::where('name','like',"%{$request->keyword}%")->paginate(3);
+        return view('admin/view_mentor',compact('userData','mentor','auth'));
     }
 }

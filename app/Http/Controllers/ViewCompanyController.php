@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Course;
+use App\Company;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class ViewCompanyController extends Controller
 {
-    public function getCourseList(){
+    public function getCompanyList(){
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
@@ -17,8 +17,8 @@ class CourseController extends Controller
             ->get();
         }
         $auth = Auth::check();
-        $course = Course::paginate(3);
-        return view('admin/view_course',compact('auth','course','userData'));
+        $company = Company::paginate(3);
+        return view('admin/view_company',compact('auth','company','userData'));
     }
 
     public function getProductbySearch(Request $request){ //buat nampilin hasil searching sesuai keyword yang diinput user (keyword akan dicocokkan dengan nama product)
@@ -29,7 +29,7 @@ class CourseController extends Controller
             ->get();
         }
         $auth = Auth::check();
-        $course = Course::where('name','like',"%{$request->keyword}%")->paginate(3);
-        return view('admin/view_course',compact('userData','course','auth'));
+        $company = Company::where('name','like',"%{$request->keyword}%")->paginate(3);
+        return view('admin/view_company',compact('userData','company','auth'));
     }
 }

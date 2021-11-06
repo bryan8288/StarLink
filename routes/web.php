@@ -41,7 +41,10 @@ Route::get('/course','CourseController@getCourseList');
 Route::get('/course','CourseController@getProductbySearch');
 
 Route::get('/mentor','ViewMentorController@getMentorList');
-Route::get('/mentor','MentorController@getProductbySearch');
+Route::get('/mentor','ViewMentorController@getProductbySearch');
+
+Route::get('/company','ViewCompanyController@getMentorList');
+Route::get('/company','ViewCompanyController@getProductbySearch');
 
 // Route::get('/course',[CourseController::class,'getCourseList']);
 
