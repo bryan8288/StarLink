@@ -42,17 +42,27 @@
                         </div>
                         </form>
                         <hr style="color: #FFFFFF;height: 3px">
-                        <div style="display: flex">
+                        <a href="{{'/addMentor/'}}">
+                            <button class="btn btn-primary" style="background-color: #27353F; margin-left: 30px;">Create</button>
+                        </a>
+                        <div style="display: flex; margin-top :20px">
                             @foreach ($mentor as $item)
                             <div class="col-md-2 card">
                                 <div style="margin-top: 20px">
                                     <h4>{{$item->name}}</h4>
+                                    <p class="phone">{{$item->phone}}</p>
                                     <div style="height: 100px;">
                                         <p class="cardText" style="overflow: hidden">{{$item->address}}</p>
                                     </div>
                                     <div style="display: flex">
-                                        <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
-                                        <button class="btn btn-danger" style="margin-left: 30px;margin-top: 20px">Delete</button>
+                                        <a href="{{'/editMentor/'.$item->id}}">
+                                            <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
+                                        </a>
+                                        <form action="{{'/editMentor/delete/'.$item->id}}" method="post">
+                                            {{csrf_field()}}
+                                            {{method_field('post')}}
+                                            <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Mentor?')" style="margin-left: 30px;margin-top: 20px">Delete</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

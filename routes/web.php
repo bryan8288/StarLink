@@ -48,9 +48,19 @@ Route::post('/addCourse/add','CourseController@addCourse');
 
 Route::get('/mentor','ViewMentorController@getMentorList');
 Route::get('/mentor','ViewMentorController@getProductbySearch');
+Route::get('/editMentor/{id}','ViewMentorController@goEditPage');
+Route::put('/editMentor/update/{id}','ViewMentorController@editMentorDetail');
+Route::post('editMentor/delete/{id}','ViewMentorController@deleteMentor');
+Route::get('/addMentor','ViewMentorController@getAddMentorPage');
+Route::post('/addMentor/add','ViewMentorController@addMentor');
 
-Route::get('/company','ViewCompanyController@getMentorList');
+Route::get('/company','ViewCompanyController@getCompanyList');
 Route::get('/company','ViewCompanyController@getProductbySearch');
+Route::get('/editCompany/{id}','ViewCompanyController@goEditPage');
+Route::put('/editCompany/update/{id}','ViewCompanyController@editCompanyDetail');
+Route::post('editCompany/delete/{id}','ViewCompanyController@deleteCompany');
+Route::get('/addCompany','ViewCompanyController@getAddCompanyPage');
+Route::post('/addCompany/add','ViewCompanyController@addCompany');
 
 Route::get('/profile/{id}','ViewProfileController@show');
 Route::put('/profile/update/{id}','ViewProfileController@edit');
