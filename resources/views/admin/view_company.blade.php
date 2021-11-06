@@ -48,6 +48,7 @@
                                 <div style="margin-top: 20px">
                                     <h4>{{$item->name}}</h4>
                                     <div style="height: 100px;">
+                                        <img src="{{$item->profile_picture}}">
                                         <p class="cardText" style="overflow: hidden">{{$item->address}}</p>
                                     </div>
                                     <div style="display: flex">

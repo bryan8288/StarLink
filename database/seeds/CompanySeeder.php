@@ -18,33 +18,33 @@ class CompanySeeder extends Seeder
                 'name' => 'PT. Freeport Indonesia',
                 'address' => 'Jl. Apel No. 11, Jakarta Barat',
                 'phone' => '0813143141',
-                'profile_picture' => 'image/user2.jpg'
+                'profile_picture' => 'freeport.jpg'
             ),
             array(
                 'user_id' => '4',
                 'name' => 'PT. Grab',
                 'address' => 'Jl. Mawar No. 35, Jakarta Selatan',
                 'phone' => '081287418',
-                'profile_picture' => 'image/user2.jpg'
+                'profile_picture' => 'grab.png'
             ),array(
                 'user_id' => '8',
                 'name' => 'PT. Gojek Indonesia',
                 'address' => 'Jl. Anggrek No. 9, Jakarta Utara',
                 'phone' => '0816479239',
-                'profile_picture' => 'image/user2.jpg'
+                'profile_picture' => 'gojek.png'
             ),array(
                 'user_id' => '11',
                 'name' => 'PT. Indomaret',
                 'address' => 'Jl. Mutiara No. 3, Jakarta Timur',
                 'phone' => '0821641987',
-                'profile_picture' => 'image/user2.jpg'
+                'profile_picture' => 'indomaret.png'
             ),
             array(
                 'user_id' => '3',
                 'name' => 'PT. Alfa Indonesia',
                 'address' => 'Jl. Kemanggisan No. 23, Jakarta Pusat',
                 'phone' => '0829847949',
-                'profile_picture' => 'image/user2.jpg'
+                'profile_picture' => 'alfamart.png'
             )
         ));
     }
