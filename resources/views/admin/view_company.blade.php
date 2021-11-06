@@ -47,9 +47,8 @@
                             <div class="col-md-2 card">
                                 <div style="margin-top: 20px">
                                     <h4>{{$item->name}}</h4>
-                                    <p class="price">Rp.{{$item->price}}</p>
                                     <div style="height: 100px;">
-                                        <p class="cardText" style="overflow: hidden">{{$item->description}}</p>
+                                        <p class="cardText" style="overflow: hidden">{{$item->address}}</p>
                                     </div>
                                     <div style="display: flex">
                                         <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
