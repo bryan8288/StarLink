@@ -40,5 +40,8 @@ Route::get('/dashboard/logout','DashboardController@logout');
 Route::get('/course','CourseController@getCourseList');
 Route::get('/course','CourseController@getProductbySearch');
 
+Route::get('/mentor','ViewMentorController@getMentorList');
+Route::get('/mentor','MentorController@getProductbySearch');
+
 // Route::get('/course',[CourseController::class,'getCourseList']);
 
