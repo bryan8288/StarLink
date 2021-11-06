@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Mentor;
 use App\Module;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -51,7 +52,7 @@ class CourseController extends Controller
 
     public function editCourseDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
         $this->validate($request,[
-            'name' => 'required|unique:courses|min:5',
+            'name' => 'required|min:5',
             'category' => 'required|min:10',
             'description' => 'required|min:10',
             'price' => 'required|integer|min:5001',
@@ -85,8 +86,19 @@ class CourseController extends Controller
             ->get();
         }
         $auth = Auth::check();
-
+        
         $mentorList = Mentor::all();
+
+        //function buat fitur class schedule
+        // $today = new Carbon('2020-06-11'); // isi date today (Carbon::now())
+        // $weekStartDate = $today->startOfWeek()->format('Y-m-d');
+        // $date = Carbon::createFromDate($weekStartDate);
+        // $daysToAdd = 7; // -> nanti lempar 0 - 5 (yg dimana dapat dari db) -> monday itu 0 -> sunday itu 6
+        // // note : harusny datany cmn simpan day_of_week ( 0 - 5 -> monday - saturday )
+        // $date = $date->addDays($daysToAdd)->format('Y-m-d');
+        // dd($date);
+        //
+
         return view('admin/add_course',compact('auth','userData','mentorList'));
     }
 

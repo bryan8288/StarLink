@@ -98,13 +98,13 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <center>
+                                    <button class="btn btn-primary" style="margin-top: 55px; background-color: #27353F; width: 150px">
+                                        Submit
+                                    </button>
+                                </center>
                             </div>
                             
-                            <center>
-                                <button class="btn btn-primary" style="margin-top: 55px; background-color: #27353F; width: 150px">
-                                    Submit
-                                </button>
-                            </center>
                             @if(count($errors) > 0)
                                 <div class="alert alert-danger">
                                     <ul>
