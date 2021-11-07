@@ -51,20 +51,21 @@
                                 <div style="margin-top: 20px">
                                     <h4>{{$item->name}}</h4>
                                     <div style="height: 150px; overflow: hidden">
-                                        <img src="{{url('storage/'.$item->profile_picture)}}"style="display: flex; margin-left: auto; margin-right: auto; width: 50%; margin-top: auto; margin-bottom: auto; justify-content: center; align-items: center; position: relative">
+                                        <img src="{{url('storage/'.$item->profile_picture)}}"style="height: 150px; width: 100px; display: flex; margin-left: auto; margin-right: auto; width: 50%; margin-top: auto; margin-bottom: auto; justify-content: center; align-items: center; position: relative">
                                     </div>
-                                    <p class="address">{{$item->address}}</p>
-                                    <div style="height: 10px;">
+                                    <div style="height: 10px; margin-top: 10px; margin-bottom: 10px">
                                         <p class="cardText" style="overflow: hidden">{{$item->phone}}</p>
                                     </div>
                                     <div style="display: flex">
-                                        {{-- <a href="{{'/editCompany/'.$item->id}}">
+                                        {{-- <a href="{{'/editMentor/'.$item->id}}">
                                             <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
                                         </a> --}}
-                                        <form action="{{'/editCompany/delete/'.$item->id}}" method="post">
+                                        <form action="{{'/editMentor/delete/'.$item->id}}" method="post">
                                             {{csrf_field()}}
                                             {{method_field('post')}}
-                                            <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Mentor?')" style="margin-left: 10px">Delete</button>
+                                            <center>
+                                                <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Mentor?')" style="text-align: center; margin-left: 110px; margin-right: auto; margin-top: 10px">Delete</button>
+                                            </center>
                                         </form>
                                     </div>
                                 </div>

@@ -68,6 +68,16 @@
         margin-left: 30px;
     }
 
+    .card2 {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        text-align: center;
+        font-family: arial;
+        border-radius: 10px;
+        height: 400px;
+        margin-left: 30px;
+    }
+
     #sidebar-nav {
         width: 160px;
     }
@@ -153,6 +163,9 @@
     .about-list label {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: normal;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+
+    font-weight:normal;
     width: 165px;
     margin: 0;
     font-size: 30px;
@@ -164,6 +177,16 @@
         padding: 0.5rem;
         border-radius: 0.3rem;
         cursor: pointer;
+    }
+
+    .companyDetail{
+        display: flex;
+        margin-top: 20px;
+    }
+
+    .mentorDetail{
+        display: flex;
+        margin-top: 20px;
     }
 
 </style>
