@@ -53,7 +53,7 @@
                                     <div style="height: 150px; overflow: hidden">
                                         <img src="{{url('storage/'.$item->profile_picture)}}"style="height: 150px; width: 100px; display: flex; margin-left: auto; margin-right: auto; width: 50%; margin-top: auto; margin-bottom: auto; justify-content: center; align-items: center; position: relative">
                                     </div>
-                                    <div style="height: 10px; margin-top: 10px; margin-bottom: 10px">
+                                    <div style="height: 10px; margin-top: 10px; margin-bottom: 10px;  margin-left: 105px">
                                         <p class="cardText" style="overflow: hidden">{{$item->phone}}</p>
                                     </div>
                                     <div style="display: flex">

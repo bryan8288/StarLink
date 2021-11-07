@@ -99,11 +99,11 @@ class ViewCompanyController extends Controller
     public function addCompany(Request $request){ //buat validasi inputan dan untuk menambahkan produk baru kedalam database sesuai inputan admin
         $auth = Auth::check();
         $this->validate($request,[
-            'user_id' => 'required|integer|min:1',
+            'user_id' => 'integer|min:1',
             'name' => 'required|min:5',
             'address' => 'required',
             'phone' => 'required',
-            'profile_picture' => 'required'
+            'profile_picture' => ''
         ]);
         $company = new Company();
         $company->user_id = $request->user_id;

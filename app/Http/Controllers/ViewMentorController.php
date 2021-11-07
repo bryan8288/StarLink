@@ -112,7 +112,7 @@ class ViewMentorController extends Controller
             'birth_date' => 'required',
             'birth_place' => 'required',
             'gender' => 'required',
-            'profile_picture' => 'required'
+            'profile_picture' => ''
         ]);
         $mentor = new Mentor();
         $mentor->user_id = $request->user_id;
