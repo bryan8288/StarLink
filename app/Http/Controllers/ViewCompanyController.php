@@ -36,36 +36,36 @@ class ViewCompanyController extends Controller
         return view('admin/view_company',compact('userData','company','auth'));
     }
 
-    public function goEditPage($id){ //buat nampilin page EditProduct
-        if(Auth::user()->role == 'admin'){
-            $userData = DB::table('users')
-            ->join('admins','users.id','=','admins.user_id')
-            ->select('users.username','admins.profile_picture')
-            ->get();
-        }
-        $auth = Auth::check();
-        $companyDetail = Company::find($id);
-        return view('admin/edit_company',compact('companyDetail','auth','userData'));
-    }
+    // public function goEditPage($id){ //buat nampilin page EditProduct
+    //     if(Auth::user()->role == 'admin'){
+    //         $userData = DB::table('users')
+    //         ->join('admins','users.id','=','admins.user_id')
+    //         ->select('users.username','admins.profile_picture')
+    //         ->get();
+    //     }
+    //     $auth = Auth::check();
+    //     $companyDetail = Company::find($id);
+    //     return view('admin/edit_company',compact('companyDetail','auth','userData'));
+    // }
 
-    public function editCompanyDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
-        $this->validate($request,[
-            'user_id' => 'required|integer|min:1',
-            'name' => 'required|min:5',
-            'address' => 'required',
-            'phone' => 'required',
-            'profile_picture' => 'required'
-        ]);
+    // public function editCompanyDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+    //     $this->validate($request,[
+    //         'user_id' => 'required|integer|min:1',
+    //         'name' => 'required|min:5',
+    //         'address' => 'required',
+    //         'phone' => 'required',
+    //         'profile_picture' => 'required'
+    //     ]);
 
-        $companyDetail = Company::find($id);
-        $companyDetail->user_id = $request->user_id;
-        $companyDetail->name = $request->name;
-        $companyDetail->address = $request->address;
-        $companyDetail->phone = $request->phone;
-        $companyDetail->profile_picture = $request->profile_picture;
-        $companyDetail->update();
-        return redirect('/dashboard')->with('status','Company Updated Successfully');
-    }
+    //     $companyDetail = Company::find($id);
+    //     $companyDetail->user_id = $request->user_id;
+    //     $companyDetail->name = $request->name;
+    //     $companyDetail->address = $request->address;
+    //     $companyDetail->phone = $request->phone;
+    //     $companyDetail->profile_picture = $request->profile_picture;
+    //     $companyDetail->update();
+    //     return redirect('/dashboard')->with('status','Company Updated Successfully');
+    // }
 
     public function deleteCompany($id){ //buat menghapus product sesuai dengan product yang diklik
         $courseDetail = Company::find($id);

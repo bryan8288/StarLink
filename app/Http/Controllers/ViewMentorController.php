@@ -33,43 +33,43 @@ class ViewMentorController extends Controller
         return view('admin/view_mentor',compact('userData','mentor','auth'));
     }
 
-    public function goEditPage($id){ //buat nampilin page EditProduct
-        if(Auth::user()->role == 'admin'){
-            $userData = DB::table('users')
-            ->join('admins','users.id','=','admins.user_id')
-            ->select('users.username','admins.profile_picture')
-            ->get();
-        }
-        $auth = Auth::check();
-        $mentorDetail = Mentor::find($id);
-        //$userData[0]->birth_date;
-        return view('admin/edit_mentor',compact('mentorDetail','auth','userData'));
-    }
+    // public function goEditPage($id){ //buat nampilin page EditProduct
+    //     if(Auth::user()->role == 'admin'){
+    //         $userData = DB::table('users')
+    //         ->join('admins','users.id','=','admins.user_id')
+    //         ->select('users.username','admins.profile_picture')
+    //         ->get();
+    //     }
+    //     $auth = Auth::check();
+    //     $mentorDetail = Mentor::find($id);
+    //     //$userData[0]->birth_date;
+    //     return view('admin/edit_mentor',compact('mentorDetail','auth','userData'));
+    // }
 
-    public function editMentorDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
-        $this->validate($request,[
-            'user_id' => 'required|integer|min:1',
-            'name' => 'required|min:5',
-            'address' => 'required',
-            'phone' => 'required',
-            'birth_date' => 'required',
-            'birth_place' => 'required',
-            'gender' => 'required',
-            'profile_picture' => 'required'
-        ]);
+    // public function editMentorDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+    //     $this->validate($request,[
+    //         'user_id' => 'required|integer|min:1',
+    //         'name' => 'required|min:5',
+    //         'address' => 'required',
+    //         'phone' => 'required',
+    //         'birth_date' => 'required',
+    //         'birth_place' => 'required',
+    //         'gender' => 'required',
+    //         'profile_picture' => 'required'
+    //     ]);
 
-        $mentorDetail= Mentor::find($id);
-        $mentorDetail->user_id = $request->user_id;
-        $mentorDetail->name = $request->name;
-        $mentorDetail->address = $request->address;
-        $mentorDetail->phone = $request->phone;
-        $mentorDetail->birth_date = $request->birth_date;
-        $mentorDetail->birth_place = $request->birth_place;
-        $mentorDetail->gender = $request->gender;
-        $mentorDetail->profile_picture = $request->profile_picture;
-        $mentorDetail->update();
-        return redirect('/dashboard')->with('status','Mentor Updated Successfully');
-    }
+    //     $mentorDetail= Mentor::find($id);
+    //     $mentorDetail->user_id = $request->user_id;
+    //     $mentorDetail->name = $request->name;
+    //     $mentorDetail->address = $request->address;
+    //     $mentorDetail->phone = $request->phone;
+    //     $mentorDetail->birth_date = $request->birth_date;
+    //     $mentorDetail->birth_place = $request->birth_place;
+    //     $mentorDetail->gender = $request->gender;
+    //     $mentorDetail->profile_picture = $request->profile_picture;
+    //     $mentorDetail->update();
+    //     return redirect('/dashboard')->with('status','Mentor Updated Successfully');
+    // }
 
     public function deleteMentor($id){ //buat menghapus product sesuai dengan product yang diklik
         $mentorDetail = Mentor::find($id);

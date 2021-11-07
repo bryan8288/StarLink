@@ -55,9 +55,9 @@
                                         <p class="cardText" style="overflow: hidden">{{$item->address}}</p>
                                     </div>
                                     <div style="display: flex">
-                                        <a href="{{'/editMentor/'.$item->id}}">
+                                        {{-- <a href="{{'/editMentor/'.$item->id}}">
                                             <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
-                                        </a>
+                                        </a> --}}
                                         <form action="{{'/editMentor/delete/'.$item->id}}" method="post">
                                             {{csrf_field()}}
                                             {{method_field('post')}}
