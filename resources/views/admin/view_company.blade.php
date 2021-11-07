@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12" id="background">
+                <div class="col-md-12" id="background" style="justify-content: center; display:flex">
                     <div class="container-fluid" style="padding-top: 50px">
                         <form action="{{'/company/'}}">
                         <div style="display:flex;">
@@ -47,11 +47,14 @@
                         </a>
                         <div style="display: flex; margin-top :20px">
                             @foreach ($company as $item)
-                            <div class="col-md-2 card">
+                            <div class="col-md-6 card">
                                 <div style="margin-top: 20px">
                                     <h4>{{$item->name}}</h4>
+                                    <div style="height: 150px; overflow: hidden">
+                                        <img src="{{url('storage/'.$item->profile_picture)}}"style="display: flex; margin-left: auto; margin-right: auto; width: 50%; margin-top: auto; margin-bottom: auto; justify-content: center; align-items: center; position: relative">
+                                    </div>
                                     <p class="address">{{$item->address}}</p>
-                                    <div style="height: 100px;">
+                                    <div style="height: 10px;">
                                         <p class="cardText" style="overflow: hidden">{{$item->phone}}</p>
                                     </div>
                                     <div style="display: flex">
@@ -61,14 +64,14 @@
                                         <form action="{{'/editCompany/delete/'.$item->id}}" method="post">
                                             {{csrf_field()}}
                                             {{method_field('post')}}
-                                            <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Company?')" style="margin-left: 30px;margin-top: 20px">Delete</button>
+                                            <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Company?')" style="margin-left: 10px">Delete</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                             @endforeach
                         </div>
-                        <div style="margin-left: 30px; margin-top:20px">
+                        <div style="margin-left: 30px; margin-top:50px">
                             {{$company->links()}}
                         </div>
                     </div>

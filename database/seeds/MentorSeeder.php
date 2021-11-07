@@ -21,7 +21,7 @@ class MentorSeeder extends Seeder
                 'birth_date' => '1995-05-01',
                 'birth_place' => 'solo',
                 'gender' => 'male',
-                'profile_picture' => 'image/user2.jpg'
+                'profile_picture' => 'image/mentor1.jpg'
             ),
             array(
                 'user_id' => '13',
@@ -31,7 +31,7 @@ class MentorSeeder extends Seeder
                 'birth_date' => '1995-05-01',
                 'birth_place' => 'bandung',
                 'gender' => 'male',
-                'profile_picture' => null
+                'profile_picture' => 'image/mentor2.jpg'
             ),
             array(
                 'user_id' => '14',
@@ -41,7 +41,7 @@ class MentorSeeder extends Seeder
                 'birth_date' => '1995-05-01',
                 'birth_place' => 'solo',
                 'gender' => 'male',
-                'profile_picture' => null
+                'profile_picture' => 'image/mentor3.jpg'
             ),
             array(
                 'user_id' => '15',
@@ -51,7 +51,7 @@ class MentorSeeder extends Seeder
                 'birth_date' => '1995-05-01',
                 'birth_place' => 'solo',
                 'gender' => 'male',
-                'profile_picture' => null
+                'profile_picture' => 'image/mentor4.jpg'
             ),
             array(
                 'user_id' => '16',
@@ -61,9 +61,9 @@ class MentorSeeder extends Seeder
                 'birth_date' => '1995-05-01',
                 'birth_place' => 'solo',
                 'gender' => 'female',
-                'profile_picture' => null
+                'profile_picture' => 'image/mentor5.jpg'
             )
         ));
-        
+
     }
 }

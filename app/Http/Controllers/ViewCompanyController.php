@@ -19,8 +19,8 @@ class ViewCompanyController extends Controller
         }
         $auth = Auth::check();
         $company = Company::paginate(3);
-        $company_picture = Carbon::parse($userData[0]->profile_picture);
-        return view('admin/view_company',compact('auth','company','userData','company_picture'));
+        //$company_picture = Carbon::parse($userData[0]->profile_picture);
+        return view('admin/view_company',compact('auth','company','userData'));
     }
 
     public function getProductbySearch(Request $request){ //buat nampilin hasil searching sesuai keyword yang diinput user (keyword akan dicocokkan dengan nama product)

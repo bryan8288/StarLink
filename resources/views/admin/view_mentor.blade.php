@@ -47,21 +47,24 @@
                         </a>
                         <div style="display: flex; margin-top :20px">
                             @foreach ($mentor as $item)
-                            <div class="col-md-2 card">
+                            <div class="col-md-6 card">
                                 <div style="margin-top: 20px">
                                     <h4>{{$item->name}}</h4>
-                                    <p class="phone">{{$item->phone}}</p>
-                                    <div style="height: 100px;">
-                                        <p class="cardText" style="overflow: hidden">{{$item->address}}</p>
+                                    <div style="height: 150px; overflow: hidden">
+                                        <img src="{{url('storage/'.$item->profile_picture)}}"style="display: flex; margin-left: auto; margin-right: auto; width: 50%; margin-top: auto; margin-bottom: auto; justify-content: center; align-items: center; position: relative">
+                                    </div>
+                                    <p class="address">{{$item->address}}</p>
+                                    <div style="height: 10px;">
+                                        <p class="cardText" style="overflow: hidden">{{$item->phone}}</p>
                                     </div>
                                     <div style="display: flex">
-                                        {{-- <a href="{{'/editMentor/'.$item->id}}">
+                                        {{-- <a href="{{'/editCompany/'.$item->id}}">
                                             <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
                                         </a> --}}
-                                        <form action="{{'/editMentor/delete/'.$item->id}}" method="post">
+                                        <form action="{{'/editCompany/delete/'.$item->id}}" method="post">
                                             {{csrf_field()}}
                                             {{method_field('post')}}
-                                            <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Mentor?')" style="margin-left: 30px;margin-top: 20px">Delete</button>
+                                            <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Mentor?')" style="margin-left: 10px">Delete</button>
                                         </form>
                                     </div>
                                 </div>
