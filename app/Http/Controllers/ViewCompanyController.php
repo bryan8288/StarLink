@@ -6,6 +6,7 @@ use App\Company;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ViewCompanyController extends Controller
 {
@@ -18,7 +19,8 @@ class ViewCompanyController extends Controller
         }
         $auth = Auth::check();
         $company = Company::paginate(3);
-        return view('admin/view_company',compact('auth','company','userData'));
+        $company_picture = Carbon::parse($userData[0]->profile_picture);
+        return view('admin/view_company',compact('auth','company','userData','company_picture'));
     }
 
     public function getProductbySearch(Request $request){ //buat nampilin hasil searching sesuai keyword yang diinput user (keyword akan dicocokkan dengan nama product)

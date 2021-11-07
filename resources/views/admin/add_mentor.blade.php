@@ -52,7 +52,7 @@
                             </div>
                             <div class="mentorDetail">
                                 <h5 style="width: 30%;float:left">Birth Date</h5>
-                                <input style="width:70%; float: right;" type="text" name="birth_date" class="form-control" style="margin-bottom: 5px">
+                                <input style="width:70%; float: right;" type="date" name="birth_date" class="form-control" style="margin-bottom: 5px">
                             </div>
                             <div class="mentorDetail">
                                 <h5 style="width: 30%;float:left">Birth Place</h5>

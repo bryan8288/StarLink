@@ -42,6 +42,7 @@ class ViewMentorController extends Controller
         }
         $auth = Auth::check();
         $mentorDetail = Mentor::find($id);
+        //$userData[0]->birth_date;
         return view('admin/edit_mentor',compact('mentorDetail','auth','userData'));
     }
 
