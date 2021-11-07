@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ModuleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,6 +46,11 @@ Route::post('editCourse/delete/{id}','CourseController@deleteCourse');
 Route::get('/addCourse','CourseController@getAddCoursePage');
 Route::post('/addCourse/add','CourseController@addCourse');
 
+Route::get('/addModule','ModuleController@getAddModulePage');
+Route::post('/addModule/add','ModuleController@addModule');
+Route::get('/editModule/{id}','ModuleController@goEditPage');
+Route::put('/editModule/update/{id}','ModuleController@editCourseDetail');
+Route::post('editModule/delete/{id}','ModuleController@deleteCourse');
 
 Route::get('/mentor','ViewMentorController@getMentorList');
 Route::get('/mentor','ViewMentorController@getProductbySearch');

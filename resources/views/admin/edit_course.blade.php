@@ -42,15 +42,21 @@
                             <div class="courseDetail">
                                 <h5 style="width: 30%;float:left">Category</h5>
                                 <select name="category" class="form-control input-sm" style="margin-bottom: 5px; float :right;width:70%">
+                                    <option selected>{{$courseDetail->category}}</option>
+                                    @if($courseDetail->category=='E-Learning')
                                     <option>Curriculum</option>
+                                    @endif
+                                    @if($courseDetail->category=='Curriculum')
                                     <option>E-Learning</option>
+                                    @endif
                                 </select>                            
                             </div>
                             <div class="courseDetail">
                                 <h5 style="width: 30%;float:left">Mentor</h5>
                                 <select name="mentor" class="form-control input-sm" style="margin-bottom: 5px; width:70%;">
+                                    <option selected>{{$mentorName->name}}</option>
                                     @foreach ($mentorList as $mentor)
-                                        <option>{{$mentor->name}}</option>
+                                        <option value="{{$courseDetail->price}}">{{$mentor->name}}</option>
                                     @endforeach
                                 </select>   
                             </div>
@@ -88,7 +94,11 @@
                                             @foreach ($moduleList as $module)
                                                 <tr class="table-info">
                                                     <th scope="row">{{$i}}</th>
-                                                    <td>{{$module->name}}</td>
+                                                    <td>
+                                                        <a href="{{'/editModule/'.$module->id}}" style="text-decoration:none; color:black">
+                                                            {{$module->name}}
+                                                        </a>
+                                                    </td>
                                                     <td class="cardText text">{{$module->description}}</td>
                                                     <td>{{$module->exam_time}}</td>
                                                     <td>{{$module->kkm}}</td>

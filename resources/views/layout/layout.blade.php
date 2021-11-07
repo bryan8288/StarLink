@@ -30,31 +30,32 @@
 </body>
 
 <style>
+    .modules {
+        box-sizing: border-box;
+        height: auto;
+        /* 661px */
+        width: 1281px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 5px 73px 5px 73px;
+        background-color: #99eeff;
+        overflow: visible;
+        border-radius: 10px;
+    }
 
-.modules {
-  box-sizing: border-box;
-  height: auto; /* 661px */
-  width: 1281px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 5px 73px 5px 73px;
-  background-color: #99eeff;
-  overflow: visible;
-  border-radius: 10px;
-}
-    .courseDetail{
+    .courseDetail {
         display: flex;
         margin-top: 20px;
     }
-    .cardText{
+
+    .cardText {
         overflow: hidden;
         -webkit-line-clamp: 4;
         height: 100px;
         display: -webkit-box;
         max-width: 200;
-        -webkit-box-orient:vertical;
         text-overflow: ellipsis;
     }
     .card {
@@ -65,9 +66,9 @@
         border-radius: 10px;
         height: 300px;
         margin-left: 30px;
-    }   
+    }
 
-        #sidebar-nav {
+    #sidebar-nav {
         width: 160px;
     }
 
@@ -150,20 +151,21 @@
     padding: 25px 25px;
     }
     .about-list label {
-        font-family:Verdana, Geneva, Tahoma, sans-serif;
-    
-    font-weight:normal;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: normal;
     width: 165px;
     margin: 0;
     font-size: 30px;
     position: relative;
     }
-    .upload{
-    /* display:block; */
-    padding: 0.5rem;
-    border-radius: 0.3rem;
-    cursor: pointer;
+
+    .upload {
+        /* display:block; */
+        padding: 0.5rem;
+        border-radius: 0.3rem;
+        cursor: pointer;
     }
 
 </style>
+
 </html>

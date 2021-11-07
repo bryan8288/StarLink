@@ -45,9 +45,11 @@ class CourseController extends Controller
         }
         $auth = Auth::check();
         $courseDetail = Course::find($id);
-        $mentorList = Mentor::all();
+        $mentorName = Mentor::find($courseDetail->mentor_id);
+        $mentorList = Mentor::where('name','!=',$mentorName->name)->get();
+        // dd($mentorList);
         $moduleList = Module::where('course_id','=',$id)->get();
-        return view('admin/edit_course',compact('courseDetail','auth','userData','moduleList','mentorList'));
+        return view('admin/edit_course',compact('courseDetail','auth','userData','moduleList','mentorList','mentorName'));
     }
 
     public function editCourseDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin

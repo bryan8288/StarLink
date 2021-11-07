@@ -71,7 +71,10 @@
                             </div>
                             <div style="margin-top: 30px">
                                 <h4>Modules</h4>
-                                <div class="modules">
+                                <a href="{{'/addModule/'}}">
+                                    <button type="button" class="btn btn-primary" style="margin-top: 5px; background-color: #27353F;">Create</button>
+                                </a>
+                                <div class="modules" style="margin-top:10px">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -99,22 +102,22 @@
                                 </div>
                             </div>
                             <center>
-                                <button class="btn btn-primary" style="margin-top: 25px; background-color: #27353F; width: 150px;">
+                                <button type="submit" class="btn btn-primary" style="margin-top: 25px; background-color: #27353F; width: 150px;">
                                     Submit
                                 </button>
                             </center>
-                            @if(count($errors) > 0)
-                                <div class="alert alert-danger">
-                                    <ul>
-                                    @foreach($errors->all() as $error)
-                                        <li>{{$error}}</li>
-                                    @endforeach
-                                    </ul> 
-                                </div>
-                            @endif
                         </form>
                     </div>
                 </div>
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger" style="margin-top:10px">
+                        <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                        </ul> 
+                    </div>
+                @endif
             </main>
         </div>
     </div>
