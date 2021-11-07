@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class ViewMentorController extends Controller
 {
     public function getMentorList(){
+        dd('a');
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
