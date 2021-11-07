@@ -31,7 +31,7 @@ class ViewCompanyController extends Controller
         $auth = Auth::check();
         $company = Company::where('name','like',"%{$request->keyword}%")->paginate(3);
         //$company_picture = DB::table('companies')->select('profile_picture');
-        return view('admin/view_company',compact('userData','company','auth','company_picture'));
+        return view('admin/view_company',compact('userData','company','auth'));
     }
 
     public function goEditPage($id){ //buat nampilin page EditProduct
