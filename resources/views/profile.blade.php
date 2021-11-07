@@ -49,7 +49,6 @@
                                     Password</button>
                             </div>
                             <div class="col-lg-9">
-
                                 @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentor')
                                 <h5 style="color: white; margin-top:30px; font-size:30px">Mentor</h5>
                                 @endif
@@ -61,93 +60,102 @@
                                 </h5>
                                 @endif
                                 <hr style="border-top: 5px solid #ffffff; opacity:1;margin-left:2.5%;width:95%">
+                                <form action="{{url('profile/update/'.$userData[0]->id)}}" enctype="multipart/form-data"
+                                    method="post">
+                                    {{ csrf_field() }}
+                                    {{method_field('put')}}
+                                    <div class="about-text go-to">
+                                        <div class="row about-list">
+                                            <div class="col-md-6">
+                                                <div class="media">
+                                                    <label>Fullname</label>
+                                                    <input type="text" class="form-control" id="inputAddress"
+                                                        value="{{$userData[0]->name}}">
+                                                </div>
+                                                <div class="media">
+                                                    <label>Birth Place</label>
+                                                    <input type="text" class="form-control" id="inputAddress"
+                                                        value="{{$userData[0]->birth_place}}">
+                                                </div>
+                                                <div class="media">
+                                                    <label>Birth Date</label>
+                                                    <input type="date" class="form-control" id="inputAddress"
+                                                        value="{{$userData[0]->birth_date}}">
+                                                </div>
+                                                <div class="media">
+                                                    <label>Address</label>
+                                                    <input type="text" class="form-control" id="inputlg"
+                                                        value="{{$userData[0]->address}}">
+                                                </div>
 
-                                <div class="about-text go-to">
 
-                                    <div class="row about-list">
-                                        <div class="col-md-6">
-                                            <div class="media">
-                                                <label>Fullname</label>
-                                                <input type="text" class="form-control" id="inputAddress"
-                                                    value="{{$userData[0]->name}}">
+                                                @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
+                                                <div class="media" style="display:inline-block">
+                                                    <label>Portofolio</label><br>
+                                                    <input type="file" class="upload" id="upload" hidden />
+                                                    <label style="color: white; font-size:15px; width: 150px;"
+                                                        class="upload bg-dark" for="upload">Upload Portofolio</label>
+                                                </div>
+                                                <div class="media" style="display:inline-block">
+                                                    <label>CV</label><br>
+                                                    <input type="file" class="upload" id="upload" hidden />
+                                                    <label style="color: white;font-size:15px;width: 100px;"
+                                                        class="upload bg-dark" for="upload">Upload CV</label>
+                                                </div>
+                                                @endif
                                             </div>
-                                            <div class="media">
-                                                <label>Birth Place</label>
-                                                <input type="text" class="form-control" id="inputAddress"
-                                                    value="{{$userData[0]->birth_place}}">
-                                            </div>
-                                            <div class="media">
-                                                <label>Birth Date</label>
-                                                <input type="date" class="form-control" id="inputAddress"
-                                                    value="{{$userData[0]->birth_date}}">
-                                            </div>
-                                            <div class="media">
-                                                <label>Address</label>
-                                                <input type="text" class="form-control" id="inputlg"
-                                                    value="{{$userData[0]->address}}">
-                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="media">
+                                                    <label>Age</label>
+                                                    <input type="text" class="form-control" id="inputAddress"
+                                                        value="{{$age}}">
+                                                </div>
+                                                <div class="media">
+                                                    <label>Gender</label>
+                                                    <input type="text" class="form-control" id="inputAddress"
+                                                        value="{{$userData[0]->gender}}">
+                                                </div>
+                                                <div class="media">
+                                                    <label>Email</label>
+                                                    <input type="email" class="form-control" id="inputAddress"
+                                                        value="{{$userData[0]->email}}">
+                                                </div>
+                                                <div class="media">
+                                                    <label>Phone</label>
+                                                    <input type="text" class="form-control" id="inputAddress"
+                                                        value="{{$userData[0]->phone}}">
+                                                </div>
 
-
-                                            @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
-                                            <div class="media" style="display:inline-block">
-                                                <label>Portofolio</label><br>
-                                                <input type="file" class="upload" id="upload" hidden />
-                                                <label style="color: white; font-size:15px; width: 150px;"
-                                                    class="upload bg-dark" for="upload">Upload Portofolio</label>
                                             </div>
-                                            <div class="media" style="display:inline-block">
-                                                <label>CV</label><br>
-                                                <input type="file" class="upload" id="upload" hidden />
-                                                <label style="color: white;font-size:15px;width: 100px;"
-                                                    class="upload bg-dark" for="upload">Upload CV</label>
-                                            </div>
-                                            @endif
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="media">
-                                                <label>Age</label>
-                                                <input type="text" class="form-control" id="inputAddress"
-                                                    value="{{$age}}">
-                                            </div>
-                                            <div class="media">
-                                                <label>Gender</label>
-                                                <input type="text" class="form-control" id="inputAddress"
-                                                    value="{{$userData[0]->gender}}">
-                                            </div>
-                                            <div class="media">
-                                                <label>Email</label>
-                                                <input type="email" class="form-control" id="inputAddress"
-                                                    value="{{$userData[0]->email}}">
-                                            </div>
-                                            <div class="media">
-                                                <label>Phone</label>
-                                                <input type="text" class="form-control" id="inputAddress"
-                                                    value="{{$userData[0]->phone}}">
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <form action="{{ url('profile/update/'.$userData[0]->id) }}"
-                                        enctype="multipart/form-data" method="post">
-                                        {{csrf_field()}}
-                                        {{method_field('put')}}
+                                       
                                         <div class="media" style="margin-left: 55%;">
                                             <button type="submit" class="btn btn-dark"
                                                 style="width:150px;">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
+                        @if(count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                            </ul> 
+                        </div>
+                        @endif
 
 
-                    </div>
-                </section>
-
-            </main>
         </div>
+        </section>
+
+        </main>
     </div>
+</div>
 </div>
 
 @endsection

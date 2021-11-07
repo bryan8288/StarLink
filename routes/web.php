@@ -25,7 +25,7 @@ Route::post('/login','LoginController@validateLogin');
 
 Route::post('/register','RegisterController@addRegisterData');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/forgot-password', 'ForgotPasswordController@getEmail');
 Route::post('/forgot-password', 'ForgotPasswordController@postEmail');
