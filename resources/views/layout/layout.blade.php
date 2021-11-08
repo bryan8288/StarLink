@@ -58,7 +58,7 @@
         max-width: 200;
         text-overflow: ellipsis;
     }
-    .card {
+    /* .card2 {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         max-width: 300px;
         text-align: center;
@@ -66,16 +66,17 @@
         border-radius: 10px;
         height: 300px;
         margin-left: 30px;
-    }
+    } */
 
     .card2 {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        max-width: 400px;
+        max-width: 340px;
         text-align: center;
         font-family: arial;
         border-radius: 10px;
-        height: 400px;
+        height: 340px;
         margin-left: 30px;
+        background-color: #ffffff;
     }
 
     #sidebar-nav {

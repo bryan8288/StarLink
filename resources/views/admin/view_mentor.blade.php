@@ -17,7 +17,7 @@
                         </center>
                     </div>
                 </div>
-                <div class="col-md-2" style="display: flex; position: absolute;right: 0;top: 0; padding-left: 50px">
+                <div class="col-md-2" style="display: flex; position: absolute;right: 0;top: 0; padding-left: 64px">
                     <img src="{{url('storage/'.$userData[0]->profile_picture)}}"
                         style="height:60px; border-radius: 50%; border: 6px solid #218EED;margin-top:10px; width: 50px;">
                     <div class="dropdown" style="margin-top: 20px">
@@ -38,7 +38,7 @@
                             <input type="text" name="keyword" class="form-control" placeholder="Search for Product"
                                 style="width: 500px; margin-left: 40px; padding-bottom: 5px; position: absolute; right: 140px;">
                             <input type="submit" class="btn btn-primary" value="Search"
-                                style="margin-left: 10px; margin-bottom: 5px; position: absolute; right: 50px;">
+                                style="margin-left: 10px; margin-bottom: 5px; position: absolute; right: 50px; background-color: #27353F">
                         </div>
                         </form>
                         <hr style="color: #FFFFFF;height: 3px">
@@ -47,14 +47,17 @@
                         </a>
                         <div style="display: flex; margin-top :20px">
                             @foreach ($mentor as $item)
-                            <div class="col-md-6 card">
+                            <div class="col-md-6 card2">
                                 <div style="margin-top: 20px">
                                     <h4>{{$item->name}}</h4>
                                     <div style="height: 150px; overflow: hidden">
                                         <img src="{{url('storage/'.$item->profile_picture)}}"style="height: 150px; width: 100px; display: flex; margin-left: auto; margin-right: auto; width: 50%; margin-top: auto; margin-bottom: auto; justify-content: center; align-items: center; position: relative">
                                     </div>
-                                    <div style="height: 10px; margin-top: 10px; margin-bottom: 10px;  margin-left: 105px">
-                                        <p class="cardText" style="overflow: hidden">{{$item->phone}}</p>
+                                    <div style="height: 20px; margin-top: 10px">
+                                    <p class="cardText" style="overflow: hidden; margin-left: auto; margin-right: auto; display: flex; justify-content: center">{{$item->address}}</p>
+                                    </div>
+                                    <div style="height: 10px; margin-top: 10px; margin-bottom: 10px">
+                                        <p class="cardText" style="overflow: hidden; margin-left: auto; margin-right: auto; display: flex; justify-content: center">{{$item->phone}}</p>
                                     </div>
                                     <div style="display: flex">
                                         {{-- <a href="{{'/editMentor/'.$item->id}}">
@@ -64,7 +67,7 @@
                                             {{csrf_field()}}
                                             {{method_field('post')}}
                                             <center>
-                                                <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Mentor?')" style="text-align: center; margin-left: 110px; margin-right: auto; margin-top: 10px">Delete</button>
+                                                <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Mentor?')" style="margin-left: 130px; margin-right: auto; display: flex; justify-content: center; margin-top: 20px">Delete</button>
                                             </center>
                                         </form>
                                     </div>
