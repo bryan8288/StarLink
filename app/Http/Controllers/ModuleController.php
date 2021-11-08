@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Assignment;
 use App\Course;
 use App\Mentor;
 use App\Module;
+use App\Video;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -59,39 +61,73 @@ class ModuleController extends Controller
         }
         $auth = Auth::check();
         $moduleDetail = Module::find($id);
-        // dd($mentorList);
         
         $course = Course::where('id','=',$moduleDetail->course_id)->get();
-        // dd($course[0]->name);
         $courseList = Course::where('name','!=',$course[0]->name)->get();
         return view('admin/edit_module',compact('course','auth','userData','moduleDetail','courseList'));
     }
 
-    public function editCourseDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+    public function editModuleDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
         $this->validate($request,[
             'name' => 'required|min:5',
-            'course' => 'required|min:10',
+            'course' => 'required',
             'description' => 'required|min:10',
-            'price' => 'required|integer|min:5001',
-            'time' => 'required|integer|min:1',
+            'time' => 'required',
             'kkm' => 'required|integer|min:2'
         ]);
         
-        $courseDetail = Course::find($id);
-        $courseDetail->name = $request->name;
-        $courseDetail->category = $request->category;
-        $courseDetail->description = $request->description;
-        $courseDetail->price = $request->price;
-        $courseDetail->weeks = $request->weeks;
-        $courseDetail->kkm = $request->kkm;
-        $courseDetail->update();
-        return redirect('/dashboard')->with('status','Course Updated Successfully');
+        $moduleDetail = Module::find($id);
+        $moduleDetail->name = $request->name;
+
+        $course_id = Course::where('name','=',$request->course)->get();
+        $moduleDetail->course_id = $course_id[0]->id;
+        $moduleDetail->description = $request->description;
+        $moduleDetail->exam_time = $request->time;
+        $moduleDetail->kkm = $request->kkm;
+        $moduleDetail->update();
+        return redirect('/dashboard')->with('status','Module Updated Successfully');
     }
 
-    public function deleteCourse($id){ //buat menghapus product sesuai dengan product yang diklik
-        $courseDetail = Course::find($id);
-        $courseDetail->delete();
+    public function deleteModule($id){ //buat menghapus product sesuai dengan product yang diklik
+        $moduleDetail = Module::find($id);
+        $moduleDetail->delete();
 
-        return redirect('/dashboard')->with('status','Course Deleted Successfully');
+        return redirect('/dashboard')->with('status','Module Deleted Successfully');
+    }
+
+    public function detailLearning($id){
+        if(Auth::user()->role == 'admin'){
+            $userData = DB::table('users')
+            ->join('admins','users.id','=','admins.user_id')
+            ->select('users.username','admins.profile_picture')
+            ->get();
+        }
+        $auth = Auth::check();
+        $module = Module::find($id)->get();
+        return view('admin/module_detail_learning',compact('userData','auth','module','id'));
+    }
+
+    public function detailVideo($id){
+        if(Auth::user()->role == 'admin'){
+            $userData = DB::table('users')
+            ->join('admins','users.id','=','admins.user_id')
+            ->select('users.username','admins.profile_picture')
+            ->get();
+        }
+        $auth = Auth::check();
+        $videoList = Video::where('module_id','=',$id)->get();
+        return view('admin/module_detail_video',compact('userData','auth','videoList','id'));
+    }
+
+    public function detailAssignment($id){
+        if(Auth::user()->role == 'admin'){
+            $userData = DB::table('users')
+            ->join('admins','users.id','=','admins.user_id')
+            ->select('users.username','admins.profile_picture')
+            ->get();
+        }
+        $auth = Auth::check();
+        $assignmentList = Assignment::where('module_id','=',$id)->get();
+        return view('admin/module_detail_assignment',compact('userData','auth','assignmentList','id'));
     }
 }

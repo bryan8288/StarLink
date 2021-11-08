@@ -15,10 +15,17 @@ class VideoSeeder extends Seeder
         DB::table('videos')->insert(array(
             array(
                 'module_id' => '1',
-                'name' => 'Java Sub Module 1',
-                'description' => 'Java is a programming language and computing platform first released by Sun Microsystems in 1995. It has evolved from humble beginnings to power a large share of today’s digital world, by providing the reliable platform upon which many services and applications are built. New, innovative products and digital services designed for the future continue to rely on Java, as well.',
+                'name' => 'Video 1',
+                'description' => 'Introduction to Java',
                 'other_reference' => 'https://www.youtube.com/watch?v=jiUxHm9l1KY',
                 'video_file' => 'video/video1.zip'
+            ),
+            array(
+                'module_id' => '1',
+                'name' => 'Video 2',
+                'description' => 'Java Simple Project',
+                'other_reference' => 'https://www.youtube.com/watch?v=jiUxHm9l1KY',
+                'video_file' => null,
             ),
             array(
                 'module_id' => '2',
