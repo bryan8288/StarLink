@@ -52,6 +52,10 @@ Route::get('/editModule/{id}','ModuleController@goEditPage');
 Route::put('/editModule/update/{id}','ModuleController@editModuleDetail');
 Route::post('editModule/delete/{id}','ModuleController@deleteModule');
 
+Route::get('/moduleDetailLearning/{id}','ModuleController@detailLearning');
+Route::get('/moduleDetailVideo/{id}','ModuleController@detailVideo');
+Route::get('/moduleDetailAssignment/{id}','ModuleController@detailAssignment');
+
 Route::get('/mentor','ViewMentorController@getMentorList');
 Route::get('/mentor','ViewMentorController@getProductbySearch');
 //Route::get('/editMentor/{id}','ViewMentorController@goEditPage');
@@ -71,7 +75,4 @@ Route::post('/addCompany/add','ViewCompanyController@addCompany');
 Route::get('/profile/{id}','ViewProfileController@show');
 Route::put('/profile/update/{id}','ViewProfileController@edit');
 
-Route::get('/moduleDetailLearning/{id}','ModuleController@detailLearning');
-Route::get('/moduleDetailVideo/{id}','ModuleController@detailVideo');
-Route::get('/moduleDetailAssignment/{id}','ModuleController@detailAssignment');
-;
+Route::get('/class','ClassController@getClassList');

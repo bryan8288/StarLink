@@ -76,6 +76,10 @@
                                 <h5 style="width: 30%;float:left">KKM</h5>
                                 <input style="width:70%; float: right;" type="number" name="kkm" class="form-control" value="{{$courseDetail->kkm}}" style="margin-bottom: 5px">
                             </div>
+                            <div class="courseDetail">
+                                <h5 style="width: 30%;float:left">Exam Time</h5>
+                                <input style="width:70%; float: right;" type="time" name="kkm" class="form-control" value="{{$courseDetail->exam_time}}" style="margin-bottom: 5px">
+                            </div>
                             <div style="margin-top: 30px">
                                 <h4>Modules</h4>
                                 <div class="modules">
@@ -85,7 +89,6 @@
                                             <th scope="col">No</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Description</th>
-                                            <th scope="col">Exam Time</th>
                                             <th scope="col">KKM</th>
                                           </tr>
                                         </thead>
@@ -99,8 +102,7 @@
                                                             {{$module->name}}
                                                         </a>
                                                     </td>
-                                                    <td class="cardText text">{{$module->description}}</td>
-                                                    <td>{{$module->exam_time}}</td>
+                                                    <td class="cardText">{{$module->description}}</td>
                                                     <td>{{$module->kkm}}</td>
                                                 </tr>
                                                 <?php $i++;?>

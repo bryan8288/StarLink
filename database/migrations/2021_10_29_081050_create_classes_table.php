@@ -20,6 +20,10 @@ class CreateClassesTable extends Migration
             $table->unsignedInteger('mentor_id');
             $table->foreign('mentor_id')->references('id')->on('mentors')->onDelete('cascade');
             $table->string('name');
+            $table->integer('day_of_week');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->string('link');
             $table->timestamps();
         });
     }

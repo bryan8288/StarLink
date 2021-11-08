@@ -22,6 +22,7 @@ class CreateCoursesTable extends Migration
             $table->integer('weeks');
             $table->integer('price');
             $table->string('category');
+            $table->time('exam_time');
             $table->integer('kkm');
             $table->timestamps();
         });

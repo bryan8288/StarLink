@@ -57,12 +57,6 @@
                                     style="margin-bottom: 5px">
                             </div>
                             <div class="courseDetail">
-                                <h5 style="width: 30%;float:left">Exam Time</h5>
-                                <input style="width:70%; float: right;" type="text" name="time"
-                                    class="form-control text-truncate" value="{{$moduleDetail->exam_time}}"
-                                    style="margin-bottom: 5px">
-                            </div>
-                            <div class="courseDetail">
                                 <h5 style="width: 30%;float:left">KKM</h5>
                                 <input style="width:70%; float: right;" type="text" name="kkm" class="form-control"
                                     value="{{$moduleDetail->kkm}}" style="margin-bottom: 5px">

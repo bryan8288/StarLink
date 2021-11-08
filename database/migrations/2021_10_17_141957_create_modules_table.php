@@ -19,7 +19,6 @@ class CreateModulesTable extends Migration
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->string('name');
             $table->longText('description');
-            $table->time('exam_time');
             $table->integer('kkm');
             $table->string('learning_material');
             $table->timestamps();

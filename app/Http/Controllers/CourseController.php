@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Mentor;
 use App\Module;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;

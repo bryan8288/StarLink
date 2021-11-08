@@ -55,11 +55,6 @@
                                     class="form-control text-truncate" style="margin-bottom: 5px">
                             </div>
                             <div class="courseDetail">
-                                <h5 style="width: 30%;float:left;  margin-top:5px;">Exam Time</h5>
-                                <input style="width:70%; float: right;" type="time" name="time" class="form-control"
-                                    style="margin-bottom: 5px">
-                            </div>
-                            <div class="courseDetail">
                                 <h5 style="width: 30%;float:left; margin-top:5px;">KKM</h5>
                                 <input style="width:70%; float: right;" type="number" name="kkm" class="form-control"
                                     style="margin-bottom: 5px">
