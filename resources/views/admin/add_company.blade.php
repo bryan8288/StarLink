@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-12" id="background">
                     <div class="container-fluid" style="padding-top: 50px">
-                        <form action="{{url('/addCompany/add')}}" method="post">
+                        <form action="{{url('/addCompany/add')}}" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <div class="companyDetail">
                                 <h5 style="width: 30%; float: left">Username</h5>
@@ -60,7 +60,7 @@
                             </div>
                             <div class="companyDetail">
                                 <h5 style="width: 30%;float:left">Profile Picture</h5>
-                                <input type="file" class="upload" id="upload" hidden />
+                                <input type="file" class="upload" id="upload" hidden name="profile_picture" />
                                 <label style="color: white; font-size:16px; width: 200px; text-align:center"
                                     class="upload bg-dark" for="upload">Upload Profile Picture</label><br>
                                 <p style="font-size: 1px"> </p>

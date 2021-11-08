@@ -112,7 +112,7 @@ class ViewMentorController extends Controller
             'birth_date' => 'required',
             'birth_place' => 'required',
             'gender' => 'required',
-            'profile_picture' => ''
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         $user = new User();
@@ -123,14 +123,16 @@ class ViewMentorController extends Controller
         $user->save();
 
         $mentor = new Mentor();
-        $mentor->user_id = Auth::user()->id;
+        $mentor->user_id = $user->id;
         $mentor->name = $request->name;
         $mentor->address = $request->address;
         $mentor->phone = $request->phone;
         $mentor->birth_date = $request->birth_date;
         $mentor->birth_place = $request->birth_place;
         $mentor->gender = $request->gender;
-        $mentor->profile_picture = $request->profile_picture;
+
+        $profilepicture_path = $request->file('profile_picture')->store('image','public');
+        $mentor->profile_picture = $profilepicture_path;
         $mentor->save();
 
         return redirect('/dashboard')->with('status','Mentor Added Successfully');

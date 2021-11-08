@@ -103,7 +103,7 @@ class ViewCompanyController extends Controller
             'name' => 'required|min:5',
             'address' => 'required',
             'phone' => 'required',
-            'profile_picture' => ''
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         $user = new User();
@@ -113,14 +113,38 @@ class ViewCompanyController extends Controller
         $user->role = 'company';
         $user->save();
 
+        //$request->file('profile_picture')->move(public_path('storage\image'));
+
+        //$filename = $request->file('profile_picture')->getClientOriginalName();
+
+        //$request->profile_picture->move(public_path('storage/image'), $request->profile_picture);
+
+        //$filename = $request->file('profile_picture')->getClientOriginalName();
+
+        //$moveImage = $request->file('profile_picture')->move('profile_picture', $filename);
+
         $company = new Company();
-        $company->user_id = Auth::user()->id;
+        $company->user_id = $user->id;
         $company->name = $request->name;
         $company->address = $request->address;
         $company->phone = $request->phone;
-        $company->profile_picture = $request->profile_picture;
+
+        $profilepicture_path = $request->file('profile_picture')->store('image','public');
+        $company->profile_picture = $profilepicture_path;
+
+        //$company->profile_picture = $filename;
+
+        //$company->profile_picture = time().'.'.$request->profile_picture->extension();
+
+        //$request->profile_picture->move(public_path('storage/image'), $request->profile_picture);
+
         $company->save();
 
         return redirect('/dashboard')->with('status','Company Added Successfully');
+
+        //return back()
+          //  ->with('profile_picture',$company->profile_picture);
+
+        //return back();
     }
 }
