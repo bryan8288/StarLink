@@ -76,3 +76,9 @@ Route::get('/profile/{id}','ViewProfileController@show');
 Route::put('/profile/update/{id}','ViewProfileController@edit');
 
 Route::get('/class','ClassController@getClassList');
+
+Route::get('/changePassword/{id}', 'ChangePasswordController@index');
+Route::post('/changePassword/change/{id}', 'ChangePasswordController@store');
+
+Route::get('/companyprofile/{id}','CompanyIndexController@show');
+Route::put('/companyprofile/update/{id}','CompanyIndexController@edit');

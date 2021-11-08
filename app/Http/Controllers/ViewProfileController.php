@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Mentor;
 use App\Mentee;
-use App\Company;
 use App\Admin;
+use App\User;
 
 class ViewProfileController extends Controller
 {
@@ -33,14 +33,9 @@ class ViewProfileController extends Controller
             ->select('mentors.name','mentors.id','mentors.birth_date','mentors.gender','users.email','mentors.phone','mentors.birth_place','mentors.address','mentors.profile_picture')
             ->get();
         }
-        if(Auth::user()->role == 'company'){
-            $userData = DB::table('users')
-            ->join('companies','users.id','=','companies.user_id')
-            ->select('companies.name','companies.id','companies.address','companies.phone','companies.profile_picture')
-            ->get();
-        }
  
         $age = Carbon::parse($userData[0]->birth_date)->diff(Carbon::now())->y;
+        
         $auth = Auth::check();
         return view('profile',compact('auth','userData','age'));
     }
@@ -50,16 +45,17 @@ class ViewProfileController extends Controller
         $this->validate($request,[
             'name' => 'required|min:4',
             'address' => 'required|min:20',
-            'phone' => 'required|integer|min:20',
+            'phone' => 'required|min:12',
             'birth_date' => 'required',
-            'birth_place' => 'required|min:10',
+            'birth_place' => 'required|min:4',
             'gender' => 'required',
-            'age' => 'required|integer',
-            'email' => 'required|integer|min:13',
-            'cv' => '',
-            'portofolio' => ''
+            'age' => 'nullable',
+            'email' => 'required|min:13',
+            'cv' => 'nullable',
+            'portofolio' => 'nullable',
+            'profile_picture' => 'image', 'mimes:jpg,jpeg,bmp,png,svg'
         ]);
-
+        
         if(Auth::user()->role == 'mentee'){
             $profileDetail = Mentee::find($id);
             $profileDetail->name = $request->name;
@@ -68,11 +64,33 @@ class ViewProfileController extends Controller
             $profileDetail->birth_date = $request->birth_date;
             $profileDetail->birth_place = $request->birth_place;
             $profileDetail->gender = $request->gender;
-            // $profileDetail->profile_picture = $request->profile_picture;
-            // $profileDetail->portofolio = $request->portofolio;
-            // $profileDetail->cv = $request->cv;
-            // $profileDetail->email = $request->email;
+            $userEmail = User::find(auth()->user()->id);
+            $userEmail ->email = $request->email;
+            if ($request->file('profile_picture') == null) {
+                
+            }else{
+                $image_path = $request->file('profile_picture')->store('storage','public');
+                $profileDetail->profile_picture = $image_path;
+            }
+
+            if ($request->file('portofolio') == null) {
+                
+            }else{
+                $image_path = $request->file('portofolio')->store('portofolio','public');
+                $profileDetail->portofolio = $image_path;
+            }
+
+            if ($request->file('cv') == null) {
+                
+            }else{
+                $image_path = $request->file('cv')->store('cv','public');
+                $profileDetail->cv = $image_path;
+            }
+
+            
             $profileDetail->update();
+            $userEmail->update();
+            
         }
         if(Auth::user()->role == 'mentor'){
             $profileDetail = Mentor::find($id);
@@ -82,18 +100,20 @@ class ViewProfileController extends Controller
             $profileDetail->birth_date = $request->birth_date;
             $profileDetail->birth_place = $request->birth_place;
             $profileDetail->gender = $request->gender;
-            // $profileDetail->profile_picture = $request->profile_picture;
-            // $profileDetail->email = $request->email;
+            $userEmail = User::find(auth()->user()->id);
+            $userEmail ->email = $request->email;
+            if ($request->file('profile_picture') == null) {
+                
+            }else{
+                $image_path = $request->file('profile_picture')->store('storage','public');
+                $profileDetail->profile_picture = $image_path;
+            }
+            $profileDetail = User::find(auth()->user()->id);
+            $profileDetail ->email = $request->email;
             $profileDetail->update();
+            $userEmail->update();
         }
-        if(Auth::user()->role == 'company'){
-            $profileDetail = Company::find($id);
-            $profileDetail->name = $request->name;
-            $profileDetail->phone = $request->phone;
-            $profileDetail->address = $request->address;
-            // $profileDetail->username = $request->username;
-            $profileDetail->update();
-        }
+
         if(Auth::user()->role == 'admin'){
             $profileDetail = Admin::find($id);
             $profileDetail->name = $request->name;
@@ -102,10 +122,21 @@ class ViewProfileController extends Controller
             $profileDetail->birth_date = $request->birth_date;
             $profileDetail->birth_place = $request->birth_place;
             $profileDetail->gender = $request->gender;
-            // $profileDetail->profile_picture = $request->profile_picture;
+            $userEmail = User::find(auth()->user()->id);
+            $userEmail ->email = $request->email;
+            if ($request->file('profile_picture') == null) {
+                
+            }else{
+                $image_path = $request->file('profile_picture')->store('storage','public');
+                $profileDetail->profile_picture = $image_path;
+            }
             // $profileDetail->email = $request->email;
+            $profileDetail = User::find(auth()->user()->id);
+            $profileDetail ->email = $request->email;
             $profileDetail->update();
+            $userEmail->update();
         }
-        return redirect('dashboard')->with('status','Profile Updated Successfully');
+        
+        return redirect('profile/{id}')->with('status','Profile Updated Successfully');
     }
 }
