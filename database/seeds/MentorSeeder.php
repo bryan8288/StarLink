@@ -14,7 +14,7 @@ class MentorSeeder extends Seeder
     {
         DB::table('mentors')->insert(array(
             array(
-                'user_id' => '12',
+                'user_id' => '1',
                 'name' => 'daryono tononami',
                 'address' => 'jl.apel no 11 jakarta barat',
                 'phone' => '0813143141',
@@ -24,7 +24,7 @@ class MentorSeeder extends Seeder
                 'profile_picture' => 'image/mentor1.jpg'
             ),
             array(
-                'user_id' => '13',
+                'user_id' => '2',
                 'name' => 'dandi22',
                 'address' => 'jl.apel no 12 jakarta barat',
                 'phone' => '0813143141',
@@ -34,7 +34,7 @@ class MentorSeeder extends Seeder
                 'profile_picture' => 'image/mentor2.jpg'
             ),
             array(
-                'user_id' => '14',
+                'user_id' => '3',
                 'name' => 'haha2222',
                 'address' => 'jl.apel no 111 jakarta barat',
                 'phone' => '0813143141',
@@ -44,7 +44,7 @@ class MentorSeeder extends Seeder
                 'profile_picture' => 'image/mentor3.jpg'
             ),
             array(
-                'user_id' => '15',
+                'user_id' => '4',
                 'name' => 'sulaiman21',
                 'address' => 'jl.apel no 121 jakarta barat',
                 'phone' => '0813143141',
@@ -54,7 +54,7 @@ class MentorSeeder extends Seeder
                 'profile_picture' => 'image/mentor4.jpg'
             ),
             array(
-                'user_id' => '16',
+                'user_id' => '5',
                 'name' => 'desti23',
                 'address' => 'jl.apel no 211 jakarta barat',
                 'phone' => '0813143141',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -99,19 +100,25 @@ class ViewCompanyController extends Controller
     public function addCompany(Request $request){ //buat validasi inputan dan untuk menambahkan produk baru kedalam database sesuai inputan admin
         $auth = Auth::check();
         $this->validate($request,[
-            'user_id' => 'integer|min:1',
             'name' => 'required|min:5',
             'address' => 'required',
             'phone' => 'required',
             'profile_picture' => ''
         ]);
+
+        $user = new User();
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = 'company';
+        $user->save();
+
         $company = new Company();
-        $company->user_id = $request->user_id;
+        $company->user_id = Auth::user()->id;
         $company->name = $request->name;
         $company->address = $request->address;
         $company->phone = $request->phone;
         $company->profile_picture = $request->profile_picture;
-
         $company->save();
 
         return redirect('/dashboard')->with('status','Company Added Successfully');

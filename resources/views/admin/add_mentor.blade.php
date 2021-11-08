@@ -35,8 +35,16 @@
                         <form action="{{url('/addMentor/add')}}" method="post">
                             {{csrf_field()}}
                             <div class="mentorDetail">
-                                <h5 style="width: 30%;float:left">User ID</h5>
-                                <input style="width:70%; float: right;" type="number" name="user_id" class="form-control" style="margin-bottom: 5px">
+                                <h5 style="width: 30%;float:left">Username</h5>
+                                <input style="width:70%; float: right;" type="text" name="username" class="form-control text-truncate" style="margin-bottom: 5px">
+                            </div>
+                            <div class="mentorDetail">
+                                <h5 style="width: 30%;float:left">Password</h5>
+                                <input style="width:70%; float: right;" type="password" name="password" class="form-control text-truncate" style="margin-bottom: 5px">
+                            </div>
+                            <div class="mentorDetail">
+                                <h5 style="width: 30%;float:left">Email</h5>
+                                <input style="width:70%; float: right;" type="text" name="email" class="form-control text-truncate" style="margin-bottom: 5px">
                             </div>
                             <div class="mentorDetail">
                                 <h5 style="width: 30%;float:left">Name</h5>

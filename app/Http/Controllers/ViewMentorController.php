@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mentor;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -105,7 +106,6 @@ class ViewMentorController extends Controller
     public function addMentor(Request $request){ //buat validasi inputan dan untuk menambahkan produk baru kedalam database sesuai inputan admin
         $auth = Auth::check();
         $this->validate($request,[
-            'user_id' => 'required|integer|min:1',
             'name' => 'required|min:5',
             'address' => 'required',
             'phone' => 'required',
@@ -114,8 +114,16 @@ class ViewMentorController extends Controller
             'gender' => 'required',
             'profile_picture' => ''
         ]);
+
+        $user = new User();
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = 'mentor';
+        $user->save();
+
         $mentor = new Mentor();
-        $mentor->user_id = $request->user_id;
+        $mentor->user_id = Auth::user()->id;
         $mentor->name = $request->name;
         $mentor->address = $request->address;
         $mentor->phone = $request->phone;
@@ -123,7 +131,6 @@ class ViewMentorController extends Controller
         $mentor->birth_place = $request->birth_place;
         $mentor->gender = $request->gender;
         $mentor->profile_picture = $request->profile_picture;
-
         $mentor->save();
 
         return redirect('/dashboard')->with('status','Mentor Added Successfully');
