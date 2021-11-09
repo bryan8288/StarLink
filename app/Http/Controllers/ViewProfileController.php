@@ -141,6 +141,6 @@ class ViewProfileController extends Controller
             // dd(Auth::user()->role);
         }
         
-        return redirect('profile/{id}')->with('status','Profile Updated Successfully');
+        return redirect('/dashboard')->with('status','Profile Updated Successfully');
     }
 }

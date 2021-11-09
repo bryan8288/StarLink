@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-2" style="display: flex; position: absolute;right: 0;top: 0; padding-left: 64px">
                     <img src="{{url('storage/'.$userData[0]->profile_picture)}}"
-                        style="height:60px; border-radius: 50%; border: 6px solid #218EED;margin-top:10px; width: 50px;">
+                        style="height:60px; border-radius: 40%; border: 6px solid #218EED;margin-top:10px; width: 50px;">
                     <div class="dropdown" style="margin-top: 20px">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
