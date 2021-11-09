@@ -24,7 +24,7 @@
                     <div class="dropdown" style="margin-top: 20px">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                            style="margin-left: 20px; color: black; background-color: white">{{$userData[0]->name   }}</button>
+                            style="margin-left: 20px; color: black; background-color: white">{{$userData[0]->name}}</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="/dashboard/logout">Logout</a>
                             @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
@@ -121,30 +121,26 @@
                                                 <div class="media">
                                                     <label>Age</label>
                                                     <input type="text" disabled="true" name="age" class="form-control"
-                                                        id="inputAddress" value="{{$age}}">
+                                                        id="inputAge" value="{{$age}}">
                                                 </div>
                                                 <div class="media">
                                                     <label>Gender</label>
                                                     <input type="text" name="gender" class="form-control"
-                                                        id="inputAddress" value="{{$userData[0]->gender}}">
+                                                        id="inputGender" value="{{$userData[0]->gender}}">
                                                 </div>
                                                 <div class="media">
                                                     <label>Email</label>
                                                     <input type="email" name="email" class="form-control"
-                                                        id="inputAddress" value="{{$userData[0]->email}}">
+                                                        id="inputEmail" value="{{$userData[0]->email}}">
                                                 </div>
                                                 <div class="media">
                                                     <label>Phone</label>
                                                     <input type="text" name="phone" class="form-control"
-                                                        id="inputAddress" value="{{$userData[0]->phone}}">
+                                                        id="inputPhone" value="{{$userData[0]->phone}}">
                                                 </div>
-
                                             </div>
-                                        </div>
-
-                                        
+                                        </div>                   
                                     </div>
-
                                 </div>
                             </div>
                             <div class="media" style="margin-left: 55%;">

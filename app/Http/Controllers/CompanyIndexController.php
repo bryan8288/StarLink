@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Company;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,6 +37,8 @@ class CompanyIndexController extends Controller
             $companyProfile->name = $request->name;
             $companyProfile->phone = $request->phone;
             $companyProfile->address = $request->address;
+            $userEmail = User::find(auth()->user()->id);
+            $userEmail ->email = $request->email;
             if ($request->file('profile_picture') == null) {
                 
             }else{
@@ -44,6 +47,7 @@ class CompanyIndexController extends Controller
             }
             // $profileDetail->username = $request->username;
             $companyProfile->update();
+            $userEmail->update();
         }
 
         return redirect('companyprofile/{id}')->with('status','Profile Updated Successfully');

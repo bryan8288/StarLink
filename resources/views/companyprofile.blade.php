@@ -55,7 +55,7 @@
                                     </h5>
                                     @endif
                                     <hr style="border-top: 5px solid #ffffff; opacity:1;margin:auto;width:62.5%">
-                                    <div class="" style="text-align: center; ">
+                                    <div class="" style="text-align: center; margin-top:10px">
                                         <div class="about-avatar">
                                             <img src="{{url('storage/'.$userData[0]->profile_picture)}}" width="200px"
                                                 height="200px" style="border-radius:25px">
@@ -83,8 +83,8 @@
                                             <div class="col-md-4">
                                                 <div class="media">
                                                     <label>Email</label>
-                                                    <input type="text" name="name" class="form-control"
-                                                        id="inputName" value="{{$userData[0]->email}}">
+                                                    <input type="text" name="email" class="form-control"
+                                                        id="inputEmail" value="{{$userData[0]->email}}">
                                                 </div>
                                                 <div class="media">
                                                     <label>Address</label>
@@ -106,7 +106,9 @@
                             </div>
                         </form>
                     </div>
-                    @if(count($errors) > 0)
+                    
+                </section>
+                @if(count($errors) > 0)
                 <div class="alert alert-danger">
                     <ul>
                         @foreach($errors->all() as $error)
@@ -115,8 +117,6 @@
                     </ul>
                 </div>
                 @endif
-                </section>
-                
             </main>
         </div>
     </div>
