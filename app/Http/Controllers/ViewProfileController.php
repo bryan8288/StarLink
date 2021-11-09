@@ -88,9 +88,7 @@ class ViewProfileController extends Controller
                 $image_path = $request->file('cv')->store('cv','public');
                 $profileDetail->cv = $image_path;
             }
-
-            
-            $profileDetail->update();
+            $profileDetail->save();
             $userEmail->update();
             
         }
@@ -110,9 +108,7 @@ class ViewProfileController extends Controller
                 $image_path = $request->file('profile_picture')->store('storage','public');
                 $profileDetail->profile_picture = $image_path;
             }
-            $profileDetail = User::find(auth()->user()->id);
-            $profileDetail ->email = $request->email;
-            $profileDetail->update();
+            $profileDetail->save();
             $userEmail->update();
         }
 
@@ -126,19 +122,15 @@ class ViewProfileController extends Controller
             $profileDetail->birth_place = $request->birth_place;
             $profileDetail->gender = $request->gender;
             $userEmail = User::find(auth()->user()->id);
-            $userEmail ->email = $request->email;
+            $userEmail->email = $request->email;
             if ($request->file('profile_picture') == null) {
                 
             }else{
                 $image_path = $request->file('profile_picture')->store('storage','public');
                 $profileDetail->profile_picture = $image_path;
             }
-            // $profileDetail->email = $request->email;
-            $profileDetail = User::find(auth()->user()->id);
-            $profileDetail ->email = $request->email;
-            $profileDetail->update();
+            $profileDetail->save();
             $userEmail->update();
-            // dd(Auth::user()->role);
         }
         
         return redirect('/dashboard')->with('status','Profile Updated Successfully');

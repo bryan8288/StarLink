@@ -50,6 +50,6 @@ class CompanyIndexController extends Controller
             $userEmail->update();
         }
 
-        return redirect('companyprofile/{id}')->with('status','Profile Updated Successfully');
+        return redirect('/dashboard')->with('status','Profile Updated Successfully');
     }
 }
