@@ -27,7 +27,7 @@
                             style="margin-left: 20px; color: black; background-color: white">{{$userData[0]->username}}</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="/dashboard/logout">Logout</a>
-                            <a class="dropdown-item" href="/home/logout">View Profile</a>
+                            <a class="dropdown-item" href="{{'/profile/'.$userData[0]->id}}">View Profile</a>
                         </div>
                     </div>
                 </div>

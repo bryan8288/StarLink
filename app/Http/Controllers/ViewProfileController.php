@@ -41,7 +41,6 @@ class ViewProfileController extends Controller
     }
 
     public function edit(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
-        // dd(Auth::user()->role);
         $this->validate($request,[
             'name' => 'required|min:4',
             'address' => 'required|min:20',
@@ -115,6 +114,7 @@ class ViewProfileController extends Controller
         }
 
         if(Auth::user()->role == 'admin'){
+            
             $profileDetail = Admin::find($id);
             $profileDetail->name = $request->name;
             $profileDetail->address = $request->address;
@@ -135,6 +135,7 @@ class ViewProfileController extends Controller
             $profileDetail ->email = $request->email;
             $profileDetail->update();
             $userEmail->update();
+            // dd(Auth::user()->role);
         }
         
         return redirect('profile/{id}')->with('status','Profile Updated Successfully');

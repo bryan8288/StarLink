@@ -110,9 +110,33 @@ class UserSeeder extends Seeder
                 'role' => 'mentor',
             ),
             array(
-                'username' => 'ptABC',
+                'username' => 'PT. Freeport Indonesia',
                 'password' => bcrypt('ABC123'),
-                'email' => 'abc@gmail.com',
+                'email' => 'freeport@gmail.com',
+                'role' => 'company',
+            ),
+            array(
+                'username' => 'Grab',
+                'password' => bcrypt('grab123'),
+                'email' => 'grab@gmail.com',
+                'role' => 'company',
+            ),
+            array(
+                'username' => 'Gojek',
+                'password' => bcrypt('gojek123'),
+                'email' => 'gojek@gmail.com',
+                'role' => 'company',
+            ),
+            array(
+                'username' => 'indomaret',
+                'password' => bcrypt('indomaret123'),
+                'email' => 'indomaret@gmail.com',
+                'role' => 'company',
+            ),
+            array(
+                'username' => 'alfamart',
+                'password' => bcrypt('alfamart123'),
+                'email' => 'alfamart@gmail.com',
                 'role' => 'company',
             )
         ));

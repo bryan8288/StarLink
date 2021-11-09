@@ -15,7 +15,7 @@ class CourseController extends Controller
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
-            ->select('users.username','admins.profile_picture')
+            ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->get();
         }
         $auth = Auth::check();
@@ -27,7 +27,7 @@ class CourseController extends Controller
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
-            ->select('users.username','admins.profile_picture')
+            ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->get();
         }
         $auth = Auth::check();
@@ -39,7 +39,7 @@ class CourseController extends Controller
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
-            ->select('users.username','admins.profile_picture')
+            ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->get();
         }
         $auth = Auth::check();
@@ -83,7 +83,7 @@ class CourseController extends Controller
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
-            ->select('users.username','admins.profile_picture')
+            ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->get();
         }
         $auth = Auth::check();

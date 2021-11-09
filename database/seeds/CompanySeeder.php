@@ -14,33 +14,33 @@ class CompanySeeder extends Seeder
     {
         DB::table('companies')->insert(array(
             array(
-                'user_id' => '1',
+                'user_id' => '17',
                 'name' => 'PT. Freeport Indonesia',
                 'address' => 'Jl. Apel No. 11, Jakarta Barat',
                 'phone' => '0813143141',
                 'profile_picture' => 'image/freeport.jpg'
             ),
             array(
-                'user_id' => '2',
+                'user_id' => '18',
                 'name' => 'PT. Grab',
                 'address' => 'Jl. Mawar No. 35, Jakarta Selatan',
                 'phone' => '081287418',
                 'profile_picture' => 'image/grab.png'
             ),array(
-                'user_id' => '3',
+                'user_id' => '19',
                 'name' => 'PT. Gojek Indonesia',
                 'address' => 'Jl. Anggrek No. 9, Jakarta Utara',
                 'phone' => '0816479239',
                 'profile_picture' => 'image/gojek.png'
             ),array(
-                'user_id' => '4',
+                'user_id' => '20',
                 'name' => 'PT. Indomaret',
                 'address' => 'Jl. Mutiara No. 3, Jakarta Timur',
                 'phone' => '0821641987',
                 'profile_picture' => 'image/indomaret.png'
             ),
             array(
-                'user_id' => '5',
+                'user_id' => '21',
                 'name' => 'PT. Alfa Indonesia',
                 'address' => 'Jl. Kemanggisan No. 23, Jakarta Pusat',
                 'phone' => '0829847949',
