@@ -76,6 +76,14 @@ Route::get('/profile/{id}','ViewProfileController@show');
 Route::put('/profile/update/{id}','ViewProfileController@edit');
 
 Route::get('/class','ClassController@getClassList');
+Route::get('/class','ClassController@getProductbySearch');
+Route::get('/editClass/{id}','ClassController@goEditPage');
+Route::put('/editClass/update/{id}','ClassController@editClassDetail');
+Route::post('editClass/delete/{id}','ClassController@deleteClass');
+Route::get('/addClass','ClassController@getAddCoursePage');
+Route::post('/addClass/add','ClassController@addCourse');
+
+Route::post('deleteMenteeFromClass/{id}','ClassController@deleteMenteeFromClass');
 
 Route::get('/changePassword/{id}', 'ChangePasswordController@index');
 Route::post('/changePassword/change/{id}', 'ChangePasswordController@store');

@@ -18,7 +18,7 @@
                         </center>
                     </div>
                 </div>
-                <div class="col-md-2" style="display: flex; position: absolute;right: 0;top: 0; padding-left: 50px">
+                <div class="col-md-2" style="display: flex; position: absolute;right: 0;top: 0; padding-left: 64px">
                     <img src="{{url('storage/'.$userData[0]->profile_picture)}}"
                         style="height:60px; border-radius: 40%; border: 6px solid #218EED;margin-top:10px; width: 50px;">
                     <div class="dropdown" style="margin-top: 20px">
@@ -150,16 +150,16 @@
                             </div>
                         </form>
                     </div>
-                    @if(count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach($errors->all() as $error)
-                        <li>{{$error}}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
                 </section>
+                @if(count($errors) > 0)
+            <div class="alert alert-danger" style="margin-top: 10px">
+                <ul>
+                    @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
                 
             </main>
         </div>

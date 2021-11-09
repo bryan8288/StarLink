@@ -116,6 +116,16 @@
         border-radius: 1px;
     }
 
+    #background2 {
+        margin-top: 20px;
+        width: 100%;
+        height: auto;
+        background-color: #218eed;
+        overflow: visible;
+        border-radius: 1px;
+        padding-bottom: 20px;
+    }
+
     #frame2 {
         background-color: #ffffff;
         overflow: visible;

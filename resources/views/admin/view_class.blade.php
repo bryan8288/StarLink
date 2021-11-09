@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-12" id="background">
                     <div class="container-fluid" style="padding-top: 50px">
-                        <form action="{{'/course/'}}">
+                        <form action="{{'/class/'}}">
                         <div style="display:flex;">
                             <h5 style="color: white; margin-left: 30px; margin-top:5px">Course</h5>
                             <input type="text" name="keyword" class="form-control" placeholder="Search for Product"
@@ -53,30 +53,24 @@
                                     <p class="price">Total Mentee: {{$item->total}}</p>
                                     <h6 style="margin-top:20px">Time : {{$item->start_time}} - {{$item->end_time}}</h6>
                                     @if ($item->day_of_week == 0)
-                                    <h6>test6</h6>
                                     <h5>Day : Monday</h5>
                                     @elseif ($item->day_of_week == 1)
-                                    <h6>test5</h6>
                                     <h5>Day : Tuesday</h5>
                                     @elseif ($item->day_of_week == 2)
-                                    <h6>test4</h6>
                                     <h5>Day : Wednesday</h5>
                                     @elseif ($item->day_of_week == 3)
-                                    <h6>test3</h6>
                                     <h5>Day : Thursday</h5>
                                     @elseif ($item->day_of_week == 4)
-                                    <h6>test2</h6>
                                     <h5>Day : Friday</h5>
                                     @elseif ($item->day_of_week == 5)
-                                    <h6>test1</h6>
                                     <h5>Day : Saturday</h5>
                                     @else
                                     @endif
                                     <div style="display: flex">
-                                        <a href="{{'/editCourse/'.$item->id}}">
+                                        <a href="{{'/editClass/'.$item->id}}">
                                             <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
                                         </a>
-                                        <form action="{{'/editCourse/delete/'.$item->id}}" method="post">
+                                        <form action="{{'/editClass/delete/'.$item->id}}" method="post">
                                             {{csrf_field()}}
                                             {{method_field('post')}}
                                             <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Class?')" style="margin-left: 30px;margin-top: 20px">Delete</button>

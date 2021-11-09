@@ -114,7 +114,7 @@ class ViewMentorController extends Controller
             'birth_date' => 'required',
             'birth_place' => 'required',
             'gender' => 'required',
-            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'profile_picture' => 'required|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         $user = new User();

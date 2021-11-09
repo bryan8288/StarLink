@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ClassDetail;
 use App\Course;
 use App\Mentor;
 use App\Module;
@@ -38,12 +39,109 @@ class ClassController extends Controller
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->get();
         }
-        $class = DB::table('classes')
-        ->join('class_details','classes.id','=','class_details.class_id')
-        ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
-        ->orderBy('classes.name')
-        ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
-        ->paginate(3);
+        $auth = Auth::check();
+       
+        $class = Classes::where('name','like',"%{$request->keyword}%")->paginate(3);
+
         return view('admin/view_class',compact('userData','class','auth'));
+    }
+
+    public function goEditPage($id){ //buat nampilin page EditProduct 
+        if(Auth::user()->role == 'admin'){
+            $userData = DB::table('users')
+            ->join('admins','users.id','=','admins.user_id')
+            ->select('users.username','admins.name','admins.profile_picture','admins.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }
+        $auth = Auth::check();
+        $class = Classes::find($id);
+        $mapDay = [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+        ];
+        unset($mapDay[$class->day_of_week]);
+
+        if($class->day_of_week == 0){
+            $class->day_of_week = 'Monday';
+        }elseif($class->day_of_week == 1){
+            $class->day_of_week = 'Tuesday';
+        }elseif($class->day_of_week == 2){
+            $class->day_of_week = 'Wednesday';
+        }elseif($class->day_of_week == 3){
+            $class->day_of_week = 'Thursday';
+        }elseif($class->day_of_week == 4){
+            $class->day_of_week = 'Friday';
+        }elseif($class->day_of_week == 5){
+            $class->day_of_week = 'Saturday';
+        }
+        $mentorName = Mentor::find($class->mentor_id);
+        $mentorList = Mentor::where('name','!=',$mentorName->name)->get();
+        $courseName = Course::find($class->course_id)->name;
+        $courseList = Course::where('name','!=',$courseName)->get();
+
+        $menteeList = DB::table('mentees')
+                    ->join('class_details','mentees.id','=','class_details.mentee_id')
+                    ->select('class_details.id as id','mentees.name')
+                    ->where('class_details.class_id','=',$id)->get();
+        return view('admin/edit_class',compact('class','auth','userData','mentorList','mentorName','mapDay','courseName','courseList','menteeList'));
+    }
+
+    public function editClassDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+        $this->validate($request,[
+            'name' => 'required|min:4',
+            'mentor' => 'required',
+            'course' => 'required',
+            'day' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'link' => 'required'
+        ]);
+        
+        $class = Classes::find($id);
+        $class->name = $request->name;
+
+        $course_id = Course::where('name','=',$request->course)->get()[0]->id;
+        $class->course_id = $course_id;
+
+        $mentor_id = Mentor::where('name','=',$request->mentor)->get()[0]->id;
+        $class->mentor_id = $mentor_id;
+        if($request->day == 'Monday'){
+            $class->day_of_week = 0;
+        }else if($request->day == 'Tuesday'){
+            $class->day_of_week = 1;
+        }else if($request->day == 'Wednesday'){
+            $class->day_of_week = 2;
+        }else if($request->day == 'Thursday'){
+            $class->day_of_week = 3;
+        }else if($request->day == 'Friday'){
+            $class->day_of_week = 4;
+        }else if($request->day == 'Saturday'){
+            $class->day_of_week = 5;
+        }
+
+        $class->start_time = $request->start_time;
+        $class->end_time = $request->end_time;
+        $class->link = $request->link;
+        $class->update();
+        return redirect('/dashboard')->with('status','Class Updated Successfully');
+    }
+
+    public function deleteClass($id){ //buat menghapus product sesuai dengan product yang diklik
+        $class = Classes::find($id);
+        $class->delete();
+
+        return redirect('/dashboard')->with('status','Class Deleted Successfully');
+    }
+
+    public function deleteMenteeFromClass($id){
+        $classDetail = ClassDetail::find($id);
+        $classDetail->delete();
+
+        return redirect('dashboard')->with('status','Mentee Removed From Class Successfully');
     }
 }
