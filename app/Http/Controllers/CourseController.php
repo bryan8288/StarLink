@@ -16,6 +16,7 @@ class CourseController extends Controller
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
+            ->where('users.id','=',Auth::id())
             ->get();
         }
         $auth = Auth::check();
@@ -28,6 +29,7 @@ class CourseController extends Controller
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
+            ->where('users.id','=',Auth::id())
             ->get();
         }
         $auth = Auth::check();
@@ -40,6 +42,7 @@ class CourseController extends Controller
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
+            ->where('users.id','=',Auth::id())
             ->get();
         }
         $auth = Auth::check();
@@ -84,6 +87,7 @@ class CourseController extends Controller
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
+            ->where('users.id','=',Auth::id())
             ->get();
         }
         $auth = Auth::check();

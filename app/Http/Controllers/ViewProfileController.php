@@ -19,18 +19,21 @@ class ViewProfileController extends Controller
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
             ->select('admins.name','admins.id','users.username','admins.birth_date','admins.gender','users.email','admins.phone','admins.birth_place','admins.address','admins.profile_picture')
+            ->where('users.id','=',Auth::id())
             ->get();
         }
         if(Auth::user()->role == 'mentee'){
             $userData = DB::table('users')
             ->join('mentees','users.id','=','mentees.user_id')
             ->select('mentees.name','mentees.id','mentees.birth_date','mentees.gender','users.email','mentees.phone','mentees.birth_place','mentees.address','mentees.portofolio','mentees.cv','mentees.profile_picture')
+            ->where('users.id','=',Auth::id())
             ->get();
         }
         if(Auth::user()->role == 'mentor'){
             $userData = DB::table('users')
             ->join('mentors','users.id','=','mentors.user_id')
             ->select('mentors.name','mentors.id','mentors.birth_date','mentors.gender','users.email','mentors.phone','mentors.birth_place','mentors.address','mentors.profile_picture')
+            ->where('users.id','=',Auth::id())
             ->get();
         }
  

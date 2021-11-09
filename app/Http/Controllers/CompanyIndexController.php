@@ -15,6 +15,7 @@ class CompanyIndexController extends Controller
             $userData = DB::table('users')
             ->join('companies','users.id','=','companies.user_id')
             ->select('companies.name','companies.id','companies.address','companies.phone','companies.profile_picture','users.email')
+            ->where('users.id','=',Auth::id())
             ->get();
         }
         $auth = Auth::check();

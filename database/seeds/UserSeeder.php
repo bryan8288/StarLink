@@ -138,6 +138,18 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('alfamart123'),
                 'email' => 'alfamart@gmail.com',
                 'role' => 'company',
+            ),
+            array(
+                'username' => 'admin123',
+                'password' => bcrypt('admin123'),
+                'email' => 'admin123@gmail.com',
+                'role' => 'admin',
+            ),
+            array(
+                'username' => 'superadmin',
+                'password' => bcrypt('superadmin'),
+                'email' => 'superadmin@gmail.com',
+                'role' => 'admin',
             )
         ));
     }
