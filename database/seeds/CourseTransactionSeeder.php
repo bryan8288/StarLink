@@ -202,6 +202,55 @@ class CourseTransactionSeeder extends Seeder
                 'mentor_feedback' => 'This student is a great learner',
                 'graduated_date' => '2021-11-05'
             ),
+            array(
+                'course_id' => '1',
+                'mentee_id' => '1',
+                'status' => 'Completed',
+                'mentor_feedback' => 'This student is a great learner',
+                'graduated_date' => '2021-11-05'
+            ),
+            array(
+                'course_id' => '2',
+                'mentee_id' => '2',
+                'status' => 'Completed',
+                'mentor_feedback' => 'This student is a great learner',
+                'graduated_date' => '2021-11-05'
+            ),
+            array(
+                'course_id' => '3',
+                'mentee_id' => '3',
+                'status' => 'Completed',
+                'mentor_feedback' => 'This student is a great learner',
+                'graduated_date' => '2021-11-05'
+            ),
+            array(
+                'course_id' => '4',
+                'mentee_id' => '4',
+                'status' => 'Completed',
+                'mentor_feedback' => 'This student is a great learner',
+                'graduated_date' => '2021-11-05'
+            ),
+            array(
+                'course_id' => '5',
+                'mentee_id' => '5',
+                'status' => 'Completed',
+                'mentor_feedback' => 'This student is a great learner',
+                'graduated_date' => '2021-11-05'
+            ),
+            array(
+                'course_id' => '5',
+                'mentee_id' => '6',
+                'status' => 'Completed',
+                'mentor_feedback' => 'This student is a great learner',
+                'graduated_date' => '2021-11-05'
+            ),
+            array(
+                'course_id' => '2',
+                'mentee_id' => '7',
+                'status' => 'Completed',
+                'mentor_feedback' => 'This student is a great learner',
+                'graduated_date' => '2021-11-05'
+            ),
         ));
     }
 }

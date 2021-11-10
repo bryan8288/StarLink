@@ -96,3 +96,10 @@ Route::get('/requestedmentoring','RequestedMentoringController@getAddRequestedMe
 //Route::get('/requestedmentoring','RequestedMentoringController@addRequestedMentoring');
 //Route::get('/addRequestedMentoring','RequestedMentoringController@getAddRequestedMentoringPage');
 Route::post('/addRequestedMentoring/add','RequestedMentoringController@addRequestedMentoring');
+
+#Company
+Route::get('/applicantList','CompanyController@getApplicantList');
+Route::get('/applicantList/{id}','CompanyController@getApplicantListMapped');
+Route::post('/applicantList/approve/{id}','CompanyController@approveApplicant');
+Route::post('/applicantList/reject/{id}','CompanyController@rejectApplicant');
+Route::get('/applicantList','CompanyController@getProductbySearch');

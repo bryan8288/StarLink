@@ -20,7 +20,9 @@ class LoginController extends Controller
         $userData = $request->only('username','password');
 
         if(Auth::attempt($userData,$remember_me)){
-            return redirect('/dashboard');
+            if(Auth::user()->role == 'company'){
+                return redirect('/applicantList');
+            }else return redirect('/dashboard');
         }
         else{
             return back()->with('error','Wrong Login Datas');
