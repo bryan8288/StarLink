@@ -80,8 +80,9 @@ Route::get('/class','ClassController@getProductbySearch');
 Route::get('/editClass/{id}','ClassController@goEditPage');
 Route::put('/editClass/update/{id}','ClassController@editClassDetail');
 Route::post('editClass/delete/{id}','ClassController@deleteClass');
-Route::get('/addClass','ClassController@getAddCoursePage');
-Route::post('/addClass/add','ClassController@addCourse');
+Route::get('/addClass','ClassController@getAddClassPage');
+Route::post('/addClass/add','ClassController@addClass');
+Route::put('/addMenteeToClass/{id}','ClassController@addMenteeToClass');
 
 Route::post('deleteMenteeFromClass/{id}','ClassController@deleteMenteeFromClass');
 

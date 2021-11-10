@@ -88,7 +88,36 @@ class ClassController extends Controller
                     ->join('class_details','mentees.id','=','class_details.mentee_id')
                     ->select('class_details.id as id','mentees.name')
                     ->where('class_details.class_id','=',$id)->get();
-        return view('admin/edit_class',compact('class','auth','userData','mentorList','mentorName','mapDay','courseName','courseList','menteeList'));
+        // $newMenteeList = DB::table('mentees')
+        //                 ->select('mentees.name','mentees.id')
+        //                 ->whereNotIn('mentees.id',DB::table('mentees')
+        //                                         ->join('class_details','mentees.id','=','class_details.mentee_id')
+        //                                         ->join('classes','class_details.class_id','=','classes.id')
+        //                                         ->join('course_transactions','classes.course_id','=','course_transactions.course_id')
+        //                                         ->select('mentees.id')
+        //                                         ->where('classes.id','=',$id)
+        //                                         ->where('course_transactions.status','=','In Progress')
+        //                                         ->get())->get()->toArray();
+        $newMenteeList = DB::table('course_transactions')
+                            ->join('mentees','mentees.id','=','course_transactions.mentee_id')
+                            ->join('classes','classes.course_id','=','course_transactions.course_id')
+                            // ->join('classes','class_details.class_id','=','classes.id')
+                            // ->join('course_transactions','class_details.class_id','=','course_transactions.mentee_id')
+                            ->whereNotIn('mentees.id',function($query) use ($id){
+                                $query->select('mentees.id')->from('mentees')
+                                ->join('class_details','mentees.id','=','class_details.mentee_id')
+                                ->join('classes','class_details.class_id','=','classes.id')
+                                ->join('course_transactions','class_details.mentee_id','=','course_transactions.mentee_id')
+                                ->where('classes.id','=',$id)
+                                ->where('course_transactions.status','=','In Progress');
+                    })->whereNotIn('mentees.id',function($query) use ($courseName){
+                        $query->select('course_transactions.mentee_id')->from('course_transactions')
+                        ->join('class_details','course_transactions.mentee_id','=','class_details.mentee_id')
+                        ->join('classes','classes.id','=','class_details.class_id')
+                        ->join('courses','classes.course_id','=','courses.id')
+                        ->where('courses.name','=',$courseName);
+                    })->select('mentees.name','mentees.id')->where('classes.id','=',$id)->get();
+        return view('admin/edit_class',compact('class','auth','userData','mentorList','mentorName','mapDay','courseName','courseList','menteeList','newMenteeList','id'));
     }
 
     public function editClassDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
@@ -143,5 +172,83 @@ class ClassController extends Controller
         $classDetail->delete();
 
         return redirect('dashboard')->with('status','Mentee Removed From Class Successfully');
+    }
+
+    public function addMenteeToClass(Request $request,$classId){
+        $input = $request->all();
+        $input['menteeId'] = $request->input('menteeId');
+        // dd($classId);
+        foreach ($input['menteeId'] as $key) {
+            $classDetail = new ClassDetail();
+            $classDetail->class_id = $classId;
+            $classDetail->mentee_id = $key;
+            $classDetail->save();
+        }
+        return redirect('dashboard')->with('status','Mentee(s) added to Class Successfully');
+    }
+
+    public function getAddClassPage(){ //buat nampilin page AddProduct dan list semua stationary_type
+        if(Auth::user()->role == 'admin'){
+            $userData = DB::table('users')
+            ->join('admins','users.id','=','admins.user_id')
+            ->select('users.username','admins.name','admins.profile_picture','admins.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }
+        $auth = Auth::check();
+
+        $mapDay = [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+        ];
+        $mentorList = Mentor::all();
+        $courseList = Course::all();
+
+        return view('admin/add_class',compact('auth','userData','mentorList','courseList','mapDay'));
+    }
+
+    public function addClass(Request $request){ //buat validasi inputan dan untuk menambahkan produk baru kedalam database sesuai inputan admin
+        $this->validate($request,[
+            'name' => 'required|unique:classes|min:4',
+            'course' => 'required',
+            'mentor' => 'required',
+            'day' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'link' => 'required'
+        ]);
+
+        if($request->day == 'Monday'){
+            $request->day = 0;
+        }else if($request->day == 'Tuesday'){
+            $request->day = 1;
+        }else if($request->day == 'Wednesday'){
+            $request->day = 2;
+        }else if($request->day == 'Thursday'){
+            $request->day = 3;
+        }else if($request->day == 'Friday'){
+            $request->day = 4;
+        }else if($request->day == 'Saturday'){
+            $request->day = 5;
+        }
+        $class = new Classes();    
+        $class->name = $request->name;
+        $class->day_of_week = $request->day;
+        $class->start_time = $request->start_time;
+        $class->end_time = $request->end_time;
+        $class->link = $request->link;
+
+        $mentor_id = Mentor::select('id')->where('name',$request->mentor)->get()[0]->id;
+        $class->mentor_id = $mentor_id;
+
+        $course_id = Course::select('id')->where('name',$request->course)->get()[0]->id;
+        $class->course_id = $course_id;
+        $class->save();
+        
+        return redirect('/dashboard')->with('status','Class Added Successfully');
     }
 }

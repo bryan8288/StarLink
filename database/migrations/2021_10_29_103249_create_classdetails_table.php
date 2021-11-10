@@ -19,6 +19,7 @@ class CreateClassdetailsTable extends Migration
             $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
             $table->unsignedInteger('mentee_id');
             $table->foreign('mentee_id')->references('id')->on('mentees')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

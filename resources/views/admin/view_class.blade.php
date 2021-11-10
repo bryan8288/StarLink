@@ -34,7 +34,7 @@
                     <div class="container-fluid" style="padding-top: 50px">
                         <form action="{{'/class/'}}">
                         <div style="display:flex;">
-                            <h5 style="color: white; margin-left: 30px; margin-top:5px">Course</h5>
+                            <h5 style="color: white; margin-left: 30px; margin-top:5px">Class</h5>
                             <input type="text" name="keyword" class="form-control" placeholder="Search for Product"
                                 style="width: 500px; margin-left: 40px; padding-bottom: 5px; position: absolute; right: 140px;">
                             <input type="submit" class="btn btn-primary" value="Search"
@@ -42,7 +42,7 @@
                         </div>
                         </form>
                         <hr style="color: #FFFFFF;height: 3px">
-                        <a href="{{'/addCourse/'}}">
+                        <a href="{{'/addClass/'}}">
                             <button class="btn btn-primary" style="background-color: #27353F; margin-left: 30px;">Create</button>
                         </a>
                         <div style="display: flex; margin-top :20px">

@@ -20,8 +20,8 @@ class CreateCourseTransactionsTable extends Migration
             $table->unsignedInteger('mentee_id');
             $table->foreign('mentee_id')->references('id')->on('mentees')->onDelete('cascade');
             $table->string('status');
-            $table->longText('mentor_feedback');
-            $table->date('graduated_date');
+            $table->longText('mentor_feedback')->nullable();
+            $table->date('graduated_date')->nullable();
             $table->timestamps();
         });
     }
