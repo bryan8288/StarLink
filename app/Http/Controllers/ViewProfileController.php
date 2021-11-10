@@ -55,7 +55,7 @@ class ViewProfileController extends Controller
             'email' => 'required|min:13',
             'cv' => 'nullable',
             'portofolio' => 'nullable',
-            'profile_picture' => 'required|mimes:jpg,jpeg,bmp,png,svg'
+            'profile_picture' => 'nullable|mimes:jpg,jpeg,bmp,png,svg'
         ]);
         
         if(Auth::user()->role == 'mentee'){

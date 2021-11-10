@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('layout.layoutUser')
 @section('content')
 
 <div class="col-md-12">

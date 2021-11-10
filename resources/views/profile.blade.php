@@ -1,48 +1,5 @@
-@extends('layout.layout')
+@extends('layout.layoutUser')
 @section('content')
-
-<div class="col-md-12">
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            @include('layout.sidebar')
-            <main class="col ps-md-2 pt-2">
-                <div class="col-md-12" style="display: flex; margin-top:10px">
-                    <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse"
-                        class="border rounded-3 p-1 text-decoration-none" style="display: table;"><i class="fa fa-bars"
-                            aria-hidden="true"></i>
-                        Menu</a>
-                    <div class="col-md-10">
-                        <center>
-                            <h4 style="margin-top: 2px;text-align: center"><a class="title" href="{{'/'}}">Starlink</a>
-                            </h4>
-                        </center>
-                    </div>
-                </div>
-                <div class="col-md-2" style="display: flex; position: absolute;right: 0;top: 0; padding-left: 64px">
-                    <img src="{{url('storage/'.$userData[0]->profile_picture)}}"
-                        style="height:60px; border-radius: 40%; border: 6px solid #218EED;margin-top:10px; width: 50px;">
-                    <div class="dropdown" style="margin-top: 20px">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                            style="margin-left: 20px; color: black; background-color: white">{{$userData[0]->name}}</button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/dashboard/logout">Logout</a>
-                            @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
-                            <a class="dropdown-item" href="{{'/profile/'.$userData[0]->id}}">View Profile</a>
-                            @endif
-                            @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentor')
-                            <a class="dropdown-item" href="{{'/profile/'.$userData[0]->id}}">View Profile</a>
-                            @endif
-                            @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
-                            <a class="dropdown-item" href="{{'/profile/'.$userData[0]->id}}">View Profile</a>
-                            @endif
-                            @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'company')
-                            <a class="dropdown-item" href="{{'/companyprofile/'.$userData[0]->id}}">View Profile</a>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
                 <section class="section about-section gray-bg" id="background">
                     <div class="container">
                         <form action="{{url('profile/update/'.$userData[0]->id)}}" enctype="multipart/form-data"
