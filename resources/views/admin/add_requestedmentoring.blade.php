@@ -36,6 +36,11 @@
                             {{csrf_field()}}
                             <div class="mentorDetail">
                                 <h5 style="width: 30%;float:left">Mentee Id</h5>
+                                {{-- <select name="mentee_id" class="form-control input-sm" style="margin-bottom: 5px; width:70%;">
+                                    @foreach ($menteeId as $mentee)
+                                        <option>{{$mentee->id}}</option>
+                                    @endforeach
+                                </select> --}}
                                 <input style="width:70%; float: right;" type="text" name="mentee_id" class="form-control text-truncate" style="margin-bottom: 5px">
                             </div>
                             <div class="mentorDetail">

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-//use App\Mentee;
+use App\Mentee;
 use App\User;
 use App\RequestedMentoring;
-//use App\Admin;
+use App\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -23,6 +23,10 @@ class RequestedMentoringController extends Controller
         }
         $auth = Auth::check();
 
+        // $requestedMentoringDetail = RequestedMentoring::find($id);
+        // $menteeId = RequestedMentoring::find($requestedMentoringDetail->mentee_id);
+        // $requestedMentoringList = RequestedMentoring::where('mentee_id','!=',$menteeId->id)->get();
+
 
         //function buat fitur class schedule
         // $today = new Carbon('2020-06-11'); // isi date today (Carbon::now())
@@ -34,7 +38,10 @@ class RequestedMentoringController extends Controller
         // dd($date);
         //
 
-        return view('admin/add_requestedmentoring',compact('auth','userData'));
+        //'requestedMentoringDetail','menteeId','requestedMentoringList'
+
+        return view('admin/add_requestedmentoring',compact('auth','userData',));
+
     }
 
     public function addRequestedMentoring(Request $request){ //buat validasi inputan dan untuk menambahkan produk baru kedalam database sesuai inputan admin
@@ -44,9 +51,17 @@ class RequestedMentoringController extends Controller
             'name' => 'required',
         ]);
 
+        // $menteeName = Mentor::find($courseDetail->mentor_id);
+        // $mentorList = Mentor::where('name','!=',$mentorName->name)->get();
+
+
+
         $requestedmentoring = new RequestedMentoring();
         $requestedmentoring->mentee_id = $request->mentee_id;
         $requestedmentoring->name = $request->name;
+
+        // $menteeId = Mentee::select('id')->where('mentee_id',$request->mentee_id)->get();
+        // $requestedmentoring->mentee_id = $menteeId[0]->id;
         $requestedmentoring->save();
 
         return redirect('/dashboard')->with('status','Requested Mentoring Added Successfully');
