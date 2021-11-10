@@ -92,6 +92,9 @@ Route::post('/changePassword/change/{id}', 'ChangePasswordController@store');
 Route::get('/companyprofile/{id}','CompanyIndexController@show');
 Route::put('/companyprofile/update/{id}','CompanyIndexController@edit');
 
+Route::get('/discussionRoom/{id}','DiscussionRoomController@show');
+Route::put('/discussionRoom/update/{id}','DiscussionRoomController@edit');
+
 Route::get('/requestedmentoring','RequestedMentoringController@getAddRequestedMentoringPage');
 //Route::get('/requestedmentoring','RequestedMentoringController@addRequestedMentoring');
 //Route::get('/addRequestedMentoring','RequestedMentoringController@getAddRequestedMentoringPage');

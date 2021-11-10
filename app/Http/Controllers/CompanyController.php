@@ -18,7 +18,7 @@ class CompanyController extends Controller
         if(Auth::user()->role == 'company'){
             $userData = DB::table('users')
             ->join('companies','users.id','=','companies.user_id')
-            ->select('users.username as name','companies.name as companyName','companies.profile_picture','companies.id')
+            ->select('users.username','companies.name as companyName','companies.profile_picture','companies.id')
             ->where('users.id','=',Auth::id())
             ->get();
         }
