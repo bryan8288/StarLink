@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-12" id="background">
                     <div class="container-fluid" style="padding-top: 50px">
-                        <form action="{{url('/addMentor/add')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{url('/addRequestedMentoring/add')}}" method="post">
                             {{csrf_field()}}
                             <div class="mentorDetail">
                                 <h5 style="width: 30%;float:left">Mentee Id</h5>
