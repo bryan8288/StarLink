@@ -88,16 +88,7 @@ class ClassController extends Controller
                     ->join('class_details','mentees.id','=','class_details.mentee_id')
                     ->select('class_details.id as id','mentees.name')
                     ->where('class_details.class_id','=',$id)->get();
-        // $newMenteeList = DB::table('mentees')
-        //                 ->select('mentees.name','mentees.id')
-        //                 ->whereNotIn('mentees.id',DB::table('mentees')
-        //                                         ->join('class_details','mentees.id','=','class_details.mentee_id')
-        //                                         ->join('classes','class_details.class_id','=','classes.id')
-        //                                         ->join('course_transactions','classes.course_id','=','course_transactions.course_id')
-        //                                         ->select('mentees.id')
-        //                                         ->where('classes.id','=',$id)
-        //                                         ->where('course_transactions.status','=','In Progress')
-        //                                         ->get())->get()->toArray();
+                    
         $newMenteeList = DB::table('course_transactions')
                             ->join('mentees','mentees.id','=','course_transactions.mentee_id')
                             ->join('classes','classes.course_id','=','course_transactions.course_id')
