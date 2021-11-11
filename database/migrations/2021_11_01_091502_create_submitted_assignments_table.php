@@ -21,7 +21,7 @@ class CreateSubmittedAssignmentsTable extends Migration
             $table->foreign('mentee_id')->references('id')->on('mentees')->onDelete('cascade');
             $table->string('file');
             $table->date('uploaded_date');
-            $table->integer('score');
+            $table->integer('score')->nullable();
             $table->timestamps();
         });
     }

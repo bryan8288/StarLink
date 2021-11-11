@@ -17,14 +17,6 @@
                                 </select>                            
                             </div>
                             <div class="courseDetail">
-                                <h5 style="width: 30%;float:left">Mentor</h5>
-                                <select name="mentor" class="form-control input-sm" style="margin-bottom: 5px; width:70%;">
-                                    @foreach ($mentorList as $mentor)
-                                        <option>{{$mentor->name}}</option>
-                                    @endforeach
-                                </select>   
-                            </div>
-                            <div class="courseDetail">
                                 <h5 style="width: 30%;float:left">Description</h5>
                                 <input style="width:70%; float: right;" type="text" name="description" class="form-control text-truncate" style="margin-bottom: 5px">
                             </div>

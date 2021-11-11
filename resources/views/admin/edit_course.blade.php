@@ -23,15 +23,6 @@
                                 </select>                            
                             </div>
                             <div class="courseDetail">
-                                <h5 style="width: 30%;float:left">Mentor</h5>
-                                <select name="mentor" class="form-control input-sm" style="margin-bottom: 5px; width:70%;">
-                                    <option selected>{{$mentorName->name}}</option>
-                                    @foreach ($mentorList as $mentor)
-                                        <option value="{{$courseDetail->price}}">{{$mentor->name}}</option>
-                                    @endforeach
-                                </select>   
-                            </div>
-                            <div class="courseDetail">
                                 <h5 style="width: 30%;float:left">Description</h5>
                                 <input style="width:70%; float: right;" type="text" name="description" class="form-control text-truncate" value="{{$courseDetail->description}}" style="margin-bottom: 5px">
                             </div>
@@ -82,7 +73,7 @@
                                     </table>
                                 </div>
                                 <center>
-                                    <button class="btn btn-primary" style="margin-top: 55px; background-color: #27353F; width: 150px">
+                                    <button class="btn btn-primary" style="margin-top: 15px; background-color: #27353F; width: 150px">
                                         Submit
                                     </button>
                                 </center>

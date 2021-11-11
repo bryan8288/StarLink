@@ -47,11 +47,9 @@ class CourseController extends Controller
         }
         $auth = Auth::check();
         $courseDetail = Course::find($id);
-        $mentorName = Mentor::find($courseDetail->mentor_id);
-        $mentorList = Mentor::where('name','!=',$mentorName->name)->get();
-        // dd($mentorList);
+
         $moduleList = Module::where('course_id','=',$id)->get();
-        return view('admin/edit_course',compact('courseDetail','auth','userData','moduleList','mentorList','mentorName'));
+        return view('admin/edit_course',compact('courseDetail','auth','userData','moduleList'));
     }
 
     public function editCourseDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
@@ -61,7 +59,8 @@ class CourseController extends Controller
             'description' => 'required|min:10',
             'price' => 'required|integer|min:5001',
             'weeks' => 'required|integer|min:1',
-            'kkm' => 'required|integer|min:2'
+            'kkm' => 'required|integer|min:2',
+            'time' => 'required'
         ]);
         
         $courseDetail = Course::find($id);
@@ -71,6 +70,7 @@ class CourseController extends Controller
         $courseDetail->price = $request->price;
         $courseDetail->weeks = $request->weeks;
         $courseDetail->kkm = $request->kkm;
+        $courseDetail->exam_time = $request->time;
         $courseDetail->update();
         return redirect('/dashboard')->with('status','Course Updated Successfully');
     }
@@ -94,16 +94,6 @@ class CourseController extends Controller
         
         $mentorList = Mentor::all();
 
-        //function buat fitur class schedule
-        // $today = new Carbon('2020-06-11'); // isi date today (Carbon::now())
-        // $weekStartDate = $today->startOfWeek()->format('Y-m-d');
-        // $date = Carbon::createFromDate($weekStartDate);
-        // $daysToAdd = 7; // -> nanti lempar 0 - 5 (yg dimana dapat dari db) -> monday itu 0 -> sunday itu 6
-        // // note : harusny datany cmn simpan day_of_week ( 0 - 5 -> monday - saturday )
-        // $date = $date->addDays($daysToAdd)->format('Y-m-d');
-        // dd($date);
-        //
-
         return view('admin/add_course',compact('auth','userData','mentorList'));
     }
 
@@ -112,11 +102,11 @@ class CourseController extends Controller
         $this->validate($request,[
             'name' => 'required|unique:courses|min:5',
             'category' => 'required',
-            'mentor' => 'required',
             'description' => 'required|min:10',
             'price' => 'required|integer|min:5001',
             'weeks' => 'required|integer|min:1',
-            'kkm' => 'required|integer|min:2'
+            'kkm' => 'required|integer|min:2',
+            'time' => 'required'
         ]);
         $course = new Course();    
         $course->name = $request->name;
@@ -125,9 +115,7 @@ class CourseController extends Controller
         $course->price = $request->price;
         $course->weeks = $request->weeks;
         $course->kkm = $request->kkm;
-
-        $mentor_id = Mentor::select('id')->where('name',$request->mentor)->get();
-        $course->mentor_id = $mentor_id[0]->id;
+        $course->exam_time = $request->time;
         $course->save();
         
         return redirect('/dashboard')->with('status','Course Added Successfully');
