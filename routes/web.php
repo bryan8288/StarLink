@@ -84,8 +84,8 @@ Route::get('/changePassword/{id}', 'ChangePasswordController@index');
 Route::post('/changePassword/change/{id}', 'ChangePasswordController@store');
 
 Route::get('/discussionRoom','DiscussionRoomController@show');
-Route::get('/admin/discussAdmin/','DiscussionRoomController@showadmin');
-Route::put('/admin/discussAdmin/update/','DiscussionRoomController@edit');
+Route::get('/admin/discussAdmin/{id}','DiscussionRoomController@showadmin');
+Route::put('/admin/discussAdmin/update/{id}','DiscussionRoomController@edit');
 Route::put('/admin/discussAdmin/update/','DiscussionRoomController@editMentor');
 
 Route::get('/requestedmentoring','RequestedMentoringController@getAddRequestedMentoringPage');

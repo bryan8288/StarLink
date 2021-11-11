@@ -103,12 +103,13 @@
                 
                     
                 <div class="modal-body">
+                  <?php $i=1;?>
                   @foreach ($MentorRoomData as $dataMentor)
                   <form action="{{url('admin/discussAdmin/update/')}}" method="post">
                     {{ csrf_field() }}
                     {{method_field('put')}}
                   <div class="media">
-                      <label>Input Link Room</label>
+                      <label>Input Link Room {{$i}}</label>
                       <input type="text" name="url[]" class="form-control" id="inputlg"
                         value="{{$dataMentor->url}}">
                         <input type="text" name="id[]" class="form-control" id="inputlg"
@@ -121,6 +122,7 @@
                       @foreach ($mentorList as $mentor)
                           <option>{{$mentor->name}}</option>
                       @endforeach
+                      <?php $i++;?>
                   </select>
                 </div>
                 @endforeach
@@ -137,14 +139,9 @@
         @endif
         
         <div class="container" style="display:flex; justify-content:center" >
-          <?php $i=1;?>
+          <?php $i=1;?> 
           @foreach ($clockMentor as $dataClockMentor)
-    
-          <div class="">
-            <div class="">
-              <button type="button" class="btn btn-warning" style="margin:10px;width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#{{$i}} Diskusi | {{$dataClockMentor->start_time}} - {{$dataClockMentor->end_time}}</button>
-            </div>
-          </div>
+         <a href="{{$dataClockMentor->url}}"><button type="button" class="btn btn-warning" style="margin:10px;width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#{{$i}} Diskusi | {{$dataClockMentor->start_time}} - {{$dataClockMentor->end_time}} <h5>Mentor: {{$dataClockMentor->name}}</button></a>
           <?php $i++;?>
         @endforeach
           </div>
@@ -168,13 +165,15 @@
                         {{ csrf_field() }}
                         {{method_field('put')}}
                     <div class="modal-body">
+                      <?php $i=1;?>
                       @foreach ($AdminRoomData as $dataAdmin)
                         <div class="media">
-                            <label>Input Link Room</label>
-                            <input type="text" name="link" class="form-control" id="inputlg"
+                            <label>Input Link Room {{$i}}</label>
+                            <input type="text" name="url" class="form-control" id="inputlg"
                               value="{{$dataAdmin->url}}">
                         </div>
                       @endforeach
+                      <?php $i++;?>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -188,10 +187,9 @@
             @endif
             <div class="container">
             @foreach ($clockAdmin as $dataClock)
-    
             <div class="row">
               <div class="col-sm" style=" text-align:center" >
-                <button type="button" class="btn btn-warning" style="width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#1 Diskusi | {{$dataClock->start_time}} - {{$dataClock->end_time}}</button>
+               <a href="{{$dataClock->url}}"><button type="button" class="btn btn-warning" style="width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#1 Diskusi | {{$dataClock->start_time}} - {{$dataClock->end_time}} <h5>Admin: {{$dataClock->name}}</h5></button></a> 
               </div>
             </div>
           

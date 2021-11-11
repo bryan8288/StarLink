@@ -112,17 +112,11 @@
         @endif
         
         <div class="container">
-            <div class="row">
-              <div class="col-sm" style=" text-align:right" >
-                <button type="button" class="btn btn-light" style="width: auto;background-color:#E08C1F; border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#1 Diskusi | 09:00 - 11:00</button>
-              </div>
-              <div class="col-sm-1"style="">
-                
-              </div>
-              <div class="col-sm"style="text-align:left">
-                <button type="button" class="btn btn-light" style="background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#2 Diskusi | 11:00 - 13:00</button>
-              </div>
-            </div>
+          <?php $i=1;?> 
+          @foreach ($clockMentor as $dataClockMentor)
+         <a href="{{$dataClockMentor->url}}"><button type="button" class="btn btn-warning" style="margin:10px;width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#{{$i}} Diskusi | {{$dataClockMentor->start_time}} - {{$dataClockMentor->end_time}} <h5>Mentor: {{$dataClockMentor->name}}</h1></button></a>
+          <?php $i++;?>
+        @endforeach
           </div>
           <br>
           <div style="text-align: center; line-height: 1.2; color:white">
@@ -150,18 +144,15 @@
               </div>              
             @endif
           
-        <div class="container">
-            <div class="row">
-              <div class="col-sm" style=" text-align:right" >
-                <button type="button" class="btn btn-warning" style="width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#3 Diskusi | 09:00 - 11:00</button>
+            <div class="container">
+              @foreach ($clockAdmin as $dataClock)
+              <div class="row">
+                <div class="col-sm" style=" text-align:center" >
+                 <a href="{{$dataClock->url}}"><button type="button" class="btn btn-warning" style="width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#1 Diskusi | {{$dataClock->start_time}} - {{$dataClock->end_time}} <h5>Admin: {{$dataClock->name}}</h5></button></a> 
+                </div>
               </div>
-              <div class="col-sm-1"style="">
-                
-              </div>
-              <div class="col-sm"style=" text-align:left">
-                <button type="button" class="btn btn-warning" style="background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#4 Diskusi | 11:00 - 13:00</button>
-              </div>
-            </div>
+            
+            @endforeach
           </div>
     </div>
 @endsection
