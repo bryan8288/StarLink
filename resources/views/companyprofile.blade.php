@@ -1,6 +1,5 @@
 @extends('layout.layoutUser')
 @section('content')
-
                 <section class="section about-section gray-bg" id="background">
                     <div class="container">
                         <form action="{{url('companyprofile/update/'.$userData[0]->id)}}" enctype="multipart/form-data"

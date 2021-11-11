@@ -27,41 +27,25 @@ class RequestedMentoringController extends Controller
         // $menteeId = RequestedMentoring::find($requestedMentoringDetail->mentee_id);
         // $requestedMentoringList = RequestedMentoring::where('mentee_id','!=',$menteeId->id)->get();
 
+        $menteeList =Mentee::all();
 
-        //function buat fitur class schedule
-        // $today = new Carbon('2020-06-11'); // isi date today (Carbon::now())
-        // $weekStartDate = $today->startOfWeek()->format('Y-m-d');
-        // $date = Carbon::createFromDate($weekStartDate);
-        // $daysToAdd = 7; // -> nanti lempar 0 - 5 (yg dimana dapat dari db) -> monday itu 0 -> sunday itu 6
-        // // note : harusny datany cmn simpan day_of_week ( 0 - 5 -> monday - saturday )
-        // $date = $date->addDays($daysToAdd)->format('Y-m-d');
-        // dd($date);
-        //
-
-        //'requestedMentoringDetail','menteeId','requestedMentoringList'
-
-        return view('admin/add_requestedmentoring',compact('auth','userData',));
+        return view('admin/add_requestedmentoring',compact('auth','userData','menteeList'));
 
     }
 
     public function addRequestedMentoring(Request $request){ //buat validasi inputan dan untuk menambahkan produk baru kedalam database sesuai inputan admin
         $auth = Auth::check();
         $this->validate($request,[
-            'mentee_id' => 'required',
+            'mentee' => 'required',
             'name' => 'required',
         ]);
 
-        // $menteeName = Mentor::find($courseDetail->mentor_id);
-        // $mentorList = Mentor::where('name','!=',$mentorName->name)->get();
-
-
-
         $requestedmentoring = new RequestedMentoring();
-        $requestedmentoring->mentee_id = $request->mentee_id;
+        $mentee_id = Mentee::select('id')->where('name',$request->mentee)->get()[0]->id;
+
+        $requestedmentoring->mentee_id = $mentee_id;
         $requestedmentoring->name = $request->name;
 
-        // $menteeId = Mentee::select('id')->where('mentee_id',$request->mentee_id)->get();
-        // $requestedmentoring->mentee_id = $menteeId[0]->id;
         $requestedmentoring->save();
 
         return redirect('/dashboard')->with('status','Requested Mentoring Added Successfully');

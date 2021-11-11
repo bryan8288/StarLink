@@ -132,6 +132,17 @@
         background-color: #ffffff;
         width: 220px;
     }
+    
+    .card4 {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        text-align: center;
+        font-family: arial;
+        border-radius: 10px;
+        height: 340px;
+        margin-left: 30px;
+        background-color: #ffffff;
+        width: 220px;
+    }
 
     #sidebar-nav {
         width: 160px;

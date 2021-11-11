@@ -48,7 +48,8 @@
             <center>
                 <h6 style="margin-top: 5px; font-family: fantasy">Company</h6>
             </center>
-                <a href="#" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-archive"></i> <span>Applicant List</span></a>
+                <a href="{{'/applicantList/'}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-archive"></i> <span>Applicant List</span></a>
+                <a href="{{'/job/'}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-archive"></i> <span>Job List</span></a>
             @endif
         </div>
     </div>

@@ -15,7 +15,7 @@ class CompanyIndexController extends Controller
         if(Auth::user()->role == 'company'){
             $userData = DB::table('users')
             ->join('companies','users.id','=','companies.user_id')
-            ->select('companies.name','companies.id','companies.address','companies.phone','companies.profile_picture','users.email')
+            ->select('companies.name','companies.id','companies.address','companies.phone','companies.profile_picture','users.email','users.username')
             ->where('users.id','=',Auth::id())
             ->get();
         }

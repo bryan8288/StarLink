@@ -26,8 +26,6 @@ Route::post('/login','LoginController@validateLogin');
 
 Route::post('/register','RegisterController@addRegisterData');
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/forgot-password', 'ForgotPasswordController@getEmail');
 Route::post('/forgot-password', 'ForgotPasswordController@postEmail');
 
@@ -58,16 +56,12 @@ Route::get('/moduleDetailAssignment/{id}','ModuleController@detailAssignment');
 
 Route::get('/mentor','ViewMentorController@getMentorList');
 Route::get('/mentor','ViewMentorController@getProductbySearch');
-//Route::get('/editMentor/{id}','ViewMentorController@goEditPage');
-//Route::put('/editMentor/update/{id}','ViewMentorController@editMentorDetail');
 Route::post('editMentor/delete/{id}','ViewMentorController@deleteMentor');
 Route::get('/addMentor','ViewMentorController@getAddMentorPage');
 Route::post('/addMentor/add','ViewMentorController@addMentor');
 
 Route::get('/company','ViewCompanyController@getCompanyList');
 Route::get('/company','ViewCompanyController@getProductbySearch');
-//Route::get('/editCompany/{id}','ViewCompanyController@goEditPage');
-//Route::put('/editCompany/update/{id}','ViewCompanyController@editCompanyDetail');
 Route::post('editCompany/delete/{id}','ViewCompanyController@deleteCompany');
 Route::get('/addCompany','ViewCompanyController@getAddCompanyPage');
 Route::post('/addCompany/add','ViewCompanyController@addCompany');
@@ -89,17 +83,12 @@ Route::post('deleteMenteeFromClass/{id}','ClassController@deleteMenteeFromClass'
 Route::get('/changePassword/{id}', 'ChangePasswordController@index');
 Route::post('/changePassword/change/{id}', 'ChangePasswordController@store');
 
-Route::get('/companyprofile/{id}','CompanyIndexController@show');
-Route::put('/companyprofile/update/{id}','CompanyIndexController@edit');
-
 Route::get('/discussionRoom','DiscussionRoomController@show');
 Route::get('/admin/discussAdmin/','DiscussionRoomController@showadmin');
 Route::put('/admin/discussAdmin/update/','DiscussionRoomController@edit');
 Route::put('/admin/discussAdmin/update/','DiscussionRoomController@editMentor');
 
 Route::get('/requestedmentoring','RequestedMentoringController@getAddRequestedMentoringPage');
-//Route::get('/requestedmentoring','RequestedMentoringController@addRequestedMentoring');
-//Route::get('/addRequestedMentoring','RequestedMentoringController@getAddRequestedMentoringPage');
 Route::post('/addRequestedMentoring/add','RequestedMentoringController@addRequestedMentoring');
 
 #Company
@@ -108,3 +97,14 @@ Route::get('/applicantList/{id}','CompanyController@getApplicantListMapped');
 Route::post('/applicantList/approve/{id}','CompanyController@approveApplicant');
 Route::post('/applicantList/reject/{id}','CompanyController@rejectApplicant');
 Route::get('/applicantList','CompanyController@getProductbySearch');
+
+Route::get('/companyprofile/{id}','CompanyIndexController@show');
+Route::put('/companyprofile/update/{id}','CompanyIndexController@edit');
+
+Route::get('/job','CompanyController@getJobList');
+Route::get('/job','CompanyController@getJobBySearch');
+Route::get('/editJob/{id}','CompanyController@goEditPage');
+Route::put('/editJob/update/{id}','CompanyController@editJobDetail');
+Route::post('editJob/delete/{id}','CompanyController@deleteJob');
+Route::get('/addJob','CompanyController@getAddJobPage');
+Route::post('/addJob/add','CompanyController@addJob');
