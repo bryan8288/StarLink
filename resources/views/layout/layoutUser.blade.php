@@ -49,7 +49,7 @@
                         <div class="dropdown" style="margin-top: 20px">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                style="margin-left: 20px; color: black; background-color: white">{{$userData[0]->name}}</button>
+                                style="margin-left: 20px; color: black; background-color: white">{{$userData[0]->username}}</button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="/dashboard/logout">Logout</a>
                                 @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')

@@ -100,21 +100,30 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="{{url('admin/discussAdmin/update/'.$userData[0]->id)}}" enctype="multipart/form-data"
-                    method="post">
+                
+                    
+                <div class="modal-body">
+                  @foreach ($MentorRoomData as $dataMentor)
+                  <form action="{{url('admin/discussAdmin/update/')}}" method="post">
                     {{ csrf_field() }}
                     {{method_field('put')}}
-                <div class="modal-body">
-                    <div class="media">
-                        <label>Input Link Room#1</label>
-                        <input type="text" name="link" class="form-control" id="inputlg"
-                            value="{{$discussAdmin[0]->url}}">
-                    </div>
-                    <div class="media">
-                        <label>Input Link Room#2</label>
-                        <input type="text" name="link" class="form-control" id="inputlg"
-                            value="{{$discussAdmin[0]->url}}">
-                    </div>
+                  <div class="media">
+                      <label>Input Link Room</label>
+                      <input type="text" name="url[]" class="form-control" id="inputlg"
+                        value="{{$dataMentor->url}}">
+                        <input type="text" name="id[]" class="form-control" id="inputlg"
+                        value="{{$dataMentor->id}}" hidden>
+                  </div>
+                  <div class="media">
+                    <label>Mentor</label>
+                    <select name="mentor[]" class="form-control input-sm" style="margin-bottom: 5px; width:70%;">
+                      <option selected>{{$dataMentor->name}}</option>
+                      @foreach ($mentorList as $mentor)
+                          <option>{{$mentor->name}}</option>
+                      @endforeach
+                  </select>
+                </div>
+                @endforeach
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -127,18 +136,17 @@
           </div>              
         @endif
         
-        <div class="container">
-            <div class="row">
-              <div class="col-sm" style=" text-align:right" >
-                <button type="button" class="btn btn-light" style="width: auto;background-color:#E08C1F; border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#1 Diskusi | 09:00 - 11:00</button>
-              </div>
-              <div class="col-sm-1"style="">
-                
-              </div>
-              <div class="col-sm"style="">
-                <button type="button" class="btn btn-light" style="background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#2 Diskusi | 11:00 - 13:00</button>
-              </div>
+        <div class="container" style="display:flex; justify-content:center" >
+          <?php $i=1;?>
+          @foreach ($clockMentor as $dataClockMentor)
+    
+          <div class="">
+            <div class="">
+              <button type="button" class="btn btn-warning" style="margin:10px;width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#{{$i}} Diskusi | {{$dataClockMentor->start_time}} - {{$dataClockMentor->end_time}}</button>
             </div>
+          </div>
+          <?php $i++;?>
+        @endforeach
           </div>
           <br>
           <div style="text-align: center; line-height: 1.2; color:white">
@@ -160,16 +168,13 @@
                         {{ csrf_field() }}
                         {{method_field('put')}}
                     <div class="modal-body">
+                      @foreach ($AdminRoomData as $dataAdmin)
                         <div class="media">
-                            <label>Input Link Room#3</label>
+                            <label>Input Link Room</label>
                             <input type="text" name="link" class="form-control" id="inputlg"
-                                value="{{$discussAdmin[0]->url}}">
+                              value="{{$dataAdmin->url}}">
                         </div>
-                        <div class="media">
-                            <label>Input Link Room#4</label>
-                            <input type="text" name="link" class="form-control" id="inputlg"
-                                value="{{$discussAdmin[0]->url}}">
-                        </div>
+                      @endforeach
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -181,19 +186,25 @@
                 </div>
               </div>              
             @endif
-
-        <div class="container">
+            <div class="container">
+            @foreach ($clockAdmin as $dataClock)
+    
             <div class="row">
-              <div class="col-sm" style=" text-align:right" >
-                <button type="button" class="btn btn-warning" style="width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#1 Diskusi | 09:00 - 11:00</button>
-              </div>
-              <div class="col-sm-1"style="">
-                
-              </div>
-              <div class="col-sm"style="">
-                <button type="button" class="btn btn-warning" style="background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#2 Diskusi | 11:00 - 13:00</button>
+              <div class="col-sm" style=" text-align:center" >
+                <button type="button" class="btn btn-warning" style="width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#1 Diskusi | {{$dataClock->start_time}} - {{$dataClock->end_time}}</button>
               </div>
             </div>
-          </div>
+          
+          @endforeach
+        </div>
     </div>
+    @if(count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
 @endsection

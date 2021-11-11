@@ -9,6 +9,7 @@ use App\Mentor;
 use App\Mentee;
 use App\Admin;
 use App\DiscussionAdmin;
+use App\DiscussionMentor;
 use App\User;
 
 class DiscussionRoomController extends Controller
@@ -44,17 +45,38 @@ class DiscussionRoomController extends Controller
     public function showadmin(){
         
         if(Auth::user()->role == 'admin'){
-            $userData = DB::table('discussion_admins')
-            ->join('admins','admins.id','=','discussion_admins.id')
-            ->select('admins.id','discussion_admins.url')
-            ->where('admins.id','=',Auth::id())
+            $userData = DB::table('users')
+            ->join('admins','users.id','=','admins.user_id')
+            ->select('admins.name','admins.id','admins.profile_picture','users.username')
+            ->where('users.id','=',Auth::id())
             ->get();
+
         }
+        $AdminRoomData = DB::table('discussion_admins')
+        ->join('admins', 'discussion_admins.admin_id','=','admins.id')
+        ->select('discussion_admins.url', 'admins.name','discussion_admins.id')
+        ->where('admins.id','=',$userData[0]->id)
+        ->get();
+        $MentorRoomData = DB::table('discussion_mentors')
+        ->join('mentors', 'discussion_mentors.mentor_id','=','mentors.id')
+        ->select('discussion_mentors.url', 'mentors.name','discussion_mentors.id','mentors.id as mentorId')
+        ->get();
+        
+        $clockAdmin = DB::table('discussion_admins')
+        ->join('admins', 'discussion_admins.admin_id','=','admins.id')
+        ->select('discussion_admins.url', 'admins.name','discussion_admins.start_time', 'discussion_admins.end_time')
+        ->where('admins.id','=',$userData[0]->id)
+        ->get();
+
+        $clockMentor = DB::table('discussion_mentors')
+        ->join('mentors', 'discussion_mentors.mentor_id','=','mentors.id')
+        ->select('discussion_mentors.url', 'mentors.name','discussion_mentors.start_time', 'discussion_mentors.end_time')
+        ->get();
+
+        $mentorList= Mentor::all();
 
         $auth = Auth::check();
-        $discussAdmin = DiscussionAdmin::all();
-
-        return view('/admin/discussAdmin',compact('auth','userData','discussAdmin'));
+        return view('/admin/discussAdmin',compact('auth','userData','AdminRoomData','MentorRoomData','clockAdmin','clockMentor','mentorList'));
     }
 
     public function edit(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
@@ -66,10 +88,31 @@ class DiscussionRoomController extends Controller
             
             $discussAdmin = DiscussionAdmin::find($id);
             $discussAdmin->url = $request->url;
-            dd($discussAdmin);
+
             $discussAdmin->update();
         }
         
         return redirect('/admin/discussAdmin')->with('status','Discussion Room Updated Successfully');
+    }
+    public function editMentor(Request $request){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+        $this->validate($request,[
+            'url' => 'required',
+            'id' =>'required',
+            'mentor' => 'required'
+        ]);
+        $input = $request->all();
+        $input['url']=$request->input('url');
+        $input['id']=$request->input('id');
+        $input['mentor']=$request->input('mentor');
+
+        $count = count($input['id']);
+        for ($i=0; $i <= $count-1; $i++) { 
+            $discussMentor = DiscussionMentor::find($input['id'][$i]);
+            $discussMentor->url = $input['url'][$i];
+            $mentorId = Mentor::where('name','=',$input['mentor'][$i])->get();
+            $discussMentor->mentor_id = $mentorId[0]->id;
+            $discussMentor->update();
+        }
+        return redirect('/dashboard')->with('status','Discussion Room Updated Successfully');
     }
 }
