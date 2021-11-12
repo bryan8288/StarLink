@@ -169,7 +169,7 @@
                       @foreach ($AdminRoomData as $dataAdmin)
                         <div class="media">
                             <label>Input Link Room {{$i}}</label>
-                            <input type="text" name="url" class="form-control" id="inputlg"
+                            <input type="text" name="url[]" class="form-control" id="inputlg"
                               value="{{$dataAdmin->url}}">
                         </div>
                       @endforeach
