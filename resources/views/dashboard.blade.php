@@ -56,10 +56,14 @@
             <center>
                 <h4>Today Schedule</h4>
             </center>
-            <div class="col-md-4" id="subBackground">
-                @foreach ($todaySchedule as $item)
-                    <h6 style="font-size: 25px; margin-bottom:15px">{{$item->name}} ({{$item->start_time}} - {{$item->end_time}})</h6>
-                @endforeach
+            <div class="col-md-3" id="subBackground">
+                @if($todaySchedule->count() == 0)
+                    <h4 style="font-size: 25px; margin-bottom:15px">There is no schedule for today.</h4>
+                @else
+                    @foreach ($todaySchedule as $item)
+                        <h6 style="font-size: 25px; margin-bottom:15px">{{$item->name}} ({{$item->start_time}} - {{$item->end_time}})</h6>
+                    @endforeach
+                @endif
             </div>
         </div>
         <div class="col-md-5" id="frame2" style="margin-left: 30px">

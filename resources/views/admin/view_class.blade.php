@@ -13,9 +13,11 @@
                         </div>
                         </form>
                         <hr style="color: #FFFFFF;height: 3px">
+                        @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
                         <a href="{{'/addClass/'}}">
                             <button class="btn btn-primary" style="background-color: #27353F; margin-left: 30px;">Create</button>
                         </a>
+                        @endif
                         <div style="display: flex; margin-top :20px">
                             @foreach ($class as $item)
                             <div class="col-md-2 card">
@@ -37,6 +39,7 @@
                                     <h5>Day : Saturday</h5>
                                     @else
                                     @endif
+                                    @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
                                     <div style="display: flex">
                                         <a href="{{'/editClass/'.$item->id}}">
                                             <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
@@ -47,6 +50,13 @@
                                             <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Class?')" style="margin-left: 30px;margin-top: 20px">Delete</button>
                                         </form>
                                     </div>
+                                    @else
+                                    <center>
+                                        <a href="{{'/editClass/'.$item->id}}">
+                                            <button class="btn btn-primary" style="width: 180px; margin-top: 30px">See Detail</button>
+                                        </a>
+                                    </center>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,6 +37,7 @@ Route::get('/dashboard','DashboardController@getDashboardPage');
 
 Route::get('/dashboard/logout','DashboardController@logout');
 
+#Admin
 Route::get('/course','CourseController@getCourseList');
 Route::get('/course','CourseController@getProductbySearch');
 Route::get('/editCourse/{id}','CourseController@goEditPage');
@@ -108,3 +110,7 @@ Route::put('/editJob/update/{id}','CompanyController@editJobDetail');
 Route::post('editJob/delete/{id}','CompanyController@deleteJob');
 Route::get('/addJob','CompanyController@getAddJobPage');
 Route::post('/addJob/add','CompanyController@addJob');
+
+#Mentor
+Route::get('schedule','ScheduleController@getScheduleList');
+Route::get('progressmentee','ScheduleController@getScheduleList');

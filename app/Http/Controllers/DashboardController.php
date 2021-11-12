@@ -51,13 +51,6 @@ class DashboardController extends Controller
         ->groupBy('classes.name','courses.name')
         ->where('classes.mentor_id','=',$userData[0]->id)->get();
 
-        // $today = Carbon::now();
-        // $weekStartDate = $today->startOfWeek()->format('Y-m-d');
-        // $date = Carbon::createFromDate($weekStartDate);
-        // $daysToAdd = 7;
-
-        
-
         $today = Carbon::today()->format('l');
         if($today == 'Monday'){
             $day_of_week = 0;
@@ -78,16 +71,6 @@ class DashboardController extends Controller
         ->select('classes.*')
         ->where('classes.day_of_week','=',$day_of_week)
         ->where('mentors.id','=',$userData[0]->id)->get();
-
-         //function buat fitur class schedule
-        // $today = new Carbon('2020-06-11'); // isi date today (Carbon::now())
-        // $weekStartDate = $today->startOfWeek()->format('Y-m-d');
-        // $date = Carbon::createFromDate($weekStartDate);
-        // $daysToAdd = 7; // -> nanti lempar 0 - 5 (yg dimana dapat dari db) -> monday itu 0 -> sunday itu 6
-        // // note : harusny datany cmn simpan day_of_week ( 0 - 5 -> monday - saturday )
-        // $date = $date->addDays($daysToAdd)->format('Y-m-d');
-        // dd($date);
-        //
 
         $pendingAssignment = DB::table('assignments')
         ->join('modules','modules.id','=','assignments.module_id')
@@ -112,12 +95,7 @@ class DashboardController extends Controller
             ->whereNotNull('submitted_assignments.file')->get();
             $key->assignment = $assignment;
         }
-        foreach ($pendingAssignment as $key) {
-            // dd($key->assignment);
-            foreach ($key->assignment as $item) {
-                // dd($item);
-            }
-        }
+        
         return view('dashboard',compact('userData','auth','totalMentee','totalMentor','companyJobs','totalRequestedMentoring','totalWorkingMentee',
     'classList','todaySchedule','pendingAssignment'));
     }

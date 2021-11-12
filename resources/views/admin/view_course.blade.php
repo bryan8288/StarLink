@@ -16,6 +16,13 @@
                         <a href="{{'/addCourse/'}}">
                             <button class="btn btn-primary" style="background-color: #27353F; margin-left: 30px;">Create</button>
                         </a>
+                        @if (count($course) == 0)
+                        <div style="margin-left: 30px; margin-top: 20px">
+                            <h4 style="margin-top: 10px">Can't find the course you want ?</h4>
+                            <h4>You can request your wanted course below : </h4>
+                            <a style="color: black" href="https://docs.google.com/forms/d/e/1FAIpQLScs0ioOf2c70PEYEFm1g5bua8wJMK9i0W0h7q2S8iUsXI_aUg/viewform?usp=sf_link"><h4>Link</h4></a>
+                        </div>
+                        @else
                         <div style="display: flex; margin-top :20px">
                             @foreach ($course as $item)
                             <div class="col-md-2 card">
@@ -39,6 +46,7 @@
                             </div>
                             @endforeach
                         </div>
+                        @endif
                         <div style="margin-left: 30px; margin-top:20px">
                             {{$course->links()}}
                         </div>

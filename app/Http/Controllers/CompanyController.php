@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Applicant;
-use App\ClassDetail;
-use App\Course;
 use App\Mentor;
-use App\Module;
-use App\Classes;
 use App\CompanyJob;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;

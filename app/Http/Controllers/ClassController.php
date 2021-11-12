@@ -21,6 +21,12 @@ class ClassController extends Controller
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->where('users.id','=',Auth::id())
             ->get();
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
         }
         $auth = Auth::check();
         $class = DB::table('classes')
@@ -38,6 +44,12 @@ class ClassController extends Controller
             ->join('admins','users.id','=','admins.user_id')
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->get();
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
         }
         $auth = Auth::check();
        
@@ -51,6 +63,12 @@ class ClassController extends Controller
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
         }

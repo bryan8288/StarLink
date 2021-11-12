@@ -265,6 +265,16 @@
         margin-top: 20px;
     }
 
+    .card5{
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+        /* text-align: center; */
+        font-family: arial;
+        border-radius: 10px;
+        height: 200px;
+        background-color: #ffffff;
+        margin-top: 20px;
+    }
+
 </style>
 
 </html>
