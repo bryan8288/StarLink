@@ -57,7 +57,7 @@
                                     @else
                                     <h6>Portofolio<i class="fa fa-close" style="margin-left: 10px"></i></h6>
                                     @endif
-                                    <a href="{{'/editClass/'.$item->id}}">
+                                    <a href="{{'/applicantDetail/'.$item->id}}">
                                         <button class="btn btn-primary"
                                             style="background-color: #FF8C00; width:200px; margin-top: 10px; border-color: white">See
                                             Detail</button>

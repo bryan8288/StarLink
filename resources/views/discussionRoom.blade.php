@@ -49,8 +49,11 @@
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>
-                              <div class="modal-body">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates laudantium exercitationem iusto voluptatibus dicta, fuga cumque repellat fugit officiis temporibus porro facilis natus iste sequi similique sint minima perspiciatis dolores.
+                              <div class="modal-body" style="text-align: left; list-style-type: none">
+                                <li>1. Harap menjaga ketenangan ketika mentor sedang berbicara</li>
+                                <li>2. Budayakan mengantri ketika ada yang sedang bertanya</li>
+                                <li>3. Raise hand jika ingin bertanya</li>
+                                <li>4. Harap bertanya dengan sopan</li>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -70,8 +73,11 @@
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>
-                              <div class="modal-body">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates laudantium exercitationem iusto voluptatibus dicta, fuga cumque repellat fugit officiis temporibus porro facilis natus iste sequi similique sint minima perspiciatis dolores.
+                              <div class="modal-body" style="list-style-type: none; text-align:left">
+                                <li>1. Mentees akan otomatis di mute ketika memasuki ruangan</li>
+                                <li>2. Mentees akan raise hand apabila ingin bertanya</li>
+                                <li>3. Unmute mentee yang raise hand dan jawab secara berurutan</li>
+                                <li>4. Ingatkan mentee untuk mengisi form feedback setelah selesai</li>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

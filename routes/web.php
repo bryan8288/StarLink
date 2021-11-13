@@ -100,7 +100,7 @@ Route::post('/applicantList/approve/{id}','CompanyController@approveApplicant');
 Route::post('/applicantList/reject/{id}','CompanyController@rejectApplicant');
 Route::get('/applicantList','CompanyController@getProductbySearch');
 
-Route::get('/applicantDetail','ApplicantDetailController@show');
+Route::get('/applicantDetail/{id}','ApplicantDetailController@show');
 
 Route::get('/companyprofile/{id}','CompanyIndexController@show');
 Route::put('/companyprofile/update/{id}','CompanyIndexController@edit');
