@@ -61,9 +61,8 @@ class ProgressMenteeController extends Controller
         ->selectRaw('count(progress_mentees.mentee_id) as total')
         ->groupBy('mentees.id')
         ->where('classes.id','=',$id)
-        ->where('classes.mentor_id','=',$userData[0]->id)->get()[0]->total;      
+        ->where('classes.mentor_id','=',$userData[0]->id)->get();      
 
-        // dd($totalModule);
         $auth = Auth::check();
         $progressMentee = DB::table('progress_mentees')
         ->join('modules','modules.id','=','progress_mentees.module_id')
@@ -86,18 +85,35 @@ class ProgressMenteeController extends Controller
             ->where('progress_mentees.status','=','Completed')
             ->where('progress_mentees.mentee_id','=',$key->mentee_id)
             ->where('classes.id','=',$id)->get();
-            // if(count($totalComplete) == 0){
-            //     $key->totalComplete = 0;
-            // }else $key->totalComplete = $totalComplete;
+
             $key->totalComplete = $totalComplete;
         }
-        dd($progressMentee);
-        // dd($progressMentee)[1]->totalComplete[0];
-        // dd($key->totalComplete);
-        // foreach ($progressMentee as $key) {
-        //     foreach ($key->totalComplete as $item) {
-        //     }
-        // }
-        return view('progress_mentee_detail',compact('auth','classData','progressMentee','userData','totalModule'));
+
+        return view('progress_mentee_detail',compact('auth','classData','progressMentee','userData','totalModule','id'));
+    }
+
+    public function getModuleDetailByMentee($menteeId,$classId){
+        if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }
+
+        $auth = Auth::check();
+        $completedModule = DB::table('progress_mentees')
+        ->join('mentees','progress_mentees.mentee_id','=','mentees.id')
+        ->join('modules','modules.id','=','progress_mentees.module_id')
+        ->join('courses','courses.id','=','modules.course_id')
+        ->join('classes','classes.course_id','=','courses.id')
+        ->selectRaw('count(progress_mentees.mentee_id) as total')
+        ->groupBy('mentees.id')
+        ->where('progress_mentees.status','=','Completed')
+        ->where('progress_mentees.mentee_id','=',$menteeId)
+        ->where('classes.id','=',$classId)->get();
+
+        // $inProgressModule 
+        return view('progress_mentee_detail_module',compact('auth','userData'));
     }
 }

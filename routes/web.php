@@ -117,3 +117,5 @@ Route::post('/addJob/add','CompanyController@addJob');
 Route::get('schedule','ScheduleController@getScheduleList');
 Route::get('progressmentee','ProgressMenteeController@getCourseByMentor');
 Route::get('progressmentee/detail/{id}','ProgressMenteeController@getProgressMentee');
+Route::get('progressmentee/detailByModule/{menteeId}/{classId}','ProgressMenteeController@getModuleDetailByMentee');
+

@@ -31,25 +31,31 @@
             <div class="row flex-nowrap">
                 @include('layout.sidebar')
                 <main class="col ps-md-2 pt-2">
-                    <div class="col-md-12" style="display: flex; margin-top:10px">
+                    <div class="col-md-12" style="display: flex;">
+                        <div class="col-md-10" style="display: flex;">
+                        <div class="col-md-1">
+
                         <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse"
-                            class="border rounded-3 p-1 text-decoration-none" style="display: table;"><i class="fa fa-bars"
-                                aria-hidden="true"></i>
-                            Menu</a>
-                        <div class="col-md-10">
+                            class="border rounded-3 p-1 text-decoration-none" style="display: flex; height: 40px; margin-top:10px; width: 70px"><i class="fa fa-bars"
+                                aria-hidden="true" style="margin-top: 5px"></i>
+                            <div style="margin-left: 5px">Menu</div></a>
+                        </div>
+                        <div class="col-md-11">
                             <center>
-                                <h4 style="margin-top: 2px;text-align: center"><a class="title" href="{{'/'}}">Starlink</a>
-                                </h4>
+                                    <h4 style="text-align: center; margin-top: 15px; margin-left: 100px"><a class="title" href="{{'/'}}">Starlink</a>
+                                    </h4>
                             </center>
                         </div>
                     </div>
-                    <div class="col-md-2" style="display: flex; position: absolute;right: 0;top: 0; padding-left: 64px">
-                        <img src="{{url('storage/'.$userData[0]->profile_picture)}}"
-                            style="height:60px; border-radius: 40%; border: 6px solid #218EED;margin-top:10px; width: 50px;">
-                        <div class="dropdown" style="margin-top: 20px">
+                    <div class="col-md-2" style="display: flex">
+                        <div style="width: 70%;float:left;">
+                            <img src="{{url('storage/'.$userData[0]->profile_picture)}}"
+                                style="height:50px; border-radius: 50%; border: 6px solid #218EED; width: 50px; margin-left: 30px">
+                        </div>
+                        <div class="dropdown" style="margin-top: 7px">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                style="margin-left: 20px; color: black; background-color: white">{{$userData[0]->username}}</button>
+                                style="color: black; background-color: white">{{$userData[0]->username}}</button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="/dashboard/logout">Logout</a>
                                 @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
@@ -67,6 +73,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
     @section('content')
     @show
 </body>
@@ -173,7 +181,7 @@
     }
 
     #background {
-        margin-top: 20px;
+        margin-top: 10px;
         width: 100%;
         height: 852px;
         background-color: #218eed;
