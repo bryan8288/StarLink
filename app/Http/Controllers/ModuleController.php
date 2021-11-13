@@ -20,6 +20,12 @@ class ModuleController extends Controller
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->where('users.id','=',Auth::id())
             ->get();
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
         }
         $auth = Auth::check();
         $courseList = Course::all();
@@ -27,7 +33,6 @@ class ModuleController extends Controller
     }
     
     public function addModule(Request $request){ //buat validasi inputan dan untuk menambahkan produk baru kedalam database sesuai inputan admin
-        $auth = Auth::check();
         $this->validate($request,[
             'name' => 'required|unique:modules|min:5',
             'course' => 'required',
@@ -57,6 +62,12 @@ class ModuleController extends Controller
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
         }
@@ -103,6 +114,12 @@ class ModuleController extends Controller
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->where('users.id','=',Auth::id())
             ->get();
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
         }
         $auth = Auth::check();
         $module = Module::find($id)->get();
@@ -114,6 +131,12 @@ class ModuleController extends Controller
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
         }
@@ -129,9 +152,72 @@ class ModuleController extends Controller
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->where('users.id','=',Auth::id())
             ->get();
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
         }
         $auth = Auth::check();
         $assignmentList = Assignment::where('module_id','=',$id)->get();
         return view('admin/module_detail_assignment',compact('userData','auth','assignmentList','id'));
+    }
+
+    public function uploadVideo(Request $request, $moduleId){
+        $this->validate($request,[
+            'name' => 'required|unique:videos|min:5',
+            'description' => 'required|min:5',
+            'reference' => '', 
+            'video' => 'mimes:mp4,mov,zip'
+        ]);
+        $video = new Video();    
+        $video->name = $request->name;
+        $video->description = $request->description;
+        $video->other_reference = $request->reference;
+
+        if($request->video !=null){
+            $video_path = $request->file('video')->store('video','public');
+            $video->video_file = $video_path;
+        }
+        $video->module_id = $moduleId;
+        $video->save();
+        
+        return redirect('/dashboard')->with('status','Video Added Successfully');
+    }
+
+    public function deleteVideo($id){ 
+        $video = Video::find($id);
+        $video->delete();
+
+        return redirect('/dashboard')->with('status','Video Deleted Successfully');
+    }
+
+    // public function getVideoDetail($id){
+    //     $videoDetail = Video::find($id);
+        
+    //     return view('editVideo',compact('videoDetail'));
+    // }
+
+    public function editVideo(Request $request, $id, $moduleId){ 
+        $this->validate($request,[
+            'name' => 'required|unique:videos|min:5',
+            'description' => 'required|min:5',
+            'reference' => '', 
+            'video' => 'mimes:mp4,mov,zip'
+        ]);
+        
+        $video = Video::find($id);
+        $video->name = $request->name;
+        $video->description = $request->description;
+        $video->other_reference = $request->reference;
+
+        if($request->video !=null){
+            $video_path = $request->file('video')->store('video','public');
+            $video->video_file = $video_path;
+        }
+        $video->module_id = $moduleId;
+        $video->update();
+        return redirect('/dashboard')->with('status','Video Updated Successfully');
     }
 }

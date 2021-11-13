@@ -13,9 +13,9 @@
                                 <a style="width: 30%; text-align:center" class="nav-item nav-link"
                                     href="{{'/moduleDetailLearning/'.$id}}">Learning </a>
                                 <div style="border-left: 3px solid;"></div>
-                                <a style="width: 30%; text-align:center" class="nav-item nav-link active" href="{{'/moduleDetailVideo/'.$id}}">Video</a>
+                                <a style="width: 30%; text-align:center" class="nav-item nav-link" href="{{'/moduleDetailVideo/'.$id}}">Video</a>
                                 <div style="border-left: 3px solid;"></div>
-                                <a style="width: 30%; text-align:center" class="nav-item nav-link"
+                                <a style="width: 30%; text-align:center" class="nav-item nav-link active"
                                     href="{{'/moduleDetailAssignment/'.$id}}">Assignment</a>
                             </div>
                         </div>

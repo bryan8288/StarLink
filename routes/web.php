@@ -118,4 +118,7 @@ Route::get('schedule','ScheduleController@getScheduleList');
 Route::get('progressmentee','ProgressMenteeController@getCourseByMentor');
 Route::get('progressmentee/detail/{id}','ProgressMenteeController@getProgressMentee');
 Route::get('progressmentee/detailByModule/{menteeId}/{classId}','ProgressMenteeController@getModuleDetailByMentee');
-
+Route::post('addVideo/{moduleId}','ModuleController@uploadVideo');
+Route::post('deleteVideo/{videoId}','ModuleController@deleteVideo');
+// Route::get('videoDetail/{id}','ModuleController@getVideoDetail');
+Route::put('editVideo/{videoId}/{moduleId}','ModuleController@editVideo');

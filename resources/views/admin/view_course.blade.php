@@ -13,9 +13,11 @@
                         </div>
                         </form>
                         <hr style="color: #FFFFFF;height: 3px">
+                        @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
                         <a href="{{'/addCourse/'}}">
                             <button class="btn btn-primary" style="background-color: #27353F; margin-left: 30px;">Create</button>
                         </a>
+                        @endif
                         @if (count($course) == 0)
                         <div style="margin-left: 30px; margin-top: 20px">
                             <h4 style="margin-top: 10px">Can't find the course you want ?</h4>
@@ -32,6 +34,7 @@
                                     <div style="height: 100px;">
                                         <p class="cardText" style="overflow: hidden">{{$item->description}}</p>
                                     </div>
+                                    @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
                                     <div style="display: flex">
                                         <a href="{{'/editCourse/'.$item->id}}">
                                             <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
@@ -42,6 +45,13 @@
                                             <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Course?')" style="margin-left: 30px;margin-top: 20px">Delete</button>
                                         </form>
                                     </div>
+                                    @else
+                                    <center>
+                                        <a href="{{'/editCourse/'.$item->id}}">
+                                            <button class="btn btn-primary" style="width: 180px; margin-top: 30px">See Detail</button>
+                                        </a>
+                                    </center>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach

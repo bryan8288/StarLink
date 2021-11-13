@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Applicant;
 use App\Mentor;
 use App\CompanyJob;
+use App\Mentee;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -101,19 +102,28 @@ class ProgressMenteeController extends Controller
             ->get();
         }
 
+        $mentee = Mentee::find($menteeId);
+
         $auth = Auth::check();
         $completedModule = DB::table('progress_mentees')
         ->join('mentees','progress_mentees.mentee_id','=','mentees.id')
         ->join('modules','modules.id','=','progress_mentees.module_id')
         ->join('courses','courses.id','=','modules.course_id')
         ->join('classes','classes.course_id','=','courses.id')
-        ->selectRaw('count(progress_mentees.mentee_id) as total')
-        ->groupBy('mentees.id')
+        ->select('modules.name','courses.category','progress_mentees.status')
         ->where('progress_mentees.status','=','Completed')
         ->where('progress_mentees.mentee_id','=',$menteeId)
-        ->where('classes.id','=',$classId)->get();
-
-        // $inProgressModule 
-        return view('progress_mentee_detail_module',compact('auth','userData'));
+        ->where('classes.id','=',$classId)->paginate(3);
+        
+        $inProgressModule = DB::table('progress_mentees')
+        ->join('mentees','progress_mentees.mentee_id','=','mentees.id')
+        ->join('modules','modules.id','=','progress_mentees.module_id')
+        ->join('courses','courses.id','=','modules.course_id')
+        ->join('classes','classes.course_id','=','courses.id')
+        ->select('modules.name','courses.category','progress_mentees.status')
+        ->where('progress_mentees.status','=','In Progress')
+        ->where('progress_mentees.mentee_id','=',$menteeId)
+        ->where('classes.id','=',$classId)->paginate(3);
+        return view('progress_mentee_detail_module',compact('auth','userData','mentee','completedModule','inProgressModule'));
     }
 }

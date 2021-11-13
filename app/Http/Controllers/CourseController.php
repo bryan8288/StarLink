@@ -18,9 +18,23 @@ class CourseController extends Controller
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->where('users.id','=',Auth::id())
             ->get();
+
+            $course = Course::paginate(3);
+
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+            $course = DB::table('classes')
+            ->join('courses','courses.id','=','classes.course_id')
+            ->select('courses.*')
+            ->where('classes.mentor_id','=',$userData[0]->id)->paginate(3);
+
         }
         $auth = Auth::check();
-        $course = Course::paginate(3);
         return view('admin/view_course',compact('auth','course','userData'));
     }
 
@@ -31,9 +45,22 @@ class CourseController extends Controller
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->where('users.id','=',Auth::id())
             ->get();
+
+        $course = Course::where('name','like',"%{$request->keyword}%")->paginate(3);
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+            $course = DB::table('classes')
+            ->join('courses','courses.id','=','classes.course_id')
+            ->select('courses.*')
+            ->where('classes.mentor_id','=',$userData[0]->id)
+            ->where('courses.name','like',"%{$request->keyword}%")->paginate(3);
         }
         $auth = Auth::check();
-        $course = Course::where('name','like',"%{$request->keyword}%")->paginate(3);
         return view('admin/view_course',compact('userData','course','auth'));
     }
 
@@ -42,6 +69,12 @@ class CourseController extends Controller
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
         }
