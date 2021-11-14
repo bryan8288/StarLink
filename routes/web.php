@@ -120,5 +120,7 @@ Route::get('progressmentee/detail/{id}','ProgressMenteeController@getProgressMen
 Route::get('progressmentee/detailByModule/{menteeId}/{classId}','ProgressMenteeController@getModuleDetailByMentee');
 Route::post('addVideo/{moduleId}','ModuleController@uploadVideo');
 Route::post('deleteVideo/{videoId}','ModuleController@deleteVideo');
-// Route::get('videoDetail/{id}','ModuleController@getVideoDetail');
 Route::put('editVideo/{videoId}/{moduleId}','ModuleController@editVideo');
+Route::post('addAssignment/{moduleId}','ModuleController@uploadAssignment');
+Route::post('deleteAssignment/{assignmentId}','ModuleController@deleteAssignment');
+Route::put('editAssignment/{assignmentId}/{moduleId}','ModuleController@editAssignment');

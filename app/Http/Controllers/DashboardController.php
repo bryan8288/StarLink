@@ -64,8 +64,8 @@ class DashboardController extends Controller
             $day_of_week = 4;
         }else if($today == 'Saturday'){
             $day_of_week = 5;
-        }
-
+        }else $day_of_week = 6;
+        
         $todaySchedule = DB::table('classes')
         ->join('mentors','classes.mentor_id','=','mentors.id')
         ->select('classes.*')

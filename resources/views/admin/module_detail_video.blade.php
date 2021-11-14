@@ -84,7 +84,6 @@
                         </div>
                     </div>
                 </div>
-        
             </div>
         </div>
         <p style="margin-left:2.5%">{{$video->description}}</p>

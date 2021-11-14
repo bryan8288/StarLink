@@ -193,12 +193,6 @@ class ModuleController extends Controller
         return redirect('/dashboard')->with('status','Video Deleted Successfully');
     }
 
-    // public function getVideoDetail($id){
-    //     $videoDetail = Video::find($id);
-        
-    //     return view('editVideo',compact('videoDetail'));
-    // }
-
     public function editVideo(Request $request, $id, $moduleId){ 
         $this->validate($request,[
             'name' => 'required|unique:videos|min:5',
@@ -219,5 +213,57 @@ class ModuleController extends Controller
         $video->module_id = $moduleId;
         $video->update();
         return redirect('/dashboard')->with('status','Video Updated Successfully');
+    }
+
+    public function uploadAssignment(Request $request, $moduleId){
+        $this->validate($request,[
+            'title' => 'required|unique:assignments|min:5',
+            'description' => 'required|min:5',
+            'start_date' => 'required', 
+            'end_date' => 'required',
+            'assignment_file' => 'required|mimes:docx,ppt,doc,pptx,'
+        ]);
+        $assignment = new Assignment();    
+        $assignment->title = $request->title;
+        $assignment->description = $request->description;
+        $assignment->start_date = $request->start_date;
+        $assignment->end_date = $request->end_date;
+
+        $assignment_path = $request->file('assignment_file')->store('assignment','public');
+        $assignment->assignment_file = $assignment_path;
+        $assignment->module_id = $moduleId;
+        $assignment->save();
+        
+        return redirect('/dashboard')->with('status','Assignment Added Successfully');
+    }
+
+    public function deleteAssignment($id){ 
+        $assignment = Assignment::find($id);
+        $assignment->delete();
+
+        return redirect('/dashboard')->with('status','Assignment Deleted Successfully');
+    }
+
+    public function editAssignment(Request $request, $id, $moduleId){ 
+        $this->validate($request,[
+            'title' => 'required|unique:assignments|min:5',
+            'description' => 'required|min:5',
+            'start_date' => 'required', 
+            'end_date' => 'required',
+            'file' => 'required|mimes:docx,ppt,doc,pptx,'
+        ]);
+        
+        $assignment = Assignment::find($id);
+        $assignment->title = $request->title;
+        $assignment->description = $request->description;
+        $assignment->start_date = $request->start_date;
+        $assignment->end_date = $request->end_date;
+
+
+        $assignment_path = $request->file('file')->store('assignment','public');
+        $assignment->assignment_file = $assignment_path;
+        $assignment->module_id = $moduleId;
+        $assignment->update();
+        return redirect('/dashboard')->with('status','Assignment Updated Successfully');
     }
 }
