@@ -28,10 +28,19 @@ class ApplicantDetailController extends Controller
         
         $applicantDetail = Mentee::find($id);
         $userDetail = User::find($id);
-        $skillDetail = Course::all();
-        $scoreDetail = Score::all();
-        
+
+        $dataDetail = DB::table('courses')
+        ->join('course_transactions','course_transactions.course_id','=','courses.id')
+        ->join('scores','courses.id','=','scores.course_id')
+        ->join('mentees','scores.mentee_id','=','mentees.user_id')
+        ->select('courses.name','scores.score','course_transactions.mentor_feedback','course_transactions.graduated_date')
+        ->where('course_transactions.status','=','Completed')
+        ->where('mentees.id','=',$applicantDetail->id)
+        ->where('course_transactions.mentee_id','=',$applicantDetail->id)
+        ->get();
+        // dd($dataDetail);
         // dd($applicantList);
-        return view('/applicantDetail',compact('auth','userData','applicantDetail','userDetail','skillDetail','scoreDetail'));
+        
+        return view('/applicantDetail',compact('auth','userData','applicantDetail','userDetail','dataDetail'));
     }
 }

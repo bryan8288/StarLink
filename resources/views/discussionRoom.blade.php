@@ -45,9 +45,6 @@
                             <div class="modal-content">
                               <div class="modal-header">                                
                                 <h5 class="modal-title" id="exampleModalLabel">PERATURAN</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
                               </div>
                               <div class="modal-body" style="text-align: left; list-style-type: none">
                                 <li>1. Harap menjaga ketenangan ketika mentor sedang berbicara</li>
@@ -69,9 +66,6 @@
                             <div class="modal-content">
                               <div class="modal-header">                                
                                 <h5 class="modal-title" id="exampleModalLabel">PETUNJUK</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
                               </div>
                               <div class="modal-body" style="list-style-type: none; text-align:left">
                                 <li>1. Mentees akan otomatis di mute ketika memasuki ruangan</li>
