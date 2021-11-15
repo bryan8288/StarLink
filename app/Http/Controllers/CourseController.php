@@ -80,9 +80,11 @@ class CourseController extends Controller
         }
         $auth = Auth::check();
         $courseDetail = Course::find($id);
-
+        $exam = DB::table('exams')
+                ->select('exams.*')
+                ->where('exams.course_id','=',$id)->get();
         $moduleList = Module::where('course_id','=',$id)->get();
-        return view('admin/edit_course',compact('courseDetail','auth','userData','moduleList'));
+        return view('admin/edit_course',compact('courseDetail','auth','userData','moduleList','exam'));
     }
 
     public function editCourseDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin

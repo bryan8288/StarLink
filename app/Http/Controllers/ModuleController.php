@@ -6,6 +6,7 @@ use App\Assignment;
 use App\Course;
 use App\Mentor;
 use App\Module;
+use App\SubmittedAssignment;
 use App\Video;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -265,5 +266,38 @@ class ModuleController extends Controller
         $assignment->module_id = $moduleId;
         $assignment->update();
         return redirect('/dashboard')->with('status','Assignment Updated Successfully');
+    }
+
+    public function getAssignmentDetailPage($id){
+        if(Auth::user()->role == 'admin'){
+            $userData = DB::table('users')
+            ->join('admins','users.id','=','admins.user_id')
+            ->select('users.username','admins.name','admins.profile_picture','admins.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }else if(Auth::user()->role == 'mentor'){
+            $userData = DB::table('users')
+            ->join('mentors','users.id','=','mentors.user_id')
+            ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }
+        $auth = Auth::check();
+        $assignmentDetail = Assignment::find($id);
+        $completedMenteeList = DB::table('submitted_assignments')
+        ->join('mentees','submitted_assignments.mentee_id','=','mentees.id')
+        ->select('submitted_assignments.id','submitted_assignments.file','mentees.name','submitted_assignments.score')
+        ->where('submitted_assignments.assignment_id','=',$id)->get();                        
+        return view('assignment_detail',compact('userData','auth','assignmentDetail','completedMenteeList'));
+    }
+    
+    public function rateAssignment(Request $request,$id){
+        $this->validate($request,[
+            'score' => 'required|integer'
+        ]);
+        $submittedAssignment = SubmittedAssignment::find($id);
+        $submittedAssignment->score = $request->score;
+        $submittedAssignment->update();
+        return redirect('/dashboard')->with('status','Assignment Rated Successfully');
     }
 }

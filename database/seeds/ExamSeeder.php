@@ -15,7 +15,9 @@ class ExamSeeder extends Seeder
         DB::table('exams')->insert(array(
             array(
                 'course_id' => '1',
-                'file' => 'file/exam1.docx'
+                'name' => 'Examination For Java',
+                'type' => 'Project',
+                'file' => 'exam/exam1.docx'
             )
         ));
     }

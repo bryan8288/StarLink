@@ -17,6 +17,8 @@ class CreateExamsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->string('name');
+            $table->string('type');
             $table->string('file');
             $table->timestamps();
         });

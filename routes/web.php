@@ -124,3 +124,7 @@ Route::put('editVideo/{videoId}/{moduleId}','ModuleController@editVideo');
 Route::post('addAssignment/{moduleId}','ModuleController@uploadAssignment');
 Route::post('deleteAssignment/{assignmentId}','ModuleController@deleteAssignment');
 Route::put('editAssignment/{assignmentId}/{moduleId}','ModuleController@editAssignment');
+Route::get('assignmentDetail/{id}','ModuleController@getAssignmentDetailPage');
+Route::post('rateAssignment/{id}','ModuleController@rateAssignment');
+Route::post('addExam/{courseId}','ExamController@uploadExam');
+
