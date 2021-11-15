@@ -19,11 +19,19 @@ use App\Imports\QuestionImport;
 class ExamController extends Controller
 {
     public function uploadExam(Request $request, $courseId){
-        $this->validate($request,[
-            'name' => 'required|unique:exams|min:5',
-            'type' => 'required',
-            'file' => 'required'
-        ]);
+        if($request->type == 'Project'){
+            $this->validate($request,[
+                'name' => 'required|unique:exams|min:5',
+                'type' => 'required',
+                'file' => 'required'
+            ]);
+        }else{
+            $this->validate($request,[
+                'name' => 'required|unique:exams|min:5',
+                'type' => 'required',
+                'file' => 'required|mimes:xls,xlsx'
+            ]);
+        }
         $exam = new Exam();    
         $exam->name = $request->name;
         $exam->type = $request->type;

@@ -33,11 +33,14 @@
         <div style="display: flex">
             <h4 style="margin-top:30px; margin-left:2.5%; width: 80%;float:left">{{$video->name}}</h4>
             <div style="width:20%; float: right; display: flex;">
-                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editVideo" style="height: 40px; margin-top: 30px; background-color: #27353F">Edit</button>
+                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editVideo"
+                    style="height: 40px; margin-top: 30px; background-color: #27353F">Edit</button>
                 <form action="{{'/deleteVideo/'.$video->id}}" method="post">
                     {{csrf_field()}}
                     {{method_field('post')}}
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Video?')" style="height: 40px; margin-left: 20px; margin-top: 30px">Delete</button>
+                    <button type="submit" class="btn btn-danger"
+                        onclick="return confirm('Are you sure to Delete this Video?')"
+                        style="height: 40px; margin-left: 20px; margin-top: 30px">Delete</button>
                 </form>
 
                 <div class="modal fade" id="editVideo" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
@@ -45,26 +48,29 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="popupmodel">Video</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
-                            <form action="{{url('/editVideo/'.$video->id.'/'.$id)}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('/editVideo/'.$video->id.'/'.$id)}}" method="post"
+                                enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 {{method_field('put')}}
                                 <div class="modal-body">
                                     <div class="courseDetail">
                                         <h5 style="width: 30%;float:left">Name</h5>
-                                        <input style="width:70%; float: right;" type="text" name="name" class="form-control"
-                                            style="margin-bottom: 5px" value="{{$video->name}}">
+                                        <input style="width:70%; float: right;" type="text" name="name"
+                                            class="form-control" style="margin-bottom: 5px" value="{{$video->name}}">
                                     </div>
                                     <div class="courseDetail">
                                         <h5 style="width: 30%;float:left">Description</h5>
-                                        <textarea class="form-control" style="width:70%; float: right;" name="description"
-                                             rows="5">{{$video->description}}</textarea>
+                                        <textarea class="form-control" style="width:70%; float: right;"
+                                            name="description" rows="5">{{$video->description}}</textarea>
                                     </div>
                                     <div class="courseDetail">
                                         <h5 style="width: 30%;float:left">Other Reference</h5>
                                         <input style="width:70%; float: right;" type="text" name="reference"
-                                            class="form-control" style="margin-bottom: 5px" value="{{$video->other_reference}}">
+                                            class="form-control" style="margin-bottom: 5px"
+                                            value="{{$video->other_reference}}">
                                     </div>
                                     <div class="companyDetail">
                                         <h5 style="width: 30%;float:left">Video</h5>
@@ -77,7 +83,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>

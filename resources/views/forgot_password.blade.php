@@ -20,13 +20,14 @@
                 <form method="POST" action="/forgot-password" style="margin:20px;">
                     @csrf
                     <div class="form-group row" style="display: contents">
-                        <label for="email" class="col-md-4 col-form-label text-md-right" style="font-size: 18">E-Mail Address</label>
+                        <label for="email" class="col-md-4 col-form-label text-md-right" style="font-size: 18">E-Mail
+                            Address</label>
                         <div class="col-md-12" style="justify-content: center; display: flex">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                                 name="email" value="{{ old('email') }}" autocomplete="email" autofocus
                                 placeholder="Enter E-Mail Address" style="width: 300px">
 
-                           
+
                         </div>
                     </div>
 
@@ -43,7 +44,7 @@
                     </span>
                     @enderror
 
-                  
+
                     {{-- <h4>{{$message}}</h4> --}}
                 </form>
             </div>
