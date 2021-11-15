@@ -12,6 +12,9 @@ use App\DiscussionAdmin;
 use App\DiscussionMentor;
 use App\Exam;
 use App\User;
+use Excel;
+use App\Imports\QuestionImport;
+
 
 class ExamController extends Controller
 {
@@ -30,6 +33,11 @@ class ExamController extends Controller
 
         $exam->course_id = $courseId;
         $exam->save();
+
+        if($request->type == 'Coding' || $request->type == 'Essai'){
+            $path = $request->file('file')->getRealPath();
+            $data = Excel::import(new QuestionImport($exam->id), $path);
+        }
         
         return redirect('/dashboard')->with('status','Exam Added Successfully');
     }

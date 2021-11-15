@@ -206,6 +206,7 @@
                                     <option selected>-- Choose Type --</option>
                                     <option>Project</option>
                                     <option>Coding</option>
+                                    <option>Essai</option>
                                 </select>
                             </div>
                             <div class="companyDetail">
