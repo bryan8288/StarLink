@@ -286,6 +286,41 @@
   box-shadow: inset 0 0 5px grey; 
   border-radius: 10px;
 }
+.no-outline:focus {
+        outline: none;
+      }
+
+.search-container {
+  float: right;
+}
+
+.search-container button {
+  float: right;
+  margin-right: 16px;
+  padding: auto;
+  background: #ddd;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .search-container {
+    float: none;
+  }
+    .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+}
 
 </style>
 
