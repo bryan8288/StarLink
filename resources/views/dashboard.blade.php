@@ -61,7 +61,7 @@
                     <h4 style="font-size: 25px; margin-bottom:15px">There is no schedule for today.</h4>
                 @else
                     @foreach ($todaySchedule as $item)
-                        <h6 style="font-size: 25px; margin-bottom:15px">{{$item->name}} ({{$item->start_time}} - {{$item->end_time}})</h6>
+                        <h6 style="font-size: 25px; margin-bottom:15px">{{$item->name}} - {{$item->courseName}} ({{$item->start_time}} - {{$item->end_time}})</h6>
                     @endforeach
                 @endif
             </div>
@@ -93,6 +93,57 @@
                         <div style="margin-left:2.5%; display: flex">
                             <h5 style="width: 90%; float: right;">{{$assignment->title}}</h5>
                             <h5 style="width: 10%; float: left;">{{$assignment->totalPending}}</h5>
+                        </div>
+                    @endforeach
+                    <hr style="border-top: 1px solid;margin-left:1.5%;width:95%">
+                </div>                    
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @elseif ($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
+    <div class="col-md-12" style="padding-top: 50px; display: flex;">
+        <div class="col-md-7" id="frame2" style="margin-left: 40px">
+            <center>
+                <h4>Today Schedule</h4>
+            </center>
+            <div class="col-md-3" id="subBackground">
+                @if($todaySchedule->count() == 0)
+                    <h4 style="font-size: 25px; margin-bottom:15px">There is no schedule for today.</h4>
+                @else
+                    @foreach ($todayScheduleMentee as $item)
+                        <h6 style="font-size: 25px; margin-bottom:15px">{{$item->name}} - {{$item->courseName}} ({{$item->start_time}} - {{$item->end_time}})</h6>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+        <div class="col-md-4" id="frame2" style="margin-left: 30px">
+            <center>
+                <h4>Your Score</h4>
+            </center>
+            <div class="col-md-1" id="subBackground">
+            @foreach ($score as $item)
+            <div class="col-md-12" style="display: flex; justify-content: center; margin-bottom:2px">
+                <h4 style="width:30%;float: left;">{{$item->name}}</h4>
+                <h4 style="width:20%;float: right;">{{$item->score}}</h4>
+            </div>
+            @endforeach
+            </div>
+        </div>
+    </div>
+    <div class="container p-4">
+        <div class="col-md-12" id="frame2">
+            <center>
+                <h4>Assignment</h4>
+            </center>
+            <div class="col-md-12" style="background-color: #99eeff; border-radius: 10px;">
+                @foreach ($assignmentMentee as $course)
+                <div style="margin-top: 10px">
+                    <h4 style="margin-left:2.5%;"><b>{{$course->name}}</b></h4>
+                    @foreach ($course->assignment as $assignment)
+                        <div style="margin-left:2.5%; display: flex">
+                            <h5 style="width: 80%; float: right;">{{$assignment->title}}</h5>
+                            <h5 style="width: 20%; float: left;">{{$assignment->dateDiff}} Day(s) Left</h5>
                         </div>
                     @endforeach
                     <hr style="border-top: 1px solid;margin-left:1.5%;width:95%">

@@ -29,6 +29,12 @@ class DashboardController extends Controller
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
+        }else if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
         }
         #adminDashboard
         $mentor = Mentor::all();
@@ -68,7 +74,8 @@ class DashboardController extends Controller
         
         $todaySchedule = DB::table('classes')
         ->join('mentors','classes.mentor_id','=','mentors.id')
-        ->select('classes.*')
+        ->join('courses','classes.course_id','=','courses.id')
+        ->select('classes.*','courses.name as courseName')
         ->where('classes.day_of_week','=',$day_of_week)
         ->where('mentors.id','=',$userData[0]->id)->get();
 
@@ -96,8 +103,51 @@ class DashboardController extends Controller
             $key->assignment = $assignment;
         }
         
+        #menteeDashboard
+        $todayScheduleMentee = DB::table('class_details')
+        ->join('classes','class_details.class_id','=','classes.id')
+        ->join('mentees','class_details.mentee_id','=','mentees.id')
+        ->join('courses','classes.course_id','=','courses.id')
+        ->select('classes.*','courses.name as courseName')
+        ->where('classes.day_of_week','=',$day_of_week)
+        ->where('mentees.id','=',$userData[0]->id)->get();
+
+        $score = DB::table('mentees')
+        ->join('scores','mentees.id','=','scores.mentee_id')
+        ->join('courses','courses.id','=','scores.course_id')
+        ->select('scores.score','courses.name')
+        ->where('mentees.id','=',$userData[0]->id)->get();
+
+        $menteeId = $userData[0]->id;
+        $assignmentMentee = DB::table('mentees')
+        ->join('class_details','mentees.id','=','class_details.mentee_id')
+        ->join('classes','class_details.class_id','=','classes.id')
+        ->join('courses','classes.course_id','=','courses.id')
+        ->join('modules','courses.id','=','modules.course_id')
+        ->join('assignments','modules.id','=','assignments.module_id')
+        ->select('courses.name','courses.id','mentees.id as menteeId')->distinct()
+        ->where('mentees.id','=',$userData[0]->id)
+        ->whereRaw('DATEDIFF(assignments.end_date,current_date) > 0')
+        ->whereNotIn('assignments.id',function($query) use ($menteeId){
+            $query->select('assignment_id')->from('submitted_assignments')
+            ->where('submitted_assignments.mentee_id','=',$menteeId);
+        })->get();
+
+        foreach ($assignmentMentee as $key) {
+            $assignment = DB::table('modules')
+            ->join('assignments','modules.id','=','assignments.module_id')
+            ->select('assignments.title','assignments.id',DB::raw('DATEDIFF(assignments.end_date,current_date) as dateDiff'))
+            ->where('modules.course_id','=',$key->id)
+            ->whereRaw('DATEDIFF(assignments.end_date,current_date) > 0')
+            ->whereNotIn('assignments.id',function($query) use ($menteeId){
+                $query->select('assignment_id')->from('submitted_assignments')
+                ->where('submitted_assignments.mentee_id','=',$menteeId);
+            })->get();
+
+            $key->assignment = $assignment;
+        }
         return view('dashboard',compact('userData','auth','totalMentee','totalMentor','companyJobs','totalRequestedMentoring','totalWorkingMentee',
-    'classList','todaySchedule','pendingAssignment'));
+    'classList','todaySchedule','pendingAssignment','todayScheduleMentee','score','assignmentMentee'));
     }
 
     public function logout(){ //buat logout untuk user dan diredirect ke page Login

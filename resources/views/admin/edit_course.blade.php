@@ -65,6 +65,13 @@
                     </button>
                 </a>
                 @endif
+                <a href="{{asset('storage/exam/templateCoding.xlsx')}}">
+                    <button type="button" class="btn btn-primary"
+                        style="background-color: #27353F; margin-top:30px; margin-left: 20px">
+                        <i class="fa fa-cloud-download"></i>
+                        Download Template Exam
+                    </button>
+                </a>
 
             </div>
 

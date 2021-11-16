@@ -21,13 +21,25 @@ class ScheduleController extends Controller
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
+
+            $scheduleList = DB::table('classes')
+            ->join('courses','classes.course_id','=','courses.id')
+            ->select('classes.*','courses.name as courseName')
+            ->where('classes.mentor_id','=',$userData[0]->id)->paginate(3);
+        }else if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+            $scheduleList = DB::table('classes')
+            ->join('class_details','classes.id','=','class_details.class_id')
+            ->join('courses','classes.course_id','=','courses.id')
+            ->select('classes.*','courses.name as courseName')
+            ->where('class_details.mentee_id','=',$userData[0]->id)->paginate(3);
         }
         $auth = Auth::check();
-          
-        $scheduleList = DB::table('classes')
-        ->join('courses','classes.course_id','=','courses.id')
-        ->select('classes.*','courses.name as courseName')
-        ->where('classes.mentor_id','=',$userData[0]->id)->paginate(3);
         
         $today = Carbon::now();
         $weekStartDate = $today->startOfWeek()->format('Y-m-d');

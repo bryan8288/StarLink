@@ -21,20 +21,36 @@ class ClassController extends Controller
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->where('users.id','=',Auth::id())
             ->get();
+
+            $class = DB::table('classes')
+            ->join('class_details','classes.id','=','class_details.class_id')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->orderBy('classes.name')
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->paginate(3);
         }else if(Auth::user()->role == 'mentor'){
             $userData = DB::table('users')
             ->join('mentors','users.id','=','mentors.user_id')
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
+
+            $class = DB::table('classes')
+            ->join('class_details','classes.id','=','class_details.class_id')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->orderBy('classes.name')
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->where('classes.mentor_id','=',$userData[0]->id)
+            ->paginate(3);
+        }else if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
         }
         $auth = Auth::check();
-        $class = DB::table('classes')
-        ->join('class_details','classes.id','=','class_details.class_id')
-        ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
-        ->orderBy('classes.name')
-        ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
-        ->paginate(3);
+        
         return view('admin/view_class',compact('auth','class','userData'));
     }
 
@@ -44,16 +60,31 @@ class ClassController extends Controller
             ->join('admins','users.id','=','admins.user_id')
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->get();
+
+            $class = DB::table('classes')
+            ->join('class_details','classes.id','=','class_details.class_id')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->orderBy('classes.name')
+            ->where('classes.name','like',"%{$request->keyword}%")
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->paginate(3);
         }else if(Auth::user()->role == 'mentor'){
             $userData = DB::table('users')
             ->join('mentors','users.id','=','mentors.user_id')
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
+
+            $class = DB::table('classes')
+            ->join('class_details','classes.id','=','class_details.class_id')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->orderBy('classes.name')
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->where('classes.mentor_id','=',$userData[0]->id)
+            ->where('classes.name','like',"%{$request->keyword}%")
+            ->paginate(3);
         }
         $auth = Auth::check();
-       
-        $class = Classes::where('name','like',"%{$request->keyword}%")->paginate(3);
 
         return view('admin/view_class',compact('userData','class','auth'));
     }
