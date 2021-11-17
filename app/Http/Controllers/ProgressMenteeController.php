@@ -100,6 +100,12 @@ class ProgressMenteeController extends Controller
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
+        } else if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
         }
 
         $mentee = Mentee::find($menteeId);
@@ -126,4 +132,33 @@ class ProgressMenteeController extends Controller
         ->where('classes.id','=',$classId)->paginate(3);
         return view('progress_mentee_detail_module',compact('auth','userData','mentee','completedModule','inProgressModule'));
     }
+
+    public function getCourseMentee(){
+        if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }
+        $auth = Auth::check();
+        $courseList = DB::table('classes')
+        ->join('class_details','classes.id','=','class_details.class_id')
+        ->join('courses','classes.course_id','=','courses.id')
+        ->select('courses.category','courses.name as courseName','courses.id')->distinct()
+        ->where('class_details.mentee_id','=',$userData[0]->id)->paginate(3);
+
+        foreach ($courseList as $key ) {
+            $classList = DB::table('classes')
+            ->join('class_details','classes.id','=','class_details.class_id')
+            ->select('classes.name','classes.id',DB::raw('count(class_details.mentee_id) as totalMentee'))->distinct()
+            ->groupBy('classes.name','classes.id')
+            ->where('class_details.mentee_id','=',$userData[0]->id)
+            ->where('classes.course_id','=',$key->id)->get();
+            
+            $key->class = $classList;
+        }
+        return view('progress_mentee',compact('auth','courseList','userData'));
+    }
+    
 }

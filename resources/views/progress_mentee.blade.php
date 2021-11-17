@@ -22,9 +22,15 @@
                 <div class="col-md-12" style="text-align: center; display: flex; flex-wrap: wrap">
                     @foreach ($item->class as $class)
                     <div class="col-md-4" style="margin-top: 5px">
+                    @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
+                    <a href="{{url('/progressmentee/detailByModule/'.$userData[0]->id.'/'.$class->id)}}" style="text-decoration: none">
+                        <button class="btn btn-secondary">{{$class->name}}</button>
+                    </a>
+                    @else
                     <a href="{{'/progressmentee/detail/'.$class->id}}" style="text-decoration: none; color: black">
                         <button class="btn btn-secondary">{{$class->name}}</button>
                     </a>
+                    @endif
                     </div>
                     @endforeach
                 </div>

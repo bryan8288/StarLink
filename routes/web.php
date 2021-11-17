@@ -132,3 +132,5 @@ Route::post('addExam/{courseId}','ExamController@uploadExam');
 Route::get('/applyCompany','ApplyCompanyController@show');
 Route::get('/courseList','CourseController@getCourseListForMentee');
 Route::post('/buyCourse/{menteeId}/{courseId}','CourseController@buyCourse');
+Route::get('progressmenteeForMentee/','ProgressMenteeController@getCourseMentee');
+Route::get('/score','ScoreController@getScoreList');

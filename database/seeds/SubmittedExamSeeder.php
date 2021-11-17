@@ -15,8 +15,10 @@ class SubmittedExamSeeder extends Seeder
         DB::table('submitted_exams')->insert(array(
             array(
                 'mentee_id' => '1',
+                'exam_id'=> '1',
                 'file' => 'submittedexam/submittedexam1.docx',
-                'is_finalized' => true
+                'is_finalized' => true,
+                'score' => 85
             )
         ));
     }
