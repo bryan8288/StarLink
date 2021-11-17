@@ -170,7 +170,7 @@ class ModuleController extends Controller
             'name' => 'required|unique:videos|min:5',
             'description' => 'required|min:5',
             'reference' => '', 
-            'video' => 'mimes:mp4,mov,zip'
+            'video' => 'mimes:mp4,mov,ogg'
         ]);
         $video = new Video();    
         $video->name = $request->name;
@@ -182,6 +182,7 @@ class ModuleController extends Controller
             $video->video_file = $video_path;
         }
         $video->module_id = $moduleId;
+        dd($request->file('Video'));
         $video->save();
         
         return redirect('/dashboard')->with('status','Video Added Successfully');
@@ -212,6 +213,7 @@ class ModuleController extends Controller
             $video->video_file = $video_path;
         }
         $video->module_id = $moduleId;
+
         $video->update();
         return redirect('/dashboard')->with('status','Video Updated Successfully');
     }

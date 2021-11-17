@@ -1,6 +1,6 @@
 @extends('layout.layoutUser')
 @section('content')
-<div class="col-md-12" id="background">
+<div class="col-md-12" id="background" style="min-height: 852px; height:auto">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,17 +94,19 @@
             </div>
         </div>
         <p style="margin-left:2.5%">{{$video->description}}</p>
-        <h4 style="margin-left:2.5%">Other Reference: {{$video->other_reference}}</h4>
+        <p style="margin-left:2.5%">Other Reference: {{$video->other_reference}}</p>
         @if(empty($video->video_file))
         <h4 style="margin-left:2.5%">There is no Video</h4>
         @else
+        <video src="{{asset('storage/'.$video->video_file)}}" width="800px" height="600px" style="margin-top: -70px; margin-left:35px" controls></video><br>
         <a href="{{asset('storage/'.$video->video_file)}}">
-            <button type="button" class="btn btn-primary" style="background-color: #27353F; margin-left:2.5%">
+            <button type="button" class="btn btn-primary" style="background-color: #27353F; margin-left:35px">
                 <i class="fa fa-cloud-download"></i>
                 Download
             </button>
         </a>
         @endif
+        
         <hr>
         @endforeach
         <div class="modal fade" id="uploadVideo" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
@@ -134,7 +136,7 @@
                             </div>
                             <div class="companyDetail">
                                 <h5 style="width: 30%;float:left">Video</h5>
-                                <input type="file" id="video" hidden name="video" />
+                                <input type="file" id="video" hidden name="video"/>
                                 <label style="color: white; font-size:16px; width: 200px; text-align:center"
                                     class="upload bg-dark" for="video">
                                     <i class="fa fa-cloud-upload"></i>
