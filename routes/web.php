@@ -128,7 +128,7 @@ Route::get('assignmentDetail/{id}','ModuleController@getAssignmentDetailPage');
 Route::post('rateAssignment/{id}','ModuleController@rateAssignment');
 Route::post('addExam/{courseId}','ExamController@uploadExam');
 
-
-
-#MENTEE
+#Mentee
 Route::get('/applyCompany','ApplyCompanyController@show');
+Route::get('/courseList','CourseController@getCourseListForMentee');
+Route::post('/buyCourse/{menteeId}/{courseId}','CourseController@buyCourse');

@@ -51,11 +51,21 @@
                         </form>
                     </div>
                     @else
+                    @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
+                    <form action="{{url('buyCourse/'.$userData[0]->id.'/'.$item->id)}}" method="post">
+                        {{csrf_field()}}
+                        <button class="btn btn-primary" style="width: 180px; margin-top: 5px; background-color:#EE8F1B">Buy Course</button>
+                    </form>
+                        <a href="{{'/editCourse/'.$item->id}}">
+                            <button class="btn btn-primary" style="width: 180px; margin-top: 10px">See Detail</button>
+                        </a>
+                    @else
                     <center>
                         <a href="{{'/editCourse/'.$item->id}}">
                             <button class="btn btn-primary" style="width: 180px; margin-top: 30px">See Detail</button>
                         </a>
                     </center>
+                    @endif
                     @endif
                 </div>
             </div>

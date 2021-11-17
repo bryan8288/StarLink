@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\CourseTransaction;
 use App\Mentor;
 use App\Module;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +39,26 @@ class CourseController extends Controller
         return view('admin/view_course',compact('auth','course','userData'));
     }
 
+    public function getCourseListForMentee(){
+        if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+            $menteeId = $userData[0]->id;
+            $course = DB::table('courses')
+            ->select('courses.*')
+            ->whereNotIn('courses.id',function($query) use($menteeId){
+                $query->select('course_id')->from('course_transactions')
+                ->where('course_transactions.mentee_id','=',$menteeId);
+            })->paginate(3);
+        }
+        $auth = Auth::check();
+        return view('admin/view_course',compact('auth','course','userData'));
+    }
+
     public function getProductbySearch(Request $request){ //buat nampilin hasil searching sesuai keyword yang diinput user (keyword akan dicocokkan dengan nama product)
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
@@ -59,6 +80,21 @@ class CourseController extends Controller
             ->select('courses.*')
             ->where('classes.mentor_id','=',$userData[0]->id)
             ->where('courses.name','like',"%{$request->keyword}%")->paginate(3);
+        }else if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+            $menteeId = $userData[0]->id;
+            $course = DB::table('courses')
+            ->select('courses.*')
+            ->whereNotIn('courses.id',function($query) use($menteeId){
+                $query->select('course_id')->from('course_transactions')
+                ->where('course_transactions.mentee_id','=',$menteeId);
+            })
+            ->where('courses.name','like',"%{$request->keyword}%")->paginate(3);
         }
         $auth = Auth::check();
         return view('admin/view_course',compact('userData','course','auth'));
@@ -77,6 +113,12 @@ class CourseController extends Controller
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
+        }else if(Auth::user()->role == 'mentee'){
+        $userData = DB::table('users')
+        ->join('mentees','users.id','=','mentees.user_id')
+        ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+        ->where('users.id','=',Auth::id())
+        ->get();
         }
         $auth = Auth::check();
         $courseDetail = Course::find($id);
@@ -154,5 +196,15 @@ class CourseController extends Controller
         $course->save();
         
         return redirect('/dashboard')->with('status','Course Added Successfully');
+    }
+
+    public function buyCourse($menteeId,$courseId){
+        $courseTransaction = new CourseTransaction();
+        $courseTransaction->mentee_id = $menteeId;
+        $courseTransaction->course_id = $courseId;
+        $courseTransaction->status = 'In Progress';
+        $courseTransaction->save();
+
+        return redirect('/dashboard')->with('status','Course Bought Successfully');
     }
 }

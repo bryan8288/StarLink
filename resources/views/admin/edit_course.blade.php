@@ -6,7 +6,7 @@
         <form action="{{url('editCourse/update/'.$courseDetail->id)}}" method="post">
             {{csrf_field()}}
             {{method_field('put')}}
-            @if($auth && \Illuminate\Support\Facades\Auth::user()->role != 'admin')
+            @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentor')
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Name</h5>
                 <input style="width:70%; float: right;" type="text" name="name" class="form-control"
@@ -72,9 +72,7 @@
                         Download Template Exam
                     </button>
                 </a>
-
             </div>
-
 
             <div style="margin-top: 30px">
                 <h4>Modules</h4>
@@ -107,6 +105,79 @@
                     </table>
                 </div>
             </div>
+            @elseif($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
+            <div class="courseDetail">
+                <h5 style="width: 30%;float:left">Name</h5>
+                <input style="width:70%; float: right;" type="text" name="name" class="form-control"
+                    value="{{$courseDetail->name}}" style="margin-bottom: 5px" readonly>
+            </div>
+            <div class="courseDetail">
+                <h5 style="width: 30%;float:left">Category</h5>
+                <select name="category" class="form-control input-sm" disabled
+                    style="margin-bottom: 5px; float :right;width:70%">
+                    <option selected>{{$courseDetail->category}}</option>
+                    @if($courseDetail->category=='E-Learning')
+                    <option>Curriculum</option>
+                    @endif
+                    @if($courseDetail->category=='Curriculum')
+                    <option>E-Learning</option>
+                    @endif
+                </select>
+            </div>
+            <div class="courseDetail">
+                <h5 style="width: 30%;float:left">Description</h5>
+                <textarea class="form-control" style="width:70%; float: right;" name="description" rows="5"
+                    readonly>{{$courseDetail->description}}</textarea>
+            </div>
+            <div class="courseDetail">
+                <h5 style="width: 30%;float:left">Price</h5>
+                <input style="width:70%; float: right;" type="text" name="price" class="form-control"
+                    value="{{$courseDetail->price}}" style="margin-bottom: 5px" readonly>
+            </div>
+            <div class="courseDetail">
+                <h5 style="width: 30%;float:left">Weeks</h5>
+                <input style="width:70%; float: right;" type="number" name="weeks" class="form-control"
+                    value="{{$courseDetail->weeks}}" style="margin-bottom: 5px" readonly>
+            </div>
+            <div class="courseDetail">
+                <h5 style="width: 30%;float:left">KKM</h5>
+                <input style="width:70%; float: right;" type="number" name="kkm" class="form-control"
+                    value="{{$courseDetail->kkm}}" style="margin-bottom: 5px" readonly>
+            </div>
+            <div class="courseDetail">
+                <h5 style="width: 30%;float:left">Exam Time</h5>
+                <input style="width:70%; float: right;" type="time" name="kkm" class="form-control"
+                    value="{{$courseDetail->exam_time}}" style="margin-bottom: 5px" readonly>
+            </div>
+
+            <div style="margin-top: 30px">
+                <h4>Modules</h4>
+                <div class="modules">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">KKM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i=1;?>
+                            @foreach ($moduleList as $module)
+                            <tr class="table-info">
+                                <th scope="row">{{$i}}</th>
+                                <td>{{$module->name}}</td>
+                                <td class="cardText">{{$module->description}}</td>
+                                <td>{{$module->kkm}}</td>
+                            </tr>
+                            <?php $i++;?>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
             @else
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Name</h5>
@@ -188,8 +259,15 @@
                 </center>
             </div>
             @endif
-
         </form>
+        @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
+        <center>
+            <form action="{{url('buyCourse/'.$userData[0]->id.'/'.$courseDetail->id)}}" method="post">
+                {{csrf_field()}}
+                <button class="btn btn-primary" style="width: 180px; margin-top: 15px; background-color:#EE8F1B">Buy Course</button>
+            </form>
+        </center>
+        @endif
 
         <div class="modal fade" id="uploadExam" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">

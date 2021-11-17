@@ -48,6 +48,19 @@ class ClassController extends Controller
             ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
             ->where('users.id','=',Auth::id())
             ->get();
+
+            $menteeId = $userData[0]->id;
+            $class = DB::table('classes')
+            ->join('class_details','classes.id','=','class_details.class_id')
+            ->join('courses','classes.course_id','=','courses.id')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->orderBy('classes.name')
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->whereIn('classes.id',function($query) use($menteeId){
+                $query->select('class_id')->from('class_details')
+                ->where('class_details.mentee_id','=',$menteeId);
+            })
+            ->paginate(3);
         }
         $auth = Auth::check();
         
@@ -83,6 +96,26 @@ class ClassController extends Controller
             ->where('classes.mentor_id','=',$userData[0]->id)
             ->where('classes.name','like',"%{$request->keyword}%")
             ->paginate(3);
+        }else if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+            $menteeId = $userData[0]->id;
+            $class = DB::table('classes')
+            ->join('class_details','classes.id','=','class_details.class_id')
+            ->join('courses','classes.course_id','=','courses.id')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->orderBy('classes.name')
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->whereIn('classes.id',function($query) use($menteeId){
+                $query->select('class_id')->from('class_details')
+                ->where('class_details.mentee_id','=',$menteeId);
+            })
+            ->where('classes.name','like',"%{$request->keyword}%")
+            ->paginate(3);
         }
         $auth = Auth::check();
 
@@ -100,6 +133,12 @@ class ClassController extends Controller
             $userData = DB::table('users')
             ->join('mentors','users.id','=','mentors.user_id')
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }else if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
             ->where('users.id','=',Auth::id())
             ->get();
         }
