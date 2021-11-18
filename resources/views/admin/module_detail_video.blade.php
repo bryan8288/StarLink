@@ -136,9 +136,9 @@
                             </div>
                             <div class="companyDetail">
                                 <h5 style="width: 30%;float:left">Video</h5>
-                                <input type="file" id="video" hidden name="video"/>
+                                <input type="file" id="video_file" hidden name="video_file" />
                                 <label style="color: white; font-size:16px; width: 200px; text-align:center"
-                                    class="upload bg-dark" for="video">
+                                    class="upload bg-dark" for="video_file">
                                     <i class="fa fa-cloud-upload"></i>
                                     Upload</label><br>
                                 <p style="font-size: 1px"> </p>

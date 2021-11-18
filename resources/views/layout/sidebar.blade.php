@@ -36,7 +36,7 @@
                 <a href="{{'/progressmenteeForMentee/'}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-clock"></i> <span>Progress Mentee</span></a>
                 <a href="{{'/class/'}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-archive"></i> <span>Class</span></a>
                 <a href="{{'/score/'}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-archive"></i> <span>Score</span></a>
-                <a href="#" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-archive"></i> <span>Apply Company</span></a>
+                <a href="{{'/applyCompany/'}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-archive"></i> <span>Apply Company</span></a>
             @endif
             @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'company')
             <center>

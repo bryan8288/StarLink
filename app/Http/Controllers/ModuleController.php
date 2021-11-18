@@ -170,19 +170,17 @@ class ModuleController extends Controller
             'name' => 'required|unique:videos|min:5',
             'description' => 'required|min:5',
             'reference' => '', 
-            'video' => 'mimes:mp4,mov,ogg'
+            'video_file' => 'mimes:mp4,mov,ogg'
         ]);
         $video = new Video();    
         $video->name = $request->name;
         $video->description = $request->description;
         $video->other_reference = $request->reference;
-
-        if($request->video !=null){
-            $video_path = $request->file('video')->store('video','public');
+        if($request->file('video_file') !=null){
+            $video_path = $request->file('video_file')->store('video','public');
             $video->video_file = $video_path;
         }
         $video->module_id = $moduleId;
-        dd($request->file('Video'));
         $video->save();
         
         return redirect('/dashboard')->with('status','Video Added Successfully');

@@ -49,8 +49,15 @@
                     </div>
                     <div class="col-md-2" style="display: flex">
                         <div style="width: 70%;float:left;">
-                            <img src="{{url('storage/'.$userData[0]->profile_picture)}}"
+                            @if (empty($userData[0]->profile_picture))
+                            <i class="fa fa-user-circle-o card-img-top" style=" font-size: 50px; margin-left:30px"></i>
+                            @else
+                            <center>
+                                <img src="{{url('storage/'.$userData[0]->profile_picture)}}"
                                 style="height:50px; border-radius: 50%; border: 6px solid #218EED; width: 50px; margin-left: 30px">
+                            </center>
+                            @endif
+                            
                         </div>
                         <div class="dropdown" style="margin-top: 7px">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown"

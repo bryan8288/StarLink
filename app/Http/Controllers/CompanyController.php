@@ -130,9 +130,6 @@ class CompanyController extends Controller
             ->get();
         }
         $auth = Auth::check();
-        // $course = Course::where('name','like',"%{$request->keyword}%")->paginate(3);
-        // $job = CompanyJob::where('company_id','=',$userData[0]->id)->get();
-        // $jobSearched = $job::where('name','like',"%{$request->keyword}%")->paginate(3);
         $job = DB::table('company_jobs')
         ->select('company_jobs.*')
         ->where('company_id','=',$userData[0]->id)
@@ -140,13 +137,19 @@ class CompanyController extends Controller
         return view('company/view_job',compact('userData','job','auth'));
     }
 
-    public function goEditPage($id){ //buat nampilin page EditProduct
+    public function goEditPage($id){ 
         if(Auth::user()->role == 'company'){
             $userData = DB::table('users')
             ->join('companies','users.id','=','companies.user_id')
             ->select('users.username','companies.name as companyName','companies.profile_picture','companies.id')
             ->where('users.id','=',Auth::id())
             ->get();
+        } else if(Auth::user()->role == 'mentee'){
+                $userData = DB::table('users')
+                ->join('mentees','users.id','=','mentees.user_id')
+                ->select('mentees.name','mentees.id','mentees.birth_date','mentees.gender','users.email','mentees.phone','mentees.birth_place','mentees.address','mentees.portofolio','mentees.cv','mentees.profile_picture','users.username')
+                ->where('users.id','=',Auth::id())
+                ->get();
         }
         $jobDetail = CompanyJob::find($id);
         $auth = Auth::check();

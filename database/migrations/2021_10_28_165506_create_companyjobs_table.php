@@ -21,7 +21,7 @@ class CreateCompanyjobsTable extends Migration
             $table->longText('description');
             $table->string('programming_language');
             $table->integer('capacity');
-            $table->string('salary');
+            $table->integer('salary');
             $table->string('type');
             $table->timestamps();
         });
