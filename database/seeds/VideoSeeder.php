@@ -18,7 +18,7 @@ class VideoSeeder extends Seeder
                 'name' => 'Video 1',
                 'description' => 'Introduction to Java',
                 'other_reference' => 'https://www.youtube.com/watch?v=jiUxHm9l1KY',
-                'video_file' => 'video/video1.zip'
+                'video_file' => 'video/video1.mp4'
             ),
             array(
                 'module_id' => '1',

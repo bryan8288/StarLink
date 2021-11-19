@@ -71,6 +71,12 @@ class ModuleController extends Controller
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
+        }else if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
         }
         $auth = Auth::check();
         $moduleDetail = Module::find($id);
@@ -121,6 +127,12 @@ class ModuleController extends Controller
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
+        }else if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
         }
         $auth = Auth::check();
         $module = Module::find($id)->get();
@@ -138,6 +150,12 @@ class ModuleController extends Controller
             $userData = DB::table('users')
             ->join('mentors','users.id','=','mentors.user_id')
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }else if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
             ->where('users.id','=',Auth::id())
             ->get();
         }
@@ -159,9 +177,31 @@ class ModuleController extends Controller
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
+        }else if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
         }
         $auth = Auth::check();
         $assignmentList = Assignment::where('module_id','=',$id)->get();
+
+        if(Auth::user()->role == 'mentee'){
+
+            foreach ($assignmentList as $key) {
+            $submitted = DB::table('submitted_assignments')->select(DB::raw('count(1) as count'))
+                            ->where('assignment_id','=',$key->id)
+                            ->where('mentee_id','=',$userData[0]->id)->get();
+    
+            if($submitted[0]->count == 0){
+                $isSubmitted = false;
+            }else $isSubmitted = true;
+
+            $key->isSubmitted = $isSubmitted;
+            }
+        }
+
         return view('admin/module_detail_assignment',compact('userData','auth','assignmentList','id'));
     }
 
@@ -299,5 +339,29 @@ class ModuleController extends Controller
         $submittedAssignment->score = $request->score;
         $submittedAssignment->update();
         return redirect('/dashboard')->with('status','Assignment Rated Successfully');
+    }
+
+    public function submitAssignment(Request $request, $assignmentId){
+        $this->validate($request,[
+            'assignment_file' => 'required'
+        ]);
+
+        $userData = DB::table('users')
+        ->join('mentees','users.id','=','mentees.user_id')
+        ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+        ->where('users.id','=',Auth::id())
+        ->get();
+
+        $submittedAssignment = new SubmittedAssignment();
+        $submittedAssignment->mentee_id = $userData[0]->id;
+        $submittedAssignment->assignment_id = $assignmentId;
+
+        $assignment_path = $request->file('assignment_file')->store('submittedassignment','public');
+        $submittedAssignment->file = $assignment_path;
+
+        $submittedAssignment->uploaded_date = date('Y-m-d');
+        $submittedAssignment->save();
+        return redirect('/dashboard')->with('status','Assignment Submitted Successfully');
+
     }
 }

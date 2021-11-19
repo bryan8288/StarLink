@@ -207,4 +207,35 @@ class CourseController extends Controller
 
         return redirect('/dashboard')->with('status','Course Bought Successfully');
     }
+
+    public function getMyCourseForMentee(){
+        if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+            $course = DB::table('course_transactions')
+            ->join('courses','courses.id','=','course_transactions.course_id')
+            ->select('courses.*')
+            ->where('course_transactions.mentee_id','=',$userData[0]->id)->paginate(3);
+        }
+        $auth = Auth::check();
+        return view('mentee/mycourse',compact('auth','course','userData'));
+    }
+
+    public function getMyCourseDetail($id){ 
+        if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }
+        $auth = Auth::check();
+        $courseDetail = Course::find($id);
+        $moduleList = Module::where('course_id','=',$id)->get();
+        return view('mentee/mycourse_detail',compact('courseDetail','auth','userData','moduleList'));
+    }
 }
