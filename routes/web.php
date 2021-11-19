@@ -139,3 +139,4 @@ Route::get('/score','ScoreController@getScoreList');
 Route::get('/mycourse','CourseController@getMyCourseForMentee');
 Route::get('/mycourse/detail/{id}','CourseController@getMyCourseDetail');
 Route::post('/submitAssignment/{assignmentId}','ModuleController@submitAssignment');
+
