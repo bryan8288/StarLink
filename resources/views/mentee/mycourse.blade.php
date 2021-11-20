@@ -14,7 +14,7 @@
         </form>
         <hr style="color: #FFFFFF;height: 3px">
         
-        {{-- @if (count($course) == 0)
+        @if (count($course) == 0)
         <div style="margin-left: 30px; margin-top: 20px">
             <h4 style="margin-top: 10px">Can't find the course you want ?</h4>
             <h4>You can request your wanted course below : </h4>
@@ -23,7 +23,7 @@
                 <h4>Link</h4>
             </a>
         </div>
-        @else --}}
+        @else
         <div style="display: flex; margin-top :20px">
             @foreach ($course as $item)
             <div class="col-md-2 card">

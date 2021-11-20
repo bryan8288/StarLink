@@ -237,6 +237,16 @@ class CourseController extends Controller
         $auth = Auth::check();
         $courseDetail = Course::find($id);
         $moduleList = Module::where('course_id','=',$id)->get();
-        return view('mentee/mycourse_detail',compact('courseDetail','auth','userData','moduleList'));
+        $scoreboard = DB::table('scores')
+        ->join('mentees','scores.mentee_id','=','mentees.id')
+        ->select('mentees.name as menteeName','scores.score')
+        ->orderByDesc('scores.score')
+        ->where('scores.course_id','=',$id)->get();
+
+        $exam = DB::table('exams')
+                ->select('exams.*')
+                ->where('exams.course_id','=',$id)->get();
+
+        return view('mentee/mycourse_detail',compact('courseDetail','auth','userData','moduleList','scoreboard','exam'));
     }
 }

@@ -97,17 +97,52 @@
         </div>
         <p style="margin-left:2.5%">{{$video->description}}</p>
         <p style="margin-left:2.5%">Other Reference: {{$video->other_reference}}</p>
-        @if(empty($video->video_file))
-        <h4 style="margin-left:2.5%">There is no Video</h4>
-        @else
-        <video src="{{asset('storage/'.$video->video_file)}}" width="800px" height="600px" style="margin-top: -70px; margin-left:35px" controls></video><br>
-        <a href="{{asset('storage/'.$video->video_file)}}">
-            <button type="button" class="btn btn-primary" style="background-color: #27353F; margin-left:35px">
-                <i class="fa fa-cloud-download"></i>
-                Download
-            </button>
-        </a>
-        @endif
+        <div>
+            @if(empty($video->video_file))
+            <div style="display: flex">
+                <div style="width:90%">
+                    <h4 style="margin-left:2.5%">There is no Video</h4>
+                </div>
+                @if ($video->isCompleted == true)
+                    <button disabled type="submit" class="btn btn-primary" style="background-color: #27353F;">
+                        Already Done
+                    </button>
+                @else
+                <form action="{{url('video/done/'.$id.'/'.$video->id)}}" method="POST">
+                    {{ csrf_field() }}
+                        <button type="submit" class="btn btn-primary" style="background-color: #27353F; margin-left:2.5%">
+                            Done
+                        </button>
+                </form>
+                @endif
+            </div>
+            @else
+            <video src="{{asset('storage/'.$video->video_file)}}" width="800px" height="600px" style="margin-top: -70px; margin-left:35px" controls></video><br>
+            <div style="display: flex">
+                <div style="width: 90%">
+                    <a href="{{asset('storage/'.$video->video_file)}}">
+                            <button type="button" class="btn btn-primary" style="background-color: #27353F; margin-left:35px">
+                                <i class="fa fa-cloud-download"></i>
+                                Download
+                            </button>
+                    </a>
+                </div>
+                @if ($video->isCompleted == true)
+                    <button disabled type="submit" class="btn btn-primary" style="background-color: #27353F;">
+                        Already Done
+                    </button>
+                @else
+                <form action="{{url('video/done/'.$id.'/'.$video->id)}}" method="POST">
+                    {{ csrf_field() }}
+                        <button type="submit" class="btn btn-primary" style="background-color: #27353F; margin-left:2.5%">
+                            Done
+                        </button>
+                </form>
+                @endif
+            </div>
+            @endif
+            
+        </div>
         
         <hr>
         @endforeach
@@ -164,6 +199,11 @@
         <li>{{$error}}</li>
         @endforeach
     </ul>
+</div>
+@endif
+@if(session('status'))
+<div class="alert alert-success" style="margin-top :20px;">
+    {{session('status')}}
 </div>
 @endif
 </main>

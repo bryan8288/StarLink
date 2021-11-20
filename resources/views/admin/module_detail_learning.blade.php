@@ -26,14 +26,36 @@
         <h4 style="margin-top:30px; margin-left:2.5%">{{$module[0]->name}}</h4>
         <p style="margin-left:2.5%">{{$module[0]->description}}</p>
         <h5 style="margin-left:2.5%">You Can Download Learning Material for This Course Here : </h5>
-        <a href="{{asset('storage/'.$module[0]->learning_material)}}">
-            <button type="button" class="btn btn-primary" style="background-color: #27353F; margin-left:2.5%">
-                <i class="fa fa-cloud-download"></i>
-                Download
-            </button>
-        </a>
+        <div class="col-md-12" style="display: flex">
+            <div style="width: 90%">
+                <a href="{{asset('storage/'.$module[0]->learning_material)}}">
+                    <button type="button" class="btn btn-primary" style="background-color: #27353F; margin-left:30px">
+                        <i class="fa fa-cloud-download"></i>
+                        Download
+                    </button>
+                </a>
+            </div>
+            @if ($isCompleted == true)
+                <button disabled type="submit" class="btn btn-primary" style="background-color: #27353F;">
+                    Already Done
+                </button>
+            @else
+            <form action="{{url('learning/done/'.$id)}}" method="POST">
+            {{ csrf_field() }}
+                <button type="submit" class="btn btn-primary" style="background-color: #27353F; margin-left:2.5%">
+                    Done
+                </button>
+            </form>
+            @endif
+
+        </div>
     </div>
 </div>
+@if(session('status'))
+<div class="alert alert-success" style="margin-top :20px;">
+    {{session('status')}}
+</div>
+@endif
 </main>
 </div>
 </div>

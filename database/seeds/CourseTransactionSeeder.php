@@ -15,13 +15,6 @@ class CourseTransactionSeeder extends Seeder
         DB::table('course_transactions')->insert(array(
             array(
                 'course_id' => '1',
-                'mentee_id' => '1',
-                'status' => 'In Progress',
-                'mentor_feedback' => null,
-                'graduated_date' => null
-            ),
-            array(
-                'course_id' => '1',
                 'mentee_id' => '2',
                 'status' => 'In Progress',
                 'mentor_feedback' => null,

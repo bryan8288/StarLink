@@ -49,30 +49,19 @@
                 <input style="width:70%; float: right;" type="time" name="kkm" class="form-control"
                     value="{{$courseDetail->exam_time}}" style="margin-bottom: 5px" readonly>
             </div>
-            {{-- <div style="display: flex">
-                <button type="button" class="btn btn-primary" style="background-color: #27353F; margin-top:30px"
-                    data-bs-toggle="modal" data-bs-target="#uploadExam">
-                    <i class="fa fa-cloud-upload"></i>
-                    Upload Exam
-                </button>
+            <div style="display: flex">
                 @if($exam->count()>0)
+                <button type="button" class="btn btn-secondary" style="background-color: #27353F; margin-top: 30px"
+                    data-bs-toggle="modal" data-bs-target="#scoreboard">View Scoreboard</button>
                 <a href="{{asset('storage/'.$exam[0]->file)}}">
                     <button type="button" class="btn btn-primary"
                         style="background-color: #27353F; margin-top:30px; margin-left: 20px">
-                        <i class="fa fa-cloud-download"></i>
-                        Download Exam
+                        {{-- <i class="fa fa-cloud-download"></i> --}}
+                        Go To Exam
                     </button>
                 </a>
                 @endif
-                <a href="{{asset('storage/exam/templateCoding.xlsx')}}">
-                    <button type="button" class="btn btn-primary"
-                        style="background-color: #27353F; margin-top:30px; margin-left: 20px">
-                        <i class="fa fa-cloud-download"></i>
-                        Download Template Exam
-                    </button>
-                </a>
-            </div> --}}
-
+            </div>
             <div style="margin-top: 30px">
                 <h4>Modules</h4>
                 <div class="modules">
@@ -105,6 +94,42 @@
                 </div>
             </div>
         </form>
+    </div>
+</div>
+<div class="modal fade" id="scoreboard" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="popupmodel">Scoreboard</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Mentee</th>
+                            <th scope="col">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i=1;?>
+                        @foreach ($scoreboard as $item)
+                        <tr class="">
+                            <th scope="row">{{$i}}</th>
+                            <td>{{$item->menteeName}}</td>
+                            <td>{{$item->score}}</td>
+                        </tr>
+                        <?php $i++;?>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
