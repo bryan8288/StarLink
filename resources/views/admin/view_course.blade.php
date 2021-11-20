@@ -2,9 +2,12 @@
 @section('content')
 <style>
     .fa {
-  font-size: 50px;
+  font-size: 30px;
   cursor: pointer;
   user-select: none;
+}
+.card{
+    height:1000px
 }
 </style>
 
@@ -60,44 +63,127 @@
                     @else
                     @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
                     
-                    {{-- <form action="{{url('buyCourse/'.$userData[0]->id.'/'.$item->id)}}" method="post">
-                        {{csrf_field()}} --}}
-                        <button class="btn btn-primary" style="width: 180px; margin-top: 5px; background-color:#EE8F1B" data-toggle="modal" data-target="#exampleModal">Buy Course</button>
+                    <form action="{{url('buyCourse/'.$userData[0]->id.'/'.$item->id)}}" method="post">
+                        {{csrf_field()}}
+                        <a class="btn" style="width: 180px; margin-top: 5px; background-color:#EE8F1B" data-toggle="modal" data-target="#exampleModal">Buy Course</a>
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">                                
-                                  <h5 class="modal-title" id="exampleModalLabel">PETUNJUK</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel"><strong>Payment Method</strong></h5>
                                 </div>
-                                <div class="modal-body" style="list-style-type: none; text-align:left">
+                                <div class="modal-body" style="text-align:left;">
                                     <p>
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
-                                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-                                          </button> <img src="{{ asset('storage/image/BCA.png') }}" width="75px" height="25px">
-                                      </p>
-                                      <div class="collapse" id="collapseExample">
-                                        <div class="card card-body">
-                                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault"></button><img src="{{ asset('storage/image/BCA.png')}}" width="100px" height="25px"> </label>
                                         </div>
+                                    </p>
+
+                                      <div class="collapse" id="collapseExample">
+                                            <strong><p>Instruction</p></strong>
+                                          <li>Insert your ATM card and your BCA pin</li>
+                                          <li>Choose Menu <strong>Other Transaction</strong> </li>
+                                          <li>Choose Menu <strong>Transfer</strong></li>
+                                          <li>Choose Menu <strong>"To BCA Account's Virtual Account</strong></li>
+                                          <li>Insert 39358 + your phone number: <strong>39358 08xx-xxxx-xxxx</strong></li>
+                                          <li>Insert Top-Up Nominal</li>
+                                          <li>Follow Instruction To Complete Transaction</li><br>
                                       </div>
+                                      <br>
                                       <p>
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="true" aria-controls="collapseExample">
-                                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-                                          </button> Group Item #1 
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="true" aria-controls="collapseExample1">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault"></button><img src="{{ asset('storage/image/BRI.png')}}" width="100px" height="25px"> </label>
+                                        </div>
                                       </p>
                                       <div class="collapse" id="collapseExample1">
-                                        <div class="card card-body">
-                                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                            <strong><p>Instruction</p></strong>
+                                          <li>Insert your ATM card and your BRI pin</li>
+                                          <li>Choose Menu <strong>Other Transaction</strong> </li>
+                                          <li>Choose Menu <strong>Transfer</strong></li>
+                                          <li>Choose Menu <strong>"To BRI Account's Virtual Account</strong></li>
+                                          <li>Insert 39358 + your phone number: <strong>39358 08xx-xxxx-xxxx</strong></li>
+                                          <li>Insert Top-Up Nominal</li>
+                                          <li>Follow Instruction To Complete Transaction</li><br>
+                                      </div>
+                                      <br>
+                                      <p>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="true" aria-controls="collapseExample2">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault"></button><img src="{{ asset('storage/image/Mandiri.png')}}" width="100px" height="25px"> </label>
                                         </div>
+                                      </p>
+                                      <div class="collapse" id="collapseExample2">
+                                            <strong><p>Instruction</p></strong>
+                                          <li>Insert your ATM card and your Mandiri pin</li>
+                                          <li>Choose Menu <strong>Other Transaction</strong> </li>
+                                          <li>Choose Menu <strong>Transfer</strong></li>
+                                          <li>Choose Menu <strong>"To Mandiri Account's Virtual Account</strong></li>
+                                          <li>Insert 39358 + your phone number: <strong>39358 08xx-xxxx-xxxx</strong></li>
+                                          <li>Insert Top-Up Nominal</li>
+                                          <li>Follow Instruction To Complete Transaction</li><br>
+                                      </div>
+                                      <br>
+                                      <p>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="true" aria-controls="collapseExample3">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault"></button><img src="{{ asset('storage/image/BNI.png')}}" width="100px" height="25px"> </label>
+                                        </div>
+                                      </p>
+                                      <div class="collapse" id="collapseExample3">
+                                            <strong><p>Instruction</p></strong>
+                                          <li>Insert your ATM card and your BNI pin</li>
+                                          <li>Choose Menu <strong>Other Transaction</strong> </li>
+                                          <li>Choose Menu <strong>Transfer</strong></li>
+                                          <li>Choose Menu <strong>"To BNI Account's Virtual Account</strong></li>
+                                          <li>Insert 39358 + your phone number: <strong>39358 08xx-xxxx-xxxx</strong></li>
+                                          <li>Insert Top-Up Nominal</li>
+                                          <li>Follow Instruction To Complete Transaction</li><br>
+                                      </div>
+                                      <br>
+                                      <p>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="true" aria-controls="collapseExample4">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault"></button><img src="{{ asset('storage/image/Danamon.png')}}" width="100px" height="25px"> </label>
+                                        </div>
+                                      </p>
+                                      <div class="collapse" id="collapseExample4">
+                                            <strong><p>Instruction</p></strong>
+                                          <li>Insert your ATM card and your Danamon pin</li>
+                                          <li>Choose Menu <strong>Other Transaction</strong> </li>
+                                          <li>Choose Menu <strong>Transfer</strong></li>
+                                          <li>Choose Menu <strong>"To Danamon Account's Virtual Account</strong></li>
+                                          <li>Insert 39358 + your phone number: <strong>39358 08xx-xxxx-xxxx</strong></li>
+                                          <li>Insert Top-Up Nominal</li>
+                                          <li>Follow Instruction To Complete Transaction</li><br>
+                                      </div>
+                                      <br>
+                                      <p>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" data-toggle="collapse" data-target="#collapseExample5" aria-expanded="true" aria-controls="collapseExample5">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault"></button><img src="{{ asset('storage/image/Panin.png')}}" width="100px" height="25px"> </label>
+                                        </div>
+                                      </p>
+                                      <div class="collapse" id="collapseExample5">
+                                            <strong><p>Instruction</p></strong>
+                                          <li>Insert your ATM card and your Panin pin</li>
+                                          <li>Choose Menu <strong>Other Transaction</strong> </li>
+                                          <li>Choose Menu <strong>Transfer</strong></li>
+                                          <li>Choose Menu <strong>"To Panin Account's Virtual Account</strong></li>
+                                          <li>Insert 39358 + your phone number: <strong>39358 08xx-xxxx-xxxx</strong></li>
+                                          <li>Insert Top-Up Nominal</li>
+                                          <li>Follow Instruction To Complete Transaction</li><br>
                                       </div>
                                 </div>
                                 <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Complete Payment</button>
+                                </form>  
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                               </div>
                             </div>
                           </div>
-                    {{-- </form> --}}
                         <a href="{{'/editCourse/'.$item->id}}">
                             <button class="btn btn-primary" style="width: 180px; margin-top: 10px">See Detail</button>
                         </a>
