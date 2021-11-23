@@ -95,4 +95,33 @@ class ExamController extends Controller
 
         return redirect('/dashboard')->with('status','Exam Submitted Successfully');
     }
+
+    public function getEssaiExamPage($examId){
+        $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+        $auth = Auth::check();
+
+        $question = DB::table('questions')
+        ->join('exams','exams.id','=','questions.exam_id')
+        ->select('questions.*')
+        ->where('exams.id','=',$examId)
+        ->inRandomOrder()->get();
+
+        $exam = DB::table('exams')
+        ->join('courses','courses.id','=','exams.course_id')
+        ->select('exams.*','courses.name as courseName','courses.exam_time')
+        ->where('exams.id','=',$examId)->get();
+
+        $now = Carbon::now()->toDateString();
+        $created_at = Carbon::parse($exam[0]->exam_time);
+        $diffHuman = $created_at->diffForHumans($now);  
+        $diffHours = $created_at->diffInHours($now);  
+        $diffMinutes = $created_at->diffInMinutes($now);
+
+        return view('mentee/exam_essai',compact('auth','userData','exam','diffMinutes','question'));
+    }
 }

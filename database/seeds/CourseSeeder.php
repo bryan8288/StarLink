@@ -28,7 +28,7 @@ class CourseSeeder extends Seeder
                 'description' => "Python is an interpreted, object-oriented, high-level programming language with dynamic semantics. Its high-level built in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development, as well as for use as a scripting or glue language to connect existing components together. Python's simple, easy to learn syntax emphasizes readability and therefore reduces the cost of program maintenance. Python supports modules and packages, which encourages program modularity and code reuse. The Python interpreter and the extensive standard library are available in source or binary form without charge for all major platforms, and can be freely distributed.",
                 'weeks' => 5,
                 'price' => 200000,
-                'exam_time' => '02:00:00',
+                'exam_time' => '02:01:00',
                 'kkm' => 75
             ),
             array(
@@ -51,7 +51,7 @@ class CourseSeeder extends Seeder
             ),   array(
                 'name' => 'React',
                 'category' => 'E-Learning',
-                'exam_time' => '02:00:00',
+                'exam_time' => '02:01:00',
                 'description' => 'React is a free and open-source front-end JavaScript library for building user interfaces or UI components. It is maintained by Facebook and a community of individual developers and companies. React can be used as a base in the development of single-page or mobile applications.',
                 'weeks' => 8,
                 'price' => 400000,

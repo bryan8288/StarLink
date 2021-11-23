@@ -96,84 +96,20 @@
                         <div class="container-fluid" style="padding-top: 50px">
                             <h5 style="color: white; margin-left: 30px; margin-top:5px">Exam</h5>
                             <hr style="color: #FFFFFF;height: 3px">
-                            <div class="courseDetail">
-                                <h5 style="width: 30%;float:left">Name</h5>
-                                <input class="form-control" style="width:70%; float: right;" name="description" readonly
-                                    value="{{$exam[0]->name}}">
-                            </div>
-                            <div class="courseDetail">
-                                <h5 style="width: 30%;float:left">Course</h5>
-                                <input class="form-control" style="width:70%; float: right;" name="description" readonly
-                                    value="{{$exam[0]->courseName}}">
-                            </div>
-                            <div class="courseDetail">
-                                <h5 style="width: 30%;float:left">Type</h5>
-                                <input style="width:70%; float: right;" type="text" name="price" class="form-control"
-                                    value="{{$exam[0]->type}}" style="margin-bottom: 5px" readonly>
-                            </div>
-                            <div class="courseDetail">
-                                <h5 style="width: 30%;float:left">Time</h5>
-                                <input id="countdown" class="form-control" style="width:70%; float: right;"
-                                    name="description" readonly value="{{$exam[0]->exam_time}}">
-                            </div>
-
-                            @if($exam[0]->type == 'Project')
-                            <div style="display: flex; justify-content: center">
-                                <center>
-                                    <a href="{{asset('storage/'.$exam[0]->file)}}">
-                                        <button type="button" class="btn btn-secondary"
-                                            style="background-color: #27353F; margin-top: 30px"><i
-                                            class="fa fa-cloud-download" style="margin-right: 2px"></i>Download Exam </button>
-                                    </a>
-                                </center>
-                                <center>
-                                    <button type="button" id="buttonSubmit" class="btn btn-primary"
-                                    style="background-color: #27353F; margin-top: 30px; margin-left:10px" data-bs-toggle="modal" data-bs-target="#uploadExam"><i
-                                    class="fa fa-cloud-upload" style="margin-right: 2px"></i>Upload Exam </button>
-                                </center>
-                                <div class="modal fade" id="uploadExam" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="popupmodel">Submit Exam</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <form action="{{url('submitexam/'.$exam[0]->id)}}" method="post" enctype="multipart/form-data">
-                                                {{csrf_field()}}
-                                                <div class="modal-body">
-                                                    <div class="courseDetail">
-                                                        <h5 style="width: 30%;float:left">Exam File</h5>
-                                                        <input type="file" id="exam_file" hidden name="exam_file" />
-                                                        <label style="color: white; font-size:16px; width: 200px; text-align:center"
-                                                            class="upload bg-dark" for="exam_file">
-                                                            <i class="fa fa-cloud-upload"></i>
-                                                            Upload</label><br>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                </div>
-                                            </form>
                         
-                                        </div>
-                                    </div>
-                                </div>
-                              
-                            </div>
-                            @else
-                            <center>
-                                <a href="{{url('examEssai/'.$exam[0]->id)}}">
-                                    <button type="button" class="btn btn-secondary"
-                                        style="background-color: #27353F; margin-top: 30px">Start Exam</button>
-                                </a>
-                            </center>
-                            @endif
-
+                        <h4><b>Question 1</b></h4>
+                        <p style="font-size: 20px">{{$question[0]->question}}</p>
+                        <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
                         </div>
-                        @if($exam[0]->type == 'Project')
-                        <span style="margin-left:30px; font-size:20px; font-weight: 700" id="timer"><span>
-                        @endif
+                        <div class="col-md-12" style="display: flex">
+                            <button type="button" class="btn btn-secondary"
+                                                style="background-color: #27353F; margin-top: 30px; float: right; width:100px; margin-left: 23px">Previous</button>
+    
+                            <button type="button" class="btn btn-secondary"
+                                                style="background-color: #27353F; margin-top: 30px; margin-right: 23px; width:100px; margin-left:auto">Next</button>
+                        </div>
+                        <br>
+                        <span style="margin-left:30px; font-size:20px; font-weight: 700; margin-top : 40px" id="timer"><span>
                                 <script>
                                     window.onload = function () {
                                         const buttonSubmit = document.getElementById('submitButton');
@@ -192,8 +128,6 @@
                                                     if (minute == 0) {
                                                         hour--;
                                                         minute = 59;
-                                                        // document.getElementById("timer").innerHTML = "EXPIRED";
-                                                        // break;
                                                     }
                                                 }
                                             } else {

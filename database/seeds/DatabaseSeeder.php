@@ -33,7 +33,8 @@ class DatabaseSeeder extends Seeder
             SubmittedAssignmentSeeder::class,
             SubmittedExamSeeder::class,
             ProgressMenteeSeeder::class,
-            ApplicantSeeder::class
+            ApplicantSeeder::class,
+            QuestionSeeder::class
             ]);
     }
 }

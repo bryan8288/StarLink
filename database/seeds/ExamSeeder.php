@@ -18,6 +18,12 @@ class ExamSeeder extends Seeder
                 'name' => 'Examination For Java',
                 'type' => 'Project',
                 'file' => 'exam/exam1.docx'
+            ),
+            array(
+                'course_id' => '2',
+                'name' => 'Examination For Phyton',
+                'type' => 'Essai',
+                'file' => 'exam/exam2.xlsx'
             )
         ));
     }

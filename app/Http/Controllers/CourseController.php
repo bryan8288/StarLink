@@ -248,7 +248,8 @@ class CourseController extends Controller
                 ->where('exams.course_id','=',$id)->get();
 
         $submittedExam = DB::table('submitted_exams')
-        ->where('mentee_id','=',$userData[0]->id);
+        ->where('mentee_id','=',$userData[0]->id)
+        ->where('exam_id','=',$exam[0]->id);
 
         if($submittedExam->count() > 0){
             $isSubmitted = true;
