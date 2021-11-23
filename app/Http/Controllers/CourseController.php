@@ -247,6 +247,13 @@ class CourseController extends Controller
                 ->select('exams.*')
                 ->where('exams.course_id','=',$id)->get();
 
-        return view('mentee/mycourse_detail',compact('courseDetail','auth','userData','moduleList','scoreboard','exam'));
+        $submittedExam = DB::table('submitted_exams')
+        ->where('mentee_id','=',$userData[0]->id);
+
+        if($submittedExam->count() > 0){
+            $isSubmitted = true;
+        }else $isSubmitted = false;
+
+        return view('mentee/mycourse_detail',compact('courseDetail','auth','userData','moduleList','scoreboard','exam','isSubmitted'));
     }
 }

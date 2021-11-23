@@ -25,7 +25,6 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
     </script>
 </head>
-
 <body>
     <div class="col-md-12">
         <div class="container-fluid">
@@ -43,7 +42,7 @@
                         </div>
                         <div class="col-md-11">
                             <center>
-                                    <h4 style="text-align: center; margin-top: 15px; margin-left: 100px"><a class="title" href="{{'/'}}">Starlink</a>
+                                    <h4 style="text-align: center; margin-top: 15px; margin-left: 100px"><a class="title" >Starlink</a>
                                     </h4>
                             </center>
                         </div>

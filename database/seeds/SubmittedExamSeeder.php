@@ -17,7 +17,6 @@ class SubmittedExamSeeder extends Seeder
                 'mentee_id' => '1',
                 'exam_id'=> '1',
                 'file' => 'submittedexam/submittedexam1.docx',
-                'is_finalized' => true,
                 'score' => 85
             )
         ));

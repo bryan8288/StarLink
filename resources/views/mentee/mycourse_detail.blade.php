@@ -50,16 +50,22 @@
                     value="{{$courseDetail->exam_time}}" style="margin-bottom: 5px" readonly>
             </div>
             <div style="display: flex">
-                @if($exam->count()>0)
                 <button type="button" class="btn btn-secondary" style="background-color: #27353F; margin-top: 30px"
                     data-bs-toggle="modal" data-bs-target="#scoreboard">View Scoreboard</button>
-                <a href="{{asset('storage/'.$exam[0]->file)}}">
-                    <button type="button" class="btn btn-primary"
-                        style="background-color: #27353F; margin-top:30px; margin-left: 20px">
-                        {{-- <i class="fa fa-cloud-download"></i> --}}
-                        Go To Exam
-                    </button>
-                </a>
+                @if($exam->count()>0)
+                    @if($isSubmitted == true)
+                        <button type="button" class="btn btn-primary"
+                            style="background-color: #27353F; margin-top:30px; margin-left: 20px" disabled>
+                            Go To Exam
+                        </button>
+                    @else
+                    <a href="{{'/exam/'.$exam[0]->id}}">
+                        <button type="button" class="btn btn-primary"
+                            style="background-color: #27353F; margin-top:30px; margin-left: 20px">
+                            Go To Exam
+                        </button>
+                    </a>
+                    @endif
                 @endif
             </div>
             <div style="margin-top: 30px">

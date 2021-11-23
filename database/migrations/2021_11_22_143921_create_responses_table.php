@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubmittedExamsTable extends Migration
+class CreateResponsesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateSubmittedExamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('submitted_exams', function (Blueprint $table) {
+        Schema::create('responses', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('exam_id');
-            $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
+            $table->unsignedInteger('question_id');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->unsignedInteger('mentee_id');
             $table->foreign('mentee_id')->references('id')->on('mentees')->onDelete('cascade');
-            $table->string('file');
-            // $table->boolean('is_finalized');
-            $table->integer('score')->nullable();
+            $table->string('answer');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ class CreateSubmittedExamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('submitted_exams');
+        Schema::dropIfExists('responses');
     }
 }

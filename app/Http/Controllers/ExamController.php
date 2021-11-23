@@ -14,7 +14,8 @@ use App\Exam;
 use App\User;
 use Excel;
 use App\Imports\QuestionImport;
-
+use App\SubmittedExam;
+use Carbon\Carbon;
 
 class ExamController extends Controller
 {
@@ -48,5 +49,50 @@ class ExamController extends Controller
         }
         
         return redirect('/dashboard')->with('status','Exam Added Successfully');
+    }
+
+    public function getExamPage($examId){
+        $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+        $auth = Auth::check();
+
+        $exam = DB::table('exams')
+        ->join('courses','courses.id','=','exams.course_id')
+        ->select('exams.*','courses.name as courseName','courses.exam_time')
+        ->where('exams.id','=',$examId)->get();
+
+        $now = Carbon::now()->toDateString();
+        $created_at = Carbon::parse($exam[0]->exam_time);
+        $diffHuman = $created_at->diffForHumans($now);  
+        $diffHours = $created_at->diffInHours($now);  
+        $diffMinutes = $created_at->diffInMinutes($now);
+
+        return view('mentee/exam',compact('auth','userData','exam','diffMinutes'));
+    }
+
+    public function submitExam(Request $request, $examId){
+        $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+        $this->validate($request,[
+            'exam_file' => 'required'
+        ]);
+
+        $submittedExam = new SubmittedExam(); 
+        $submittedExam->mentee_id = $userData[0]->id;
+        $submittedExam->exam_id = $examId;
+
+        $file_path = $request->file('exam_file')->store('submittedexam','public');
+        $submittedExam->file = $file_path;
+        $submittedExam->save();
+
+        return redirect('/dashboard')->with('status','Exam Submitted Successfully');
     }
 }

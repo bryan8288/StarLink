@@ -141,4 +141,6 @@ Route::get('/mycourse/detail/{id}','CourseController@getMyCourseDetail');
 Route::post('/submitAssignment/{assignmentId}','ModuleController@submitAssignment');
 Route::post('/learning/done/{moduleId}','ModuleController@doneLearning');
 Route::post('/video/done/{moduleId}/{videoId}','ModuleController@doneVideo');
+Route::get('/exam/{examId}','ExamController@getExamPage');
+Route::post('/submitexam/{examId}','ExamController@submitExam');
 
