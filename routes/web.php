@@ -146,3 +146,5 @@ Route::post('/submitexam/{examId}','ExamController@submitExam');
 Route::get('/examEssai/{examId}','ExamController@getEssaiExamPage');
 Route::post('/submitAnswer/','ExamController@submitAnswerEssai');
 
+//Compiler
+Route::get('/compiler','ExamController@getCompiler');

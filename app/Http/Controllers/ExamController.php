@@ -147,4 +147,17 @@ class ExamController extends Controller
 
         return redirect('/dashboard')->with('status','Exam Submitted Successfully');
     }
+
+    public function getCompiler(){
+        if(Auth::user()->role == 'mentee'){
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('mentees.name','mentees.id','mentees.birth_date','mentees.gender','users.email','mentees.phone','mentees.birth_place','mentees.address','mentees.portofolio','mentees.cv','mentees.profile_picture','users.username')
+            ->where('users.id','=',Auth::id())
+            ->get();
+        }
+        $auth = Auth::check();
+
+        return view('compiler', compact('userData','auth'));
+    }
 }
