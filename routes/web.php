@@ -144,4 +144,5 @@ Route::post('/video/done/{moduleId}/{videoId}','ModuleController@doneVideo');
 Route::get('/exam/{examId}','ExamController@getExamPage');
 Route::post('/submitexam/{examId}','ExamController@submitExam');
 Route::get('/examEssai/{examId}','ExamController@getEssaiExamPage');
+Route::post('/submitAnswer/','ExamController@submitAnswerEssai');
 

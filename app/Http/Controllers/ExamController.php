@@ -109,7 +109,7 @@ class ExamController extends Controller
         ->join('exams','exams.id','=','questions.exam_id')
         ->select('questions.*')
         ->where('exams.id','=',$examId)
-        ->inRandomOrder()->get();
+        ->simplePaginate(1);
 
         $exam = DB::table('exams')
         ->join('courses','courses.id','=','exams.course_id')
@@ -123,5 +123,11 @@ class ExamController extends Controller
         $diffMinutes = $created_at->diffInMinutes($now);
 
         return view('mentee/exam_essai',compact('auth','userData','exam','diffMinutes','question'));
+    }
+
+    public function submitAnswerEssai(Request $request){
+        dd($request->all());
+
+        return redirect('/dashboard')->with('status','Exam Submitted Successfully');
     }
 }

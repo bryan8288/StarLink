@@ -5,13 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>StarLin<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equk</title>
+    <title>StarLink</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -97,20 +91,40 @@
                             <h5 style="color: white; margin-left: 30px; margin-top:5px">Exam</h5>
                             <hr style="color: #FFFFFF;height: 3px">
                         
-                        <h4><b>Question 1</b></h4>
-                        <p style="font-size: 20px">{{$question[0]->question}}</p>
-                        <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                        {{-- <?php $i=1;?> --}}
+                        
+                        @foreach ($question as $key => $item)
+                        <form action="{{url('/submitAnswer/')}}" method="post">
+                        {{csrf_field()}}
+                            <h4><b>Question {{$key + $question->firstItem()}}</b></h4>
+                            <input name="question[]" value="{{$item->id}}" hidden>
+                            <p style="font-size: 20px">{{$item->question}}</p>
+                            <textarea class="form-control" name="answer[]" cols="30" rows="10" id="answerBox" autocomplete="answer" autofocus>{{request()->input('answer[0]')}}</textarea>
+                            {{-- <?php $i++;?> --}}
+                        @endforeach
                         </div>
-                        <div class="col-md-12" style="display: flex">
+
+                        {{-- <div class="col-md-12" style="display: flex">
                             <button type="button" class="btn btn-secondary"
                                                 style="background-color: #27353F; margin-top: 30px; float: right; width:100px; margin-left: 23px">Previous</button>
     
                             <button type="button" class="btn btn-secondary"
                                                 style="background-color: #27353F; margin-top: 30px; margin-right: 23px; width:100px; margin-left:auto">Next</button>
+                        </div> --}}
+                        <br>
+                        <div style="margin-left: 23px">
+                            {{$question->links()}}                          
                         </div>
+                        <center>
+                            <button type="submit" class="btn btn-secondary"
+                                    style="background-color: #27353F; margin-top: 10px">Submit</button>
+                        </center>
+                        </form>
+
                         <br>
                         <span style="margin-left:30px; font-size:20px; font-weight: 700; margin-top : 40px" id="timer"><span>
-                                <script>
+                        
+                        <script>
                                     window.onload = function () {
                                         const buttonSubmit = document.getElementById('submitButton');
 
@@ -137,7 +151,6 @@
                                             }
                                         }, 1000);
                                     };
-
                                 </script>
 
                     </div>
