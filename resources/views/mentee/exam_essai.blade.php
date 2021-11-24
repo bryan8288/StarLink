@@ -96,7 +96,8 @@
                         @foreach ($question as $key => $item)
                         <form action="{{url('/submitAnswer/')}}" method="post">
                         {{csrf_field()}}
-                            <h4><b>Question {{$key + $question->firstItem()}}</b></h4>
+                        <br>
+                            <h4><b>Question {{$key+1}}</b></h4>
                             <input name="question[]" value="{{$item->id}}" hidden>
                             <p style="font-size: 20px">{{$item->question}}</p>
                             <textarea class="form-control" name="answer[]" cols="30" rows="10" id="answerBox" autocomplete="answer" autofocus>{{request()->input('answer[0]')}}</textarea>
@@ -112,9 +113,9 @@
                                                 style="background-color: #27353F; margin-top: 30px; margin-right: 23px; width:100px; margin-left:auto">Next</button>
                         </div> --}}
                         <br>
-                        <div style="margin-left: 23px">
+                        {{-- <div style="margin-left: 23px">
                             {{$question->links()}}                          
-                        </div>
+                        </div> --}}
                         <center>
                             <button type="submit" class="btn btn-secondary"
                                     style="background-color: #27353F; margin-top: 10px">Submit</button>
@@ -145,9 +146,7 @@
                                                     }
                                                 }
                                             } else {
-                                                document.getElementById("timer").innerHTML =
-                                                    "Your Exam Time is Over.";
-                                                buttonSubmit.disabled = true;
+                                                window.location.href = "{{ route('dashboard')}}";
                                             }
                                         }, 1000);
                                     };

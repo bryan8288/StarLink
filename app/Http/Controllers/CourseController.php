@@ -247,9 +247,16 @@ class CourseController extends Controller
                 ->select('exams.*')
                 ->where('exams.course_id','=',$id)->get();
 
-        $submittedExam = DB::table('submitted_exams')
-        ->where('mentee_id','=',$userData[0]->id)
-        ->where('exam_id','=',$exam[0]->id);
+        if($exam[0]->type == 'Project'){
+            $submittedExam = DB::table('submitted_exams')
+            ->where('mentee_id','=',$userData[0]->id)
+            ->where('exam_id','=',$exam[0]->id);
+        }else if($exam[0]->type == 'Essai'){
+            $submittedExam = DB::table('responses')
+            ->join('questions','questions.id','=','responses.question_id')
+            ->where('mentee_id','=',$userData[0]->id)
+            ->where('questions.exam_id','=',$exam[0]->id);
+        }
 
         if($submittedExam->count() > 0){
             $isSubmitted = true;

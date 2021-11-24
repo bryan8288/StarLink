@@ -33,7 +33,7 @@ Route::post('/forgot-password', 'ForgotPasswordController@postEmail');
 Route::get('/reset-password/{token}', 'ResetPasswordController@getPassword');
 Route::post('/reset-password', 'ResetPasswordController@updatePassword');
 
-Route::get('/dashboard','DashboardController@getDashboardPage');
+Route::get('/dashboard','DashboardController@getDashboardPage')->name('dashboard');;
 
 Route::get('/dashboard/logout','DashboardController@logout');
 

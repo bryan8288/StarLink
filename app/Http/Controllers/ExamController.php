@@ -16,6 +16,8 @@ use Excel;
 use App\Imports\QuestionImport;
 use App\SubmittedExam;
 use Carbon\Carbon;
+use App\Response;
+
 
 class ExamController extends Controller
 {
@@ -109,7 +111,7 @@ class ExamController extends Controller
         ->join('exams','exams.id','=','questions.exam_id')
         ->select('questions.*')
         ->where('exams.id','=',$examId)
-        ->simplePaginate(1);
+        ->get();
 
         $exam = DB::table('exams')
         ->join('courses','courses.id','=','exams.course_id')
@@ -126,7 +128,22 @@ class ExamController extends Controller
     }
 
     public function submitAnswerEssai(Request $request){
-        dd($request->all());
+        // dd($request->all());
+        // dd(count($request->answer));
+        $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+        // dd($request->question[0]);
+        for ($i=0; $i < count($request->answer); $i++) { 
+            $response = new Response();
+            $response->question_id = $request->question[$i];
+            $response->mentee_id = $userData[0]->id;
+            $response->answer = $request->answer[$i];
+            $response->save();
+        }
 
         return redirect('/dashboard')->with('status','Exam Submitted Successfully');
     }
