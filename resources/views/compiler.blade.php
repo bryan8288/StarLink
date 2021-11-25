@@ -11,12 +11,8 @@
 </head>
 
 <body>
-    {{-- ini untuk compiler Java --}}
-    <div data-pym-src="https://www.jdoodle.com/iembed/v0/k7g">
-    </div>
-
     {{-- ini untuk compiler C --}}
-    <div data-pym-src="https://www.jdoodle.com/iembed/v0/k7f">
+    <div data-pym-src="http://tpcg.io/3SMN0E">
     </div>
     {{-- ini untuk compiler Python --}}
     <div data-pym-src="https://www.jdoodle.com/iembed/v0/k7h">
