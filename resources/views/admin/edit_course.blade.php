@@ -72,6 +72,19 @@
                         Download Template Exam
                     </button>
                 </a>
+                @if ($exam[0]->type == 'Project')
+                <button type="button" class="btn btn-primary"
+                    style="background-color: #27353F; margin-top:30px; margin-left: 20px" data-bs-toggle="modal"
+                    data-bs-target="#rateExamProject">
+                    Rate Exam
+                </button>
+                @elseif($exam[0]->type == 'Essai')
+                <button type="button" class="btn btn-primary"
+                    style="background-color: #27353F; margin-top:30px; margin-left: 20px" data-bs-toggle="modal"
+                    data-bs-target="#rateExamEssai">
+                    Rate Exam
+                </button>
+                @endif
             </div>
 
             <div style="margin-top: 30px">
@@ -177,7 +190,7 @@
                     </table>
                 </div>
             </div>
-            
+
             @else
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Name</h5>
@@ -264,8 +277,8 @@
         <center>
             <form action="{{url('buyCourse/'.$userData[0]->id.'/'.$courseDetail->id)}}" method="post">
                 {{csrf_field()}}
-                <a class="btn" style="width: 180px; margin-top: 5px; background-color:#EE8F1B"
-                    data-toggle="modal" data-target="#exampleModal">Buy Course</a>
+                <a class="btn" style="width: 180px; margin-top: 5px; background-color:#EE8F1B" data-toggle="modal"
+                    data-target="#exampleModal">Buy Course</a>
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -278,9 +291,9 @@
                                 <div class="accordion" id="accordionExample">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                                                aria-expanded="true" aria-controls="collapseOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
                                                 <img src="{{ asset('storage/image/BCA.png')}}" width="84px"
                                                     height="30px">
                                             </button>
@@ -444,54 +457,165 @@
                                 <button type="submit" class="btn btn-success">Complete Payment</button>
             </form>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </center>
-        @endif
+    </div>
+    </center>
+    @endif
 
-        <div class="modal fade" id="uploadExam" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="popupmodel">Exam</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="uploadExam" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupmodel">Exam</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{url('/addExam/'.$courseDetail->id)}}" method="post" enctype="multipart/form-data">
+                    {{csrf_field()}}
+                    <div class="modal-body">
+                        <div class="courseDetail">
+                            <h5 style="width: 30%;float:left">Name</h5>
+                            <input style="width:70%; float: right;" type="text" name="name" class="form-control"
+                                style="margin-bottom: 5px">
+                        </div>
+                        <div class="courseDetail">
+                            <h5 style="width: 30%;float:left">Type</h5>
+                            <select class="form-control input-sm" style="margin-bottom: 5px; float :right;width:70%"
+                                name="type">
+                                <option selected>-- Choose Type --</option>
+                                <option>Project</option>
+                                <option>Coding</option>
+                                <option>Essai</option>
+                            </select>
+                        </div>
+                        <div class="companyDetail">
+                            <h5 style="width: 30%;float:left">File</h5>
+                            <input type="file" id="video" hidden name="file" />
+                            <label style="color: white; font-size:16px; width: 200px; text-align:center"
+                                class="upload bg-dark" for="video">
+                                <i class="fa fa-cloud-upload"></i>
+                                Upload</label><br>
+                            <p style="font-size: 1px"> </p>
+                        </div>
                     </div>
-                    <form action="{{url('/addExam/'.$courseDetail->id)}}" method="post" enctype="multipart/form-data">
-                        {{csrf_field()}}
-                        <div class="modal-body">
-                            <div class="courseDetail">
-                                <h5 style="width: 30%;float:left">Name</h5>
-                                <input style="width:70%; float: right;" type="text" name="name" class="form-control"
-                                    style="margin-bottom: 5px">
-                            </div>
-                            <div class="courseDetail">
-                                <h5 style="width: 30%;float:left">Type</h5>
-                                <select class="form-control input-sm" style="margin-bottom: 5px; float :right;width:70%"
-                                    name="type">
-                                    <option selected>-- Choose Type --</option>
-                                    <option>Project</option>
-                                    <option>Coding</option>
-                                    <option>Essai</option>
-                                </select>
-                            </div>
-                            <div class="companyDetail">
-                                <h5 style="width: 30%;float:left">File</h5>
-                                <input type="file" id="video" hidden name="file" />
-                                <label style="color: white; font-size:16px; width: 200px; text-align:center"
-                                    class="upload bg-dark" for="video">
-                                    <i class="fa fa-cloud-upload"></i>
-                                    Upload</label><br>
-                                <p style="font-size: 1px"> </p>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="rateExamProject" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupmodel">Rate Exam</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr style="text-align: center">
+                                <th scope="col">No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Score</th>
+                                <th scope="col">File</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center">
+                            <?php $i=1;?>
+                            @foreach ($completedMenteeList as $mentee)
+                            <tr class="table-info">
+                                <th scope="row">{{$i}}</th>
+                                <td>{{$mentee->name}}</td>
+                                <td>{{$mentee->score}}</td>
+                                <td>
+                                    <a href="{{asset('storage/'.$mentee->file)}}">
+                                        <button type="button" class="btn btn-primary"
+                                            style="background-color: #27353F;">
+                                            <i class="fa fa-cloud-download"></i>
+                                            Download
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>
+                                    @if($mentee->score == null)
+                                    <form action="{{url('/rateExam/'.$mentee->id)}}" method="post">
+                                        {{csrf_field()}}
+                                        <div style="display: flex; justify-content: center">
+                                            <input style="width:20%" type="number" name="score" class="form-control"
+                                                style="margin-bottom: 5px">
+                                            <button class="btn btn-primary"
+                                                style="width:80px; margin-left:20px">Rate</button>
+                                        </div>
+                                    </form>
+                                    @else
+                                    <button class="btn btn-primary" style="width:80px" disabled>Rated</button>
+                                    @endif
+                                </td>
+                            </tr>
+                            <?php $i++;?>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="rateExamEssai" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupmodel">Rate Exam</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr style="text-align: center">
+                                <th scope="col">No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Score</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center">
+                            <?php $i=1;?>
+                            @foreach ($completedMenteeList as $mentee)
+                            <tr class="table-info">
+                                <th scope="row">{{$i}}</th>
+                                <td>{{$mentee->name}}</td>
+                                <td>{{$mentee->score}}</td>
+                                <td>
+                                    @if($mentee->score == null)
+                                    <div style="display: flex; justify-content: center">
+                                        <a href="{{'/rateEssai/'.$mentee->menteeId.'/'.$courseDetail->id}}">
+                                            <button class="btn btn-primary"
+                                                style="width:80px; margin-left:20px">Rate</button>
+                                        </a>
+                                    </div>
+                                    @else
+                                    <button class="btn btn-primary" style="width:80px" disabled>Rated</button>
+                                    @endif
+                                </td>
+                            </tr>
+                            <?php $i++;?>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 @if(count($errors) > 0)
 <div class="alert alert-danger" style="margin-top: 20px">

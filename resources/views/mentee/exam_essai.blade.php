@@ -90,9 +90,6 @@
                         <div class="container-fluid" style="padding-top: 50px">
                             <h5 style="color: white; margin-left: 30px; margin-top:5px">Exam</h5>
                             <hr style="color: #FFFFFF;height: 3px">
-                        
-                        {{-- <?php $i=1;?> --}}
-                        
                         @foreach ($question as $key => $item)
                         <form action="{{url('/submitAnswer/')}}" method="post">
                         {{csrf_field()}}
@@ -101,7 +98,6 @@
                             <input name="question[]" value="{{$item->id}}" hidden>
                             <p style="font-size: 20px">{{$item->question}}</p>
                             <textarea class="form-control" name="answer[]" cols="30" rows="10" id="answerBox" autocomplete="answer" autofocus>{{request()->input('answer[0]')}}</textarea>
-                            {{-- <?php $i++;?> --}}
                         @endforeach
                         </div>
 

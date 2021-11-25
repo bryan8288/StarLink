@@ -5,13 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Mentor;
-use App\Mentee;
-use App\Admin;
-use App\DiscussionAdmin;
-use App\DiscussionMentor;
 use App\Exam;
-use App\User;
 use Excel;
 use App\Imports\QuestionImport;
 use App\SubmittedExam;
@@ -159,5 +153,48 @@ class ExamController extends Controller
         $auth = Auth::check();
 
         return view('compiler', compact('userData','auth'));
+    }
+
+    public function rateExam(Request $request,$id){
+        $this->validate($request,[
+            'score' => 'required|integer'
+        ]);
+        $submittedExam = SubmittedExam::find($id);
+        $submittedExam->score = $request->score;
+        $submittedExam->update();
+        return redirect('/dashboard')->with('status','Exam Rated Successfully');
+    }
+
+    public function getRateEssaiPage($menteeId,$courseId){
+        $userData = DB::table('users')
+        ->join('mentors','users.id','=','mentors.user_id')
+        ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
+        ->where('users.id','=',Auth::id())
+        ->get();
+        
+        $auth = Auth::check();
+
+        $menteeAnswer = DB::table('responses')
+        ->join('questions','responses.question_id','=','questions.id')
+        ->join('exams','questions.exam_id','=','exams.id')
+        ->select('questions.question','questions.score','responses.answer')
+        ->where('responses.mentee_id','=',$menteeId)
+        ->where('exams.course_id','=',$courseId)->get();
+
+        $exam = Exam::where('course_id','=',$courseId)->get();
+
+        return view('rate_essai',compact('auth','userData','menteeAnswer','exam','menteeId'));
+    }
+
+    public function rateExamEssai(Request $request,$menteeId,$examId){
+        $this->validate($request,[
+            'score' => 'required|numeric|min:0|max:100'
+        ]);
+        $submittedExam = new SubmittedExam();
+        $submittedExam->mentee_id = $menteeId;
+        $submittedExam->exam_id = $examId;
+        $submittedExam->score = $request->score;
+        $submittedExam->save();
+        return redirect('/dashboard')->with('status','Exam Rated Successfully');
     }
 }

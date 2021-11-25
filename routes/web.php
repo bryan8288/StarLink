@@ -126,6 +126,9 @@ Route::post('deleteAssignment/{assignmentId}','ModuleController@deleteAssignment
 Route::put('editAssignment/{assignmentId}/{moduleId}','ModuleController@editAssignment');
 Route::get('assignmentDetail/{id}','ModuleController@getAssignmentDetailPage');
 Route::post('rateAssignment/{id}','ModuleController@rateAssignment');
+Route::post('rateExam/{id}','ExamController@rateExam');
+Route::get('rateEssai/{menteeId}/{courseId}','ExamController@getRateEssaiPage');
+Route::post('rateEssai/{menteeId}/{examId}','ExamController@rateExamEssai');
 Route::post('addExam/{courseId}','ExamController@uploadExam');
 
 #Mentee
@@ -144,7 +147,7 @@ Route::post('/video/done/{moduleId}/{videoId}','ModuleController@doneVideo');
 Route::get('/exam/{examId}','ExamController@getExamPage');
 Route::post('/submitexam/{examId}','ExamController@submitExam');
 Route::get('/examEssai/{examId}','ExamController@getEssaiExamPage');
-Route::post('/submitAnswer/','ExamController@submitAnswerEssai');
+Route::post('/submitAnswer','ExamController@submitAnswerEssai');
 
 //Compiler
 Route::get('/compiler','ExamController@getCompiler');
