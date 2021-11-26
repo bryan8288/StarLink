@@ -147,7 +147,7 @@ class CourseController extends Controller
                 ->select('submitted_exams.id','submitted_exams.file','mentees.name','submitted_exams.score','mentees.id as menteeId')->distinct()
                 ->where('exams.course_id','=',$id)->get();
             }
-        }else $completedMenteeList = null;
+        }else $completedMenteeList = [];
 
         $moduleList = Module::where('course_id','=',$id)->get();
         return view('admin/edit_course',compact('courseDetail','auth','userData','moduleList','exam','completedMenteeList'));
