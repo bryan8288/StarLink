@@ -482,7 +482,7 @@
                                 name="type">
                                 <option selected>-- Choose Type --</option>
                                 <option>Project</option>
-                                <option>Coding</option>
+                                {{-- <option>Coding</option> --}}
                                 <option>Essai</option>
                             </select>
                         </div>

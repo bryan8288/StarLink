@@ -131,23 +131,25 @@ class CourseController extends Controller
                 ->select('exams.*')
                 ->where('exams.course_id','=',$id)->get();
 
-        if(Auth::user()->role == 'mentor'){
-            if($exam[0]->type == 'Project'){
-                $completedMenteeList = DB::table('submitted_exams')
-                ->join('mentees','submitted_exams.mentee_id','=','mentees.id')
-                ->join('exams','submitted_exams.exam_id','=','exams.id')
-                ->select('submitted_exams.id','submitted_exams.file','mentees.name','submitted_exams.score','mentees.id as menteeId')
-                ->where('exams.course_id','=',$id)->get();
-            }else if($exam[0]->type == 'Essai'){
-                $completedMenteeList = DB::table('responses')
-                ->join('mentees','responses.mentee_id','=','mentees.id')
-                ->join('questions','responses.question_id','=','questions.id')
-                ->join('exams','questions.exam_id','=','exams.id')
-                ->leftJoin('submitted_exams','submitted_exams.exam_id','=','exams.id')
-                ->select('submitted_exams.id','submitted_exams.file','mentees.name','submitted_exams.score','mentees.id as menteeId')->distinct()
-                ->where('exams.course_id','=',$id)->get();
-            }
-        }else $completedMenteeList = [];
+        if($exam->count() !=0){
+            if(Auth::user()->role == 'mentor'){
+                if($exam[0]->type == 'Project'){
+                    $completedMenteeList = DB::table('submitted_exams')
+                    ->join('mentees','submitted_exams.mentee_id','=','mentees.id')
+                    ->join('exams','submitted_exams.exam_id','=','exams.id')
+                    ->select('submitted_exams.id','submitted_exams.file','mentees.name','submitted_exams.score','mentees.id as menteeId')
+                    ->where('exams.course_id','=',$id)->get();
+                }else if($exam[0]->type == 'Essai'){
+                    $completedMenteeList = DB::table('responses')
+                    ->join('mentees','responses.mentee_id','=','mentees.id')
+                    ->join('questions','responses.question_id','=','questions.id')
+                    ->join('exams','questions.exam_id','=','exams.id')
+                    ->leftJoin('submitted_exams','submitted_exams.exam_id','=','exams.id')
+                    ->select('submitted_exams.id','submitted_exams.file','mentees.name','submitted_exams.score','mentees.id as menteeId')->distinct()
+                    ->where('exams.course_id','=',$id)->get();
+                }
+            }else $completedMenteeList = [];
+        }
 
         $moduleList = Module::where('course_id','=',$id)->get();
         return view('admin/edit_course',compact('courseDetail','auth','userData','moduleList','exam','completedMenteeList'));

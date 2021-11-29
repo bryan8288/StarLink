@@ -31,30 +31,36 @@ Route::post('/forgot-password', 'ForgotPasswordController@postEmail');
 Route::get('/reset-password/{token}', 'ResetPasswordController@getPassword');
 Route::post('/reset-password', 'ResetPasswordController@updatePassword');
 
-#Dashboard
 Route::group(['middleware' => 'loginAuth'], function () {
     Route::get('/dashboard','DashboardController@getDashboardPage')->name('dashboard');;
     Route::get('/dashboard/logout','DashboardController@logout');
+    Route::get('/course','CourseController@getCourseList');
+    Route::get('/course','CourseController@getProductbySearch');
+    Route::get('/editCourse/{id}','CourseController@goEditPage');
+    Route::get('/editModule/{id}','ModuleController@goEditPage');
+    Route::get('/moduleDetailLearning/{id}','ModuleController@detailLearning');
+    Route::get('/moduleDetailVideo/{id}','ModuleController@detailVideo');
+    Route::get('/moduleDetailAssignment/{id}','ModuleController@detailAssignment');
+    Route::get('/class','ClassController@getClassList');
+    Route::get('/class','ClassController@getProductbySearch');
+    Route::get('/editClass/{id}','ClassController@goEditPage');
+    Route::get('/discussionRoom','DiscussionRoomController@show');
+    Route::get('schedule','ScheduleController@getScheduleList');
+    Route::get('/editJob/{id}','CompanyController@goEditPage');
+    Route::get('/profile/{id}','ViewProfileController@show');
 });
 
 #Admin
 Route::group(['middleware' => 'adminAuth'], function () {
     #course
-    Route::get('/course','CourseController@getCourseList');
-    Route::get('/course','CourseController@getProductbySearch');
-    Route::get('/editCourse/{id}','CourseController@goEditPage');
     Route::put('/editCourse/update/{id}','CourseController@editCourseDetail');
     Route::post('editCourse/delete/{id}','CourseController@deleteCourse');
     Route::get('/addCourse','CourseController@getAddCoursePage');
     Route::post('/addCourse/add','CourseController@addCourse');
     Route::get('/addModule','ModuleController@getAddModulePage');
     Route::post('/addModule/add','ModuleController@addModule');
-    Route::get('/editModule/{id}','ModuleController@goEditPage');
     Route::put('/editModule/update/{id}','ModuleController@editModuleDetail');
     Route::post('editModule/delete/{id}','ModuleController@deleteModule');
-    Route::get('/moduleDetailLearning/{id}','ModuleController@detailLearning');
-    Route::get('/moduleDetailVideo/{id}','ModuleController@detailVideo');
-    Route::get('/moduleDetailAssignment/{id}','ModuleController@detailAssignment');
     #mentorList
     Route::get('/mentor','ViewMentorController@getMentorList');
     Route::get('/mentor','ViewMentorController@getProductbySearch');
@@ -68,14 +74,11 @@ Route::group(['middleware' => 'adminAuth'], function () {
     Route::get('/addCompany','ViewCompanyController@getAddCompanyPage');
     Route::post('/addCompany/add','ViewCompanyController@addCompany');
     #profile
-    Route::get('/profile/{id}','ViewProfileController@show');
     Route::put('/profile/update/{id}','ViewProfileController@edit');
     Route::get('/changePassword/{id}', 'ChangePasswordController@index');
     Route::post('/changePassword/change/{id}', 'ChangePasswordController@store');
     #class
-    Route::get('/class','ClassController@getClassList');
-    Route::get('/class','ClassController@getProductbySearch');
-    Route::get('/editClass/{id}','ClassController@goEditPage');
+   
     Route::put('/editClass/update/{id}','ClassController@editClassDetail');
     Route::post('editClass/delete/{id}','ClassController@deleteClass');
     Route::get('/addClass','ClassController@getAddClassPage');
@@ -83,7 +86,6 @@ Route::group(['middleware' => 'adminAuth'], function () {
     Route::put('/addMenteeToClass/{id}','ClassController@addMenteeToClass');
     Route::post('deleteMenteeFromClass/{id}','ClassController@deleteMenteeFromClass');
     #discussionRoom    
-    Route::get('/discussionRoom','DiscussionRoomController@show');
     Route::get('/admin/discussAdmin/{id}','DiscussionRoomController@showadmin');
     Route::put('/admin/discussAdmin/update/{id}','DiscussionRoomController@edit');
     Route::put('/admin/discussAdmin/update/','DiscussionRoomController@editMentor');
@@ -107,7 +109,6 @@ Route::group(['middleware' => 'companyAuth'], function () {
     #job
     Route::get('/job','CompanyController@getJobList');
     Route::get('/job','CompanyController@getJobBySearch');
-    Route::get('/editJob/{id}','CompanyController@goEditPage');
     Route::put('/editJob/update/{id}','CompanyController@editJobDetail');
     Route::post('editJob/delete/{id}','CompanyController@deleteJob');
     Route::get('/addJob','CompanyController@getAddJobPage');
@@ -116,8 +117,6 @@ Route::group(['middleware' => 'companyAuth'], function () {
 
 #Mentor
 Route::group(['middleware' => 'mentorAuth'], function () {
-    #schedule
-    Route::get('schedule','ScheduleController@getScheduleList');
     #progressMentee
     Route::get('progressmentee','ProgressMenteeController@getCourseByMentor');
     Route::get('progressmentee/detail/{id}','ProgressMenteeController@getProgressMentee');
