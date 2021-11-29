@@ -24,7 +24,7 @@
                 placeholder="{{$moduleDetail->description}}" rows="5" readonly></textarea>
         </div>
         <div class="courseDetail">
-            <h5 style="width: 30%;float:left">KKM</h5>
+            <h5 style="width: 30%;float:left">Minimal Grade</h5>
             <input style="width:70%; float: right;" type="text" name="kkm" class="form-control"
                 value="{{$moduleDetail->kkm}}" style="margin-bottom: 5px" readonly>
         </div>
@@ -52,7 +52,7 @@
                     placeholder="{{$moduleDetail->description}}" rows="5"></textarea>
             </div>
             <div class="courseDetail">
-                <h5 style="width: 30%;float:left">KKM</h5>
+                <h5 style="width: 30%;float:left">Minimal Grade</h5>
                 <input style="width:70%; float: right;" type="text" name="kkm" class="form-control"
                     value="{{$moduleDetail->kkm}}" style="margin-bottom: 5px">
             </div>

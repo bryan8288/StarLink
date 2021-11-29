@@ -103,17 +103,19 @@
                 <div style="width:90%">
                     <h4 style="margin-left:2.5%">There is no Video</h4>
                 </div>
-                @if ($video->isCompleted == true)
-                    <button disabled type="submit" class="btn btn-primary" style="background-color: #27353F;">
-                        Already Done
-                    </button>
-                @else
-                <form action="{{url('video/done/'.$id.'/'.$video->id)}}" method="POST">
-                    {{ csrf_field() }}
-                        <button type="submit" class="btn btn-primary" style="background-color: #27353F; margin-left:2.5%">
-                            Done
+                @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
+                    @if ($video->isCompleted == true)
+                        <button disabled type="submit" class="btn btn-primary" style="background-color: #27353F;">
+                            Already Done
                         </button>
-                </form>
+                    @else
+                    <form action="{{url('video/done/'.$id.'/'.$video->id)}}" method="POST">
+                        {{ csrf_field() }}
+                            <button type="submit" class="btn btn-primary" style="background-color: #27353F; margin-left:2.5%">
+                                Done
+                            </button>
+                    </form>
+                    @endif
                 @endif
             </div>
             @else
@@ -127,17 +129,19 @@
                             </button>
                     </a>
                 </div>
-                @if ($video->isCompleted == true)
-                    <button disabled type="submit" class="btn btn-primary" style="background-color: #27353F;">
-                        Already Done
-                    </button>
-                @else
-                <form action="{{url('video/done/'.$id.'/'.$video->id)}}" method="POST">
-                    {{ csrf_field() }}
-                        <button type="submit" class="btn btn-primary" style="background-color: #27353F; margin-left:2.5%">
-                            Done
+                @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
+                    @if ($video->isCompleted == true)
+                        <button disabled type="submit" class="btn btn-primary" style="background-color: #27353F;">
+                            Already Done
                         </button>
-                </form>
+                    @else
+                    <form action="{{url('video/done/'.$id.'/'.$video->id)}}" method="POST">
+                        {{ csrf_field() }}
+                            <button type="submit" class="btn btn-primary" style="background-color: #27353F; margin-left:2.5%">
+                                Done
+                            </button>
+                    </form>
+                    @endif
                 @endif
             </div>
             @endif

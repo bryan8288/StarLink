@@ -89,7 +89,7 @@
                     </li>
                     <li class="list-group-item">
                         <div class="" style="display: flex">
-                            <a href="{{'/editJob/'.$acceptedCompany[0]->id}}">
+                            <a href="{{'/applyCompany/detail/'.$acceptedCompany[0]->id}}">
                             <button type="button" class="btn btn-primary"
                                 style="background:#E08C1F; border-color:#08C1F; font-weight:bold; height:50px; width:120px">SEE
                                 DETAIL</button>

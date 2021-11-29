@@ -32,22 +32,22 @@
             </div>
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Price</h5>
-                <input style="width:70%; float: right;" type="text" name="price" class="form-control"
+                <input style="width:70%; float: right;" type="text" class="form-control"
                     value="{{$courseDetail->price}}" style="margin-bottom: 5px" readonly>
             </div>
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Weeks</h5>
-                <input style="width:70%; float: right;" type="number" name="weeks" class="form-control"
+                <input style="width:70%; float: right;" type="number" class="form-control"
                     value="{{$courseDetail->weeks}}" style="margin-bottom: 5px" readonly>
             </div>
             <div class="courseDetail">
-                <h5 style="width: 30%;float:left">KKM</h5>
-                <input style="width:70%; float: right;" type="number" name="kkm" class="form-control"
+                <h5 style="width: 30%;float:left">Minimal Grade</h5>
+                <input style="width:70%; float: right;" type="number" class="form-control"
                     value="{{$courseDetail->kkm}}" style="margin-bottom: 5px" readonly>
             </div>
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Exam Time</h5>
-                <input style="width:70%; float: right;" type="time" name="kkm" class="form-control"
+                <input style="width:70%; float: right;" type="time" class="form-control"
                     value="{{$courseDetail->exam_time}}" style="margin-bottom: 5px" readonly>
             </div>
             <div style="display: flex">
@@ -96,7 +96,7 @@
                                 <th scope="col">No</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">KKM</th>
+                                <th scope="col">Minimal Grade</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -153,13 +153,13 @@
                     value="{{$courseDetail->weeks}}" style="margin-bottom: 5px" readonly>
             </div>
             <div class="courseDetail">
-                <h5 style="width: 30%;float:left">KKM</h5>
+                <h5 style="width: 30%;float:left">Minimal Grade</h5>
                 <input style="width:70%; float: right;" type="number" name="kkm" class="form-control"
                     value="{{$courseDetail->kkm}}" style="margin-bottom: 5px" readonly>
             </div>
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Exam Time</h5>
-                <input style="width:70%; float: right;" type="time" name="kkm" class="form-control"
+                <input style="width:70%; float: right;" type="time" class="form-control"
                     value="{{$courseDetail->exam_time}}" style="margin-bottom: 5px" readonly>
             </div>
 
@@ -172,7 +172,7 @@
                                 <th scope="col">No</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">KKM</th>
+                                <th scope="col">Minimal Grade</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -226,13 +226,13 @@
                     value="{{$courseDetail->weeks}}" style="margin-bottom: 5px">
             </div>
             <div class="courseDetail">
-                <h5 style="width: 30%;float:left">KKM</h5>
+                <h5 style="width: 30%;float:left">Minimal Grade</h5>
                 <input style="width:70%; float: right;" type="number" name="kkm" class="form-control"
                     value="{{$courseDetail->kkm}}" style="margin-bottom: 5px">
             </div>
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Exam Time</h5>
-                <input style="width:70%; float: right;" type="time" name="kkm" class="form-control"
+                <input style="width:70%; float: right;" type="time" name="time" class="form-control"
                     value="{{$courseDetail->exam_time}}" style="margin-bottom: 5px">
             </div>
             <div style="margin-top: 30px">
@@ -244,7 +244,7 @@
                                 <th scope="col">No</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">KKM</th>
+                                <th scope="col">Minimal Grade</th>
                             </tr>
                         </thead>
                         <tbody>

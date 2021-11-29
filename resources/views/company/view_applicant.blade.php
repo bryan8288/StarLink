@@ -19,7 +19,7 @@
         <form action="{{'/applicantList/'}}">
             <div style="display:flex;">
                 <h5 style="color: white; margin-left: 30px; margin-top:5px">Applicant List</h5>
-                <input type="text" name="keyword" class="form-control" placeholder="Search for Product"
+                <input type="text" name="keyword" class="form-control" placeholder="Search By Name"
                     style="width: 500px; margin-left: 40px; padding-bottom: 5px; position: absolute; right: 140px;">
                 <input type="submit" class="btn btn-primary" value="Search"
                     style="margin-left: 10px; margin-bottom: 5px; position: absolute; right: 50px; background-color: #27353F">

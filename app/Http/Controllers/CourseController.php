@@ -9,7 +9,7 @@ use App\Module;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use stdClass;
 
 class CourseController extends Controller
 {
@@ -272,16 +272,18 @@ class CourseController extends Controller
                 ->select('exams.*')
                 ->where('exams.course_id','=',$id)->get();
 
-        if($exam[0]->type == 'Project'){
-            $submittedExam = DB::table('submitted_exams')
-            ->where('mentee_id','=',$userData[0]->id)
-            ->where('exam_id','=',$exam[0]->id);
-        }else if($exam[0]->type == 'Essai'){
-            $submittedExam = DB::table('responses')
-            ->join('questions','questions.id','=','responses.question_id')
-            ->where('mentee_id','=',$userData[0]->id)
-            ->where('questions.exam_id','=',$exam[0]->id);
-        }
+        if($exam->count() > 0){
+            if($exam[0]->type == 'Project'){
+                $submittedExam = DB::table('submitted_exams')
+                ->where('mentee_id','=',$userData[0]->id)
+                ->where('exam_id','=',$exam[0]->id);
+            }else if($exam[0]->type == 'Essai'){
+                $submittedExam = DB::table('responses')
+                ->join('questions','questions.id','=','responses.question_id')
+                ->where('mentee_id','=',$userData[0]->id)
+                ->where('questions.exam_id','=',$exam[0]->id);
+            }
+        }else $submittedExam = DB::table('submitted_exams')->where('mentee_id','=','$');
 
         if($submittedExam->count() > 0){
             $isSubmitted = true;
@@ -289,6 +291,4 @@ class CourseController extends Controller
 
         return view('mentee/mycourse_detail',compact('courseDetail','auth','userData','moduleList','scoreboard','exam','isSubmitted'));
     }
-
-    
 }

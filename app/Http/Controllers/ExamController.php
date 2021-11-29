@@ -66,8 +66,24 @@ class ExamController extends Controller
         $diffHuman = $created_at->diffForHumans($now);  
         $diffHours = $created_at->diffInHours($now);  
         $diffMinutes = $created_at->diffInMinutes($now);
+        if($exam[0]->type == 'Project'){
+            $examSubmitted = DB::table('submitted_exams')
+            ->select('submitted_exams.*')
+            ->where('submitted_exams.exam_id','=',$examId)
+            ->where('submitted_exams.is_finalized','=',1)
+            ->where('submitted_exams.mentee_id','=',$userData[0]->id)->get();
+            
+            if($examSubmitted->count()>0){
+                $isSubmitted = true;
+            }else $isSubmitted = false;
 
-        return view('mentee/exam',compact('auth','userData','exam','diffMinutes'));
+            $submittedExamList = DB::table('submitted_exams')
+            ->select('submitted_exams.*')
+            ->where('submitted_exams.mentee_id','=',$userData[0]->id)
+            ->orderBy('created_at')->get();
+        }else $submittedExamLis = null;
+
+        return view('mentee/exam',compact('auth','userData','exam','diffMinutes','isSubmitted','submittedExamList'));
     }
 
     public function submitExam(Request $request, $examId){
@@ -78,18 +94,28 @@ class ExamController extends Controller
             ->get();
 
         $this->validate($request,[
-            'exam_file' => 'required'
+            'exam_file' => 'required',
+            'finalized' => 'required'
         ]);
+
+        $courseId = Exam::find($examId)->course_id;
 
         $submittedExam = new SubmittedExam(); 
         $submittedExam->mentee_id = $userData[0]->id;
         $submittedExam->exam_id = $examId;
 
         $file_path = $request->file('exam_file')->store('submittedexam','public');
+
+        if($request->finalized == "1"){
+            $submittedExam->is_finalized = false;
+        }else {
+            $submittedExam->is_finalized = true;
+        }
+
         $submittedExam->file = $file_path;
         $submittedExam->save();
 
-        return redirect('/dashboard')->with('status','Exam Submitted Successfully');
+        return redirect('/exam/'.$courseId)->with('status','Exam Submitted Successfully');
     }
 
     public function getEssaiExamPage($examId){

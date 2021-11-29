@@ -20,7 +20,7 @@ class CreateSubmittedExamsTable extends Migration
             $table->unsignedInteger('mentee_id');
             $table->foreign('mentee_id')->references('id')->on('mentees')->onDelete('cascade');
             $table->string('file')->nullable();
-            // $table->boolean('is_finalized');
+            $table->boolean('is_finalized');
             $table->integer('score')->nullable();
             $table->timestamps();
         });

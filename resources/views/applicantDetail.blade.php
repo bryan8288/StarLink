@@ -13,8 +13,17 @@
                 </div>
                 
                 <div style="text-align: center">
+                    @if($applicantDetail->portofolio == null)
+                    <li style="list-style-type: none;"><button type="button" class="btn btn-light" style="color: #E08C1F; font-weight:bold;margin-bottom:20px;width:230px" disabled>DOWNLOAD PORTOFOLIO</button></li>
+                    @else
                     <li style="list-style-type: none;"><a href="{{asset('storage/'.$applicantDetail->portofolio)}}"><button type="button" class="btn btn-light" style="color: #E08C1F; font-weight:bold;margin-bottom:20px;width:230px">DOWNLOAD PORTOFOLIO</button></a></li>
+                    @endif
+
+                    @if($applicantDetail->cv == null)
+                    <li style="list-style-type: none;"><button type="button" class="btn btn-light" style="color: #E08C1F; font-weight:bold;width:230px" disabled>DOWNLOAD CV</button></li>
+                    @else
                     <li style="list-style-type: none;"><a href="{{asset('storage/'.$applicantDetail->cv)}}"><button type="button" class="btn btn-light" style="color: #E08C1F; font-weight:bold;width:230px">DOWNLOAD CV</button></a></li>
+                    @endif
 
                     <div class="btn btn-primary" style="font-weight: bold; color:white;background:#E08C1F; border:none; margin-top:50px; cursor:context-menu">CONTACT</div><br>
                     <div class="btn" style="background:white; width:280px; text-align:left; margin:20px; font-weight:bold">

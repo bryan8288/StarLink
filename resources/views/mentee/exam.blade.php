@@ -85,6 +85,21 @@
                             </div>
                         </div>
                     </div>
+                    @if(session('status'))
+                        <div class="alert alert-success" style="margin-top :10px;">
+                            {{session('status')}}
+                        </div>
+                    @endif
+
+                    @if(count($errors) > 0)
+                    <div class="alert alert-danger" style="margin-top :10px;">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                     <div class="col-md-12" id="background"
                         style="min-height:852px; height: auto; padding-bottom : 20px">
                         <div class="container-fluid" style="padding-top: 50px">
@@ -121,10 +136,67 @@
                                     </a>
                                 </center>
                                 <center>
-                                    <button type="button" id="buttonSubmit" class="btn btn-primary"
-                                    style="background-color: #27353F; margin-top: 30px; margin-left:10px" data-bs-toggle="modal" data-bs-target="#uploadExam"><i
-                                    class="fa fa-cloud-upload" style="margin-right: 2px"></i>Upload Exam </button>
+                                    @if($isSubmitted == true)
+                                        <button type="button" id="buttonSubmitDONE" class="btn btn-primary"
+                                        style="background-color: #27353F; margin-top: 30px; margin-left:10px" disabled><i
+                                        class="fa fa-cloud-upload" style="margin-right: 2px"></i>Upload Exam </button>
+
+                                        <a href="{{url('dashboard')}}">
+                                            <button type="button" id="buttonSubmitDONE" class="btn btn-primary"
+                                            style="background-color: #27353F; margin-top: 30px; margin-left:10px">Go to Dashboard</button>
+                                        </a>
+                                    @else 
+                                        <button type="button" id="buttonSubmit" class="btn btn-primary"
+                                        style="background-color: #27353F; margin-top: 30px; margin-left:10px" data-bs-toggle="modal" data-bs-target="#uploadExam"><i
+                                        class="fa fa-cloud-upload" style="margin-right: 2px"></i>Upload Exam </button>
+                                    @endif
                                 </center>
+                                <center>
+                                    <button type="button" id="buttonSubmitDONE" class="btn btn-primary"
+                                        style="background-color: #27353F; margin-top: 30px; margin-left:10px" data-bs-toggle="modal" data-bs-target="#historyExam"><i
+                                        class="fa fa-history" style="margin-right: 2px"></i>History Upload</button>
+                                </center>
+                                <div class="modal fade" id="historyExam" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="popupmodel">History Upload</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                                <div class="modal-body">
+                                                    <table class="table">
+                                                        <thead>
+                                                          <tr>
+                                                            <th scope="col">No</th>
+                                                            <th scope="col">Uploaded Date</th>
+                                                            <th scope="col">File</th>
+                                                          </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach ($submittedExamList as $key => $submittedExam)
+                                                        <tr>
+                                                            <th scope="row">{{$key+1}}</th>
+                                                            <td>{{$submittedExam->created_at}}</td>
+                                                            <td>
+                                                                <a href="{{asset('storage/'.$submittedExam->file)}}">
+                                                                    <button type="button" class="btn btn-primary" style="background-color: #27353F;">
+                                                                        <i class="fa fa-cloud-download"></i>
+                                                                        Download
+                                                                    </button>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+
+                                                        </tbody>
+                                                      </table>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="modal fade" id="uploadExam" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
                                         <div class="modal-content">
@@ -142,6 +214,13 @@
                                                             class="upload bg-dark" for="exam_file">
                                                             <i class="fa fa-cloud-upload"></i>
                                                             Upload</label><br>
+                                                    </div>
+                                                    <div class="form-check" style="margin-top: 10px">
+                                                        <input class="form-check-input" type='hidden' value='0' name='finalized'>
+                                                        <input class="form-check-input" value="1" type="checkbox" name="finalized" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Finalize
+                                                        </label>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">

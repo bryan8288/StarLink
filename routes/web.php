@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/','WelcomeController@getCourseList');
 
 Route::group(['middleware' => 'guest'], function () {   
     Route::get('/login','LoginController@getLoginPage');
@@ -140,7 +142,8 @@ Route::group(['middleware' => 'mentorAuth'], function () {
 Route::group(['middleware' => 'loginAuth'], function () {
     Route::get('/applyCompany','ApplyCompanyController@show');
     Route::get('/applyCompany/search/','ApplyCompanyController@showBySearch');
-    Route::post('/applyCompany/{jobId}','ApplyCompanyController@applyCompany');
+    Route::get('/applyCompany/{jobId}','ApplyCompanyController@applyCompany');
+    Route::get('/applyCompany/detail/{jobId}','ApplyCompanyController@getDetailCompanyJob');
     Route::get('/courseList','CourseController@getCourseListForMentee');
     Route::post('/buyCourse/{menteeId}/{courseId}','CourseController@buyCourse');
     Route::get('progressmenteeForMentee/','ProgressMenteeController@getCourseMentee');

@@ -34,7 +34,7 @@
                     style="margin-bottom: 5px">
             </div>
             <div class="courseDetail">
-                <h5 style="width: 30%;float:left">KKM</h5>
+                <h5 style="width: 30%;float:left">Minimal Grade</h5>
                 <input style="width:70%; float: right;" type="number" name="kkm" class="form-control"
                     style="margin-bottom: 5px">
             </div>
@@ -57,7 +57,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Exam Time</th>
-                                <th scope="col">KKM</th>
+                                <th scope="col">Minimal Grade</th>
                             </tr>
                         </thead>
                         <tbody>
