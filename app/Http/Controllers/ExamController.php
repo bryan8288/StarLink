@@ -220,4 +220,15 @@ class ExamController extends Controller
         $submittedExam->save();
         return redirect('/dashboard')->with('status','Exam Rated Successfully');
     }
+
+    public function editExamScore(Request $request,$id){
+        $this->validate($request,[
+            'score' => 'required|numeric|min:0|max:100'
+        ]);
+        $submittedExam = SubmittedExam::find($id);
+        $submittedExam->score = $request->score;
+        $submittedExam->save();
+
+        return redirect('/dashboard')->with('status','Exam Score Edited Successfully');
+    }
 }

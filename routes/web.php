@@ -144,6 +144,7 @@ Route::group(['middleware' => 'mentorAuth'], function () {
     Route::post('rateAssignment/{id}','ModuleController@rateAssignment');
     Route::post('editRateAssignment/{id}','ModuleController@editRateAssignment');
     Route::post('rateExam/{id}','ExamController@rateExam');
+    Route::post('editExamScore/{id}','ExamController@editExamScore');
     Route::get('rateEssai/{menteeId}/{courseId}','ExamController@getRateEssaiPage');
     Route::post('rateEssai/{menteeId}/{examId}','ExamController@rateExamEssai');
     Route::post('addExam/{courseId}','ExamController@uploadExam');

@@ -642,7 +642,14 @@
                                         </div>
                                     </form>
                                     @else
-                                    <button class="btn btn-primary" style="width:80px" disabled>Rated</button>
+                                    <form action="{{url('/editExamScore/'.$mentee->id)}}" method="post">
+                                        {{csrf_field()}}
+                                        <div style="display: flex; justify-content: center">
+                                            <input style="width:20%" type="number" name="score" class="form-control"
+                                                style="margin-bottom: 5px">
+                                            <button class="btn btn-primary" style="width:80px; margin-left:20px"  >Edit</button>
+                                        </div>
+                                    </form>
                                     @endif
                                 </td>
                             </tr>
