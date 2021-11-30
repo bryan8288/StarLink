@@ -35,19 +35,20 @@
                     </button>
                 </a>
             </div>
-            @if ($isCompleted == true)
-                <button disabled type="submit" class="btn btn-primary" style="background-color: #27353F;">
-                    Already Done
-                </button>
-            @else
-            <form action="{{url('learning/done/'.$id)}}" method="POST">
-            {{ csrf_field() }}
-                <button type="submit" class="btn btn-primary" style="background-color: #27353F; margin-left:2.5%">
-                    Done
-                </button>
-            </form>
+            @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
+                @if ($isCompleted == true)
+                    <button disabled type="submit" class="btn btn-primary" style="background-color: #27353F;">
+                        Already Done
+                    </button>
+                @else
+                <form action="{{url('learning/done/'.$id)}}" method="POST">
+                {{ csrf_field() }}
+                    <button type="submit" class="btn btn-primary" style="background-color: #27353F; margin-left:2.5%">
+                        Done
+                    </button>
+                </form>
+                @endif
             @endif
-
         </div>
     </div>
 </div>

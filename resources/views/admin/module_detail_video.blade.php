@@ -1,5 +1,10 @@
 @extends('layout.layoutUser')
 @section('content')
+@if(session('status'))
+    <div class="alert alert-success" style="margin-top :10px;">
+        {{session('status')}}
+    </div>
+@endif
 <div class="col-md-12" id="background" style="min-height: 852px; height:auto">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -203,11 +208,6 @@
         <li>{{$error}}</li>
         @endforeach
     </ul>
-</div>
-@endif
-@if(session('status'))
-<div class="alert alert-success" style="margin-top :20px;">
-    {{session('status')}}
 </div>
 @endif
 </main>

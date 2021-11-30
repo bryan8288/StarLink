@@ -67,7 +67,7 @@ class CompanyController extends Controller
         return view('company/view_applicant',compact('auth','userData','applicantList','jobList'));
     }
 
-    public function getProductbySearch(Request $request){ //buat nampilin hasil searching sesuai keyword yang diinput user (keyword akan dicocokkan dengan nama product)
+    public function getProductbySearch(Request $request){ 
         if(Auth::user()->role == 'company'){
             $userData = DB::table('users')
             ->join('companies','users.id','=','companies.user_id')
@@ -121,7 +121,7 @@ class CompanyController extends Controller
         return view('company/view_job',compact('auth','job','userData'));
     }
 
-    public function getJobBySearch(Request $request){ //buat nampilin hasil searching sesuai keyword yang diinput user (keyword akan dicocokkan dengan nama product)
+    public function getJobBySearch(Request $request){
         if(Auth::user()->role == 'company'){
             $userData = DB::table('users')
             ->join('companies','users.id','=','companies.user_id')
@@ -157,7 +157,7 @@ class CompanyController extends Controller
         return view('company/edit_job',compact('jobDetail','auth','userData','typeList'));
     }
 
-    public function editJobDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+    public function editJobDetail(Request $request, $id){ 
         $this->validate($request,[
             'name' => 'required|min:5',
             'description' => 'required|min:10',
@@ -177,14 +177,14 @@ class CompanyController extends Controller
         return redirect('/applicantList')->with('status','Job Updated Successfully');
     }
 
-    public function deleteJob($id){ //buat menghapus product sesuai dengan product yang diklik
+    public function deleteJob($id){ 
         $jobDetail = CompanyJob::find($id);
         $jobDetail->delete();
 
         return redirect('/applicantList')->with('status','Job Deleted Successfully');
     }
 
-    public function getAddJobPage(){ //buat nampilin page AddProduct dan list semua stationary_type
+    public function getAddJobPage(){ 
         if(Auth::user()->role == 'company'){
             $userData = DB::table('users')
             ->join('companies','users.id','=','companies.user_id')
@@ -203,7 +203,7 @@ class CompanyController extends Controller
         return view('company/add_job',compact('auth','userData','mentorList','typeList'));
     }
 
-    public function addJob(Request $request){ //buat validasi inputan dan untuk menambahkan produk baru kedalam database sesuai inputan admin
+    public function addJob(Request $request){ 
         $auth = Auth::check();
         $this->validate($request,[
             'name' => 'required|min:5',

@@ -28,7 +28,6 @@ class ResetPasswordController extends Controller {
                       ->first();
 
   if(!$updatePassword){
-    //   dd($request->token);
       return back()->withInput()->with('error', 'Invalid token!');
     
   } 

@@ -6,11 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Mentor;
-use App\Mentee;
-use App\Admin;
 use App\DiscussionAdmin;
 use App\DiscussionMentor;
-use App\User;
 
 class DiscussionRoomController extends Controller
 {
@@ -101,7 +98,7 @@ class DiscussionRoomController extends Controller
         return view('/admin/discussAdmin',compact('auth','userData','AdminRoomData','MentorRoomData','clockAdmin','clockMentor','mentorList'));
     }
 
-    public function edit(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+    public function edit(Request $request, $id){
         $this->validate($request,[
             'url' => 'required'
         ]);
@@ -116,7 +113,7 @@ class DiscussionRoomController extends Controller
         
         return redirect('/dashboard')->with('status','Discussion Room Updated Successfully');
     }
-    public function editMentor(Request $request){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+    public function editMentor(Request $request){ 
         $this->validate($request,[
             'url' => 'required',
             'id' =>'required',

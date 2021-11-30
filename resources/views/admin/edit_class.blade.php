@@ -1,6 +1,10 @@
 @extends('layout.layoutUser')
 @section('content')
-
+@if(session('status'))
+    <div class="alert alert-success" style="margin-top :10px;">
+        {{session('status')}}
+    </div>
+@endif
 <div class="col-md-12" id="background2">
     <div class="container-fluid" style="padding-top: 50px">
         @if($auth && \Illuminate\Support\Facades\Auth::user()->role != 'admin')

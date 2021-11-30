@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes;
 use App\Mentee;
 use App\Mentor;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     
-    public function getDashboardPage (){ //buat nampilin page Home beserta list semua produk dalam website
+    public function getDashboardPage (){
         
         $auth = Auth::check();
         
@@ -150,7 +148,7 @@ class DashboardController extends Controller
     'classList','todaySchedule','pendingAssignment','todayScheduleMentee','score','assignmentMentee'));
     }
 
-    public function logout(){ //buat logout untuk user dan diredirect ke page Login
+    public function logout(){
         Auth::logout();
         return redirect('/login');
     }

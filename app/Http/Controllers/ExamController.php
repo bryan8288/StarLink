@@ -148,15 +148,12 @@ class ExamController extends Controller
     }
 
     public function submitAnswerEssai(Request $request){
-        // dd($request->all());
-        // dd(count($request->answer));
         $userData = DB::table('users')
             ->join('mentees','users.id','=','mentees.user_id')
             ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
             ->where('users.id','=',Auth::id())
             ->get();
 
-        // dd($request->question[0]);
         for ($i=0; $i < count($request->answer); $i++) { 
             $response = new Response();
             $response->question_id = $request->question[$i];

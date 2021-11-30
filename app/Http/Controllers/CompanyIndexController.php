@@ -23,8 +23,7 @@ class CompanyIndexController extends Controller
         return view('companyprofile',compact('auth','userData'));
     }
 
-    public function edit(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
-        // dd(Auth::user()->role);
+    public function edit(Request $request, $id){ 
         $this->validate($request,[
             'name' => 'required|min:4',
             'address' => 'required|min:20',
@@ -45,7 +44,6 @@ class CompanyIndexController extends Controller
                 $image_path = $request->file('profile_picture')->store('storage','public');
                 $companyProfile->profile_picture = $image_path;
             }
-            // $profileDetail->username = $request->username;
             $companyProfile->update();
             $userEmail->update();
         }

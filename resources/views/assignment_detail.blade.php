@@ -1,5 +1,10 @@
 @extends('layout.layoutUser')
 @section('content')
+@if(session('status'))
+    <div class="alert alert-success" style="margin-top :10px;">
+        {{session('status')}}
+    </div>
+@endif
 <div class="col-md-12" id="background2">
     <div class="container-fluid" style="padding-top: 50px">
         @if($auth && \Illuminate\Support\Facades\Auth::user()->role != 'admin')
@@ -72,7 +77,14 @@
                                     </div>
                                 </form>
                                 @else
-                                <button class="btn btn-primary" style="width:80px" disabled>Rated</button>
+                                <form action="{{url('/editRateAssignment/'.$mentee->id)}}" method="post">
+                                    {{csrf_field()}}
+                                    <div style="display: flex; justify-content: center">
+                                        <input style="width:20%" type="number" name="score" class="form-control"
+                                        style="margin-bottom: 5px">
+                                        <button class="btn btn-primary" style="width:80px; margin-left:20px">Edit</button>
+                                    </div>
+                                </form>                                
                                 @endif
                             </td>
                         </tr>

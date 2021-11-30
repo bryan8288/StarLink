@@ -1,6 +1,10 @@
 @extends('layout.layoutUser')
 @section('content')
-
+@if(session('status'))
+    <div class="alert alert-success" style="margin-top :10px;">
+        {{session('status')}}
+    </div>
+@endif
 <div class="col-md-12" id="background">
     <div class="container-fluid" style="padding-top: 50px">
         <form action="{{'/mentor/'}}">
@@ -35,18 +39,16 @@
                             style="overflow: hidden; margin-left: auto; margin-right: auto; display: flex; justify-content: center">
                             {{$item->phone}}</p>
                     </div>
-                    <div style="display: flex">
-                        {{-- <a href="{{'/editMentor/'.$item->id}}">
-                        <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
-                        </a> --}}
+                    <div style="display: flex; justify-content: center">
+                        <a href="{{'/editMentor/'.$item->id}}">
+                            <button class="btn btn-primary" style="margin-top: 20px">Edit</button>
+                        </a>
                         <form action="{{'/editMentor/delete/'.$item->id}}" method="post">
                             {{csrf_field()}}
                             {{method_field('post')}}
-                            <center>
                                 <button class="btn btn-danger"
                                     onclick="return confirm('Are you sure to Delete this Mentor?')"
-                                    style="margin-left: 130px; margin-right: auto; display: flex; justify-content: center; margin-top: 20px">Delete</button>
-                            </center>
+                                    style="margin-left: 30px; margin-right: auto; display: flex; justify-content: center; margin-top: 20px">Delete</button>
                         </form>
                     </div>
                 </div>

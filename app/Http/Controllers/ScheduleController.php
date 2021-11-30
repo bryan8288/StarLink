@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\ClassDetail;
-use App\Course;
-use App\Mentor;
-use App\Module;
-use App\Classes;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {

@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function getLoginPage(){ //buat nampilin page Login
+    public function getLoginPage(){ 
         return view('login');
     }
 
-    public function validateLogin(Request $request){ //buat validasi inputan dan validasi bahwa data yang dimasukkan user saat login itu ada dalam database (jika tidak ada akan pop up error)
+    public function validateLogin(Request $request){
         $this->validate($request,[
             'username' => 'required',
             'password' => 'required|alphaNum|min:6'

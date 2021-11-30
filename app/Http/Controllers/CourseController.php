@@ -9,7 +9,6 @@ use App\Module;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use stdClass;
 
 class CourseController extends Controller
 {
@@ -60,7 +59,7 @@ class CourseController extends Controller
         return view('admin/view_course',compact('auth','course','userData'));
     }
 
-    public function getProductbySearch(Request $request){ //buat nampilin hasil searching sesuai keyword yang diinput user (keyword akan dicocokkan dengan nama product)
+    public function getProductbySearch(Request $request){ 
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
@@ -108,22 +107,52 @@ class CourseController extends Controller
             ->select('users.username','admins.name','admins.profile_picture','admins.id')
             ->where('users.id','=',Auth::id())
             ->get();
+
+            $classList = DB::table('classes')
+            ->select('classes.*')
+            ->where('classes.course_id','=',$id)->get();
+
         }else if(Auth::user()->role == 'mentor'){
             $userData = DB::table('users')
             ->join('mentors','users.id','=','mentors.user_id')
             ->select('users.username','mentors.name','mentors.profile_picture','mentors.id')
             ->where('users.id','=',Auth::id())
             ->get();
+
+            $classList = DB::table('classes')
+            ->select('classes.*')
+            ->where('classes.course_id','=',$id)
+            ->where('classes.mentor_id','=',$userData[0]->id)->get();
             
         }else if(Auth::user()->role == 'mentee'){
-        $userData = DB::table('users')
-        ->join('mentees','users.id','=','mentees.user_id')
-        ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
-        ->where('users.id','=',Auth::id())
-        ->get();
+            $userData = DB::table('users')
+            ->join('mentees','users.id','=','mentees.user_id')
+            ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+            ->where('users.id','=',Auth::id())
+            ->get();
+
+            $classList = DB::table('classes')
+            ->join('class_details','class_details.class_id','=','classes.id')
+            ->select('classes.*')
+            ->where('class_details.mentee_id','=',$userData[0]->id)
+            ->where('classes.course_id','=',$id)->get();
         }
 
-        
+        foreach ($classList as $class) {
+            if($class->day_of_week == 0){
+                $class->day_of_week = 'Monday';
+            }elseif($class->day_of_week == 1){
+                $class->day_of_week = 'Tuesday';
+            }elseif($class->day_of_week == 2){
+                $class->day_of_week = 'Wednesday';
+            }elseif($class->day_of_week == 3){
+                $class->day_of_week = 'Thursday';
+            }elseif($class->day_of_week == 4){
+                $class->day_of_week = 'Friday';
+            }elseif($class->day_of_week == 5){
+                $class->day_of_week = 'Saturday';
+            }
+        }
 
         $auth = Auth::check();
         $courseDetail = Course::find($id);
@@ -131,6 +160,7 @@ class CourseController extends Controller
                 ->select('exams.*')
                 ->where('exams.course_id','=',$id)->get();
 
+        $completedMenteeList = [];
         if($exam->count() !=0){
             if(Auth::user()->role == 'mentor'){
                 if($exam[0]->type == 'Project'){
@@ -148,14 +178,14 @@ class CourseController extends Controller
                     ->select('submitted_exams.id','submitted_exams.file','mentees.name','submitted_exams.score','mentees.id as menteeId')->distinct()
                     ->where('exams.course_id','=',$id)->get();
                 }
-            }else $completedMenteeList = [];
+            }
         }
 
         $moduleList = Module::where('course_id','=',$id)->get();
-        return view('admin/edit_course',compact('courseDetail','auth','userData','moduleList','exam','completedMenteeList'));
+        return view('admin/edit_course',compact('courseDetail','auth','userData','moduleList','exam','completedMenteeList','classList'));
     }
 
-    public function editCourseDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+    public function editCourseDetail(Request $request, $id){ 
         $this->validate($request,[
             'name' => 'required|min:5',
             'category' => 'required|min:10',
@@ -175,17 +205,17 @@ class CourseController extends Controller
         $courseDetail->kkm = $request->kkm;
         $courseDetail->exam_time = $request->time;
         $courseDetail->update();
-        return redirect('/dashboard')->with('status','Course Updated Successfully');
+        return redirect('/editCourse/'.$id)->with('status','Course Updated Successfully');
     }
 
-    public function deleteCourse($id){ //buat menghapus product sesuai dengan product yang diklik
+    public function deleteCourse($id){
         $courseDetail = Course::find($id);
         $courseDetail->delete();
 
         return redirect('/dashboard')->with('status','Course Deleted Successfully');
     }
 
-    public function getAddCoursePage(){ //buat nampilin page AddProduct dan list semua stationary_type
+    public function getAddCoursePage(){ 
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
@@ -200,7 +230,7 @@ class CourseController extends Controller
         return view('admin/add_course',compact('auth','userData','mentorList'));
     }
 
-    public function addCourse(Request $request){ //buat validasi inputan dan untuk menambahkan produk baru kedalam database sesuai inputan admin
+    public function addCourse(Request $request){ 
         $auth = Auth::check();
         $this->validate($request,[
             'name' => 'required|unique:courses|min:5',
@@ -272,6 +302,12 @@ class CourseController extends Controller
                 ->select('exams.*')
                 ->where('exams.course_id','=',$id)->get();
 
+        $classList = DB::table('classes')
+        ->join('class_details','class_details.class_id','=','classes.id')
+        ->select('classes.*')
+        ->where('class_details.mentee_id','=',$userData[0]->id)
+        ->where('classes.course_id','=',$id)->get();
+
         if($exam->count() > 0){
             if($exam[0]->type == 'Project'){
                 $submittedExam = DB::table('submitted_exams')
@@ -289,6 +325,6 @@ class CourseController extends Controller
             $isSubmitted = true;
         }else $isSubmitted = false;
 
-        return view('mentee/mycourse_detail',compact('courseDetail','auth','userData','moduleList','scoreboard','exam','isSubmitted'));
+        return view('mentee/mycourse_detail',compact('courseDetail','auth','userData','moduleList','scoreboard','exam','isSubmitted','classList'));
     }
 }

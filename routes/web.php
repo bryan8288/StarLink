@@ -50,6 +50,7 @@ Route::group(['middleware' => 'loginAuth'], function () {
     Route::get('schedule','ScheduleController@getScheduleList');
     Route::get('/editJob/{id}','CompanyController@goEditPage');
     Route::get('/profile/{id}','ViewProfileController@show');
+    Route::get('progressmentee/detailByModule/{menteeId}/{classId}','ProgressMenteeController@getModuleDetailByMentee');
 });
 
 #Admin
@@ -59,7 +60,7 @@ Route::group(['middleware' => 'adminAuth'], function () {
     Route::post('editCourse/delete/{id}','CourseController@deleteCourse');
     Route::get('/addCourse','CourseController@getAddCoursePage');
     Route::post('/addCourse/add','CourseController@addCourse');
-    Route::get('/addModule','ModuleController@getAddModulePage');
+    Route::get('/addModule/{courseId}','ModuleController@getAddModulePage');
     Route::post('/addModule/add','ModuleController@addModule');
     Route::put('/editModule/update/{id}','ModuleController@editModuleDetail');
     Route::post('editModule/delete/{id}','ModuleController@deleteModule');
@@ -69,12 +70,22 @@ Route::group(['middleware' => 'adminAuth'], function () {
     Route::post('editMentor/delete/{id}','ViewMentorController@deleteMentor');
     Route::get('/addMentor','ViewMentorController@getAddMentorPage');
     Route::post('/addMentor/add','ViewMentorController@addMentor');
+    Route::get('/editMentor/{id}','ViewMentorController@goEditPage');
+    Route::put('editMentor/update/{id}','ViewMentorController@editMentor');
     #companyList
     Route::get('/company','ViewCompanyController@getCompanyList');
     Route::get('/company','ViewCompanyController@getProductbySearch');
     Route::post('editCompany/delete/{id}','ViewCompanyController@deleteCompany');
     Route::get('/addCompany','ViewCompanyController@getAddCompanyPage');
     Route::post('/addCompany/add','ViewCompanyController@addCompany');
+    Route::get('/editCompany/{id}','ViewCompanyController@goEditPage');
+    Route::put('editCompany/update/{id}','ViewCompanyController@editCompany');
+    #menteeList
+    Route::get('/mentee','ViewMenteeController@getMenteeList');
+    Route::get('/mentee','ViewMenteeController@getProductbySearch');
+    Route::get('/editMentee/{id}','ViewMenteeController@goEditPage');
+    Route::put('editMentee/update/{id}','ViewMenteeController@editMentee');
+    Route::post('editMentee/delete/{id}','ViewMenteeController@deleteMentee');
     #profile
     Route::put('/profile/update/{id}','ViewProfileController@edit');
     Route::get('/changePassword/{id}', 'ChangePasswordController@index');
@@ -122,7 +133,6 @@ Route::group(['middleware' => 'mentorAuth'], function () {
     #progressMentee
     Route::get('progressmentee','ProgressMenteeController@getCourseByMentor');
     Route::get('progressmentee/detail/{id}','ProgressMenteeController@getProgressMentee');
-    Route::get('progressmentee/detailByModule/{menteeId}/{classId}','ProgressMenteeController@getModuleDetailByMentee');
     #course
     Route::post('addVideo/{moduleId}','ModuleController@uploadVideo');
     Route::post('deleteVideo/{videoId}','ModuleController@deleteVideo');
@@ -132,6 +142,7 @@ Route::group(['middleware' => 'mentorAuth'], function () {
     Route::put('editAssignment/{assignmentId}/{moduleId}','ModuleController@editAssignment');
     Route::get('assignmentDetail/{id}','ModuleController@getAssignmentDetailPage');
     Route::post('rateAssignment/{id}','ModuleController@rateAssignment');
+    Route::post('editRateAssignment/{id}','ModuleController@editRateAssignment');
     Route::post('rateExam/{id}','ExamController@rateExam');
     Route::get('rateEssai/{menteeId}/{courseId}','ExamController@getRateEssaiPage');
     Route::post('rateEssai/{menteeId}/{examId}','ExamController@rateExamEssai');

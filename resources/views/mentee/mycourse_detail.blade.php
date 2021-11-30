@@ -99,6 +99,51 @@
                     </table>
                 </div>
             </div>
+
+            <div style="margin-top: 30px">
+                <h4>Classes</h4>
+                <div class="modules">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Day</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Link</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i=1;?>
+                            @foreach ($classList as $class)
+                            <tr class="table-info">
+                                <th scope="row">{{$i}}</th>
+                                <td>
+                                    <a href="{{'/editClass/'.$class->id}}" style="text-decoration:none; color:black">
+                                        {{$class->name}}
+                                    </a>
+                                </td>
+                                <td>{{$class->day_of_week}}</td>
+                                <td>{{$class->start_time}} - {{$class->end_time}}</td>
+                                <td style="width:380px">{{$class->link}}</td>
+                                <td>
+                                    <a href="{{url('/progressmentee/detailByModule/'.$userData[0]->id.'/'.$class->id)}}">
+                                        <button type="button" class="btn btn-primary"
+                                            style="background-color: #27353F;">
+                                            See My Progress
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>In Progress</td>
+                            </tr>
+                            <?php $i++;?>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </form>
     </div>
 </div>

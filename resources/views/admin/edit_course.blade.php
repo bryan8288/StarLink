@@ -1,6 +1,10 @@
 @extends('layout.layoutUser')
 @section('content')
-
+@if(session('status'))
+    <div class="alert alert-success" style="margin-top :10px;">
+        {{session('status')}}
+    </div>
+@endif
 <div class="col-md-12" id="background" style="height: auto; padding-bottom : 20px">
     <div class="container-fluid" style="padding-top: 50px">
         <form action="{{url('editCourse/update/'.$courseDetail->id)}}" method="post">
@@ -72,18 +76,20 @@
                         Download Template Exam
                     </button>
                 </a>
-                @if ($exam[0]->type == 'Project')
-                <button type="button" class="btn btn-primary"
-                    style="background-color: #27353F; margin-top:30px; margin-left: 20px" data-bs-toggle="modal"
-                    data-bs-target="#rateExamProject">
-                    Rate Exam
-                </button>
-                @elseif($exam[0]->type == 'Essai')
-                <button type="button" class="btn btn-primary"
-                    style="background-color: #27353F; margin-top:30px; margin-left: 20px" data-bs-toggle="modal"
-                    data-bs-target="#rateExamEssai">
-                    Rate Exam
-                </button>
+                @if($exam->count()>0)
+                    @if ($exam[0]->type == 'Project')
+                    <button type="button" class="btn btn-primary"
+                        style="background-color: #27353F; margin-top:30px; margin-left: 20px" data-bs-toggle="modal"
+                        data-bs-target="#rateExamProject">
+                        Rate Exam
+                    </button>
+                    @elseif($exam[0]->type == 'Essai')
+                    <button type="button" class="btn btn-primary"
+                        style="background-color: #27353F; margin-top:30px; margin-left: 20px" data-bs-toggle="modal"
+                        data-bs-target="#rateExamEssai">
+                        Rate Exam
+                    </button>
+                    @endif
                 @endif
             </div>
 
@@ -111,6 +117,51 @@
                                 </td>
                                 <td class="cardText">{{$module->description}}</td>
                                 <td>{{$module->kkm}}</td>
+                            </tr>
+                            <?php $i++;?>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px">
+                <h4>Classes</h4>
+                <div class="modules">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Day</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Link</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i=1;?>
+                            @foreach ($classList as $class)
+                            <tr class="table-info">
+                                <th scope="row">{{$i}}</th>
+                                <td>
+                                    <a href="{{'/editClass/'.$class->id}}" style="text-decoration:none; color:black">
+                                        {{$class->name}}
+                                    </a>
+                                </td>
+                                <td>{{$class->day_of_week}}</td>
+                                <td>{{$class->start_time}} - {{$class->end_time}}</td>
+                                <td style="width:380px">{{$class->link}}</td>
+                                <td>
+                                    <a href="{{url('/progressmentee/detail/'.$class->id)}}">
+                                        <button type="button" class="btn btn-primary"
+                                            style="background-color: #27353F;">
+                                            See Progress Mentee
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>In Progress</td>
                             </tr>
                             <?php $i++;?>
                             @endforeach
@@ -237,7 +288,11 @@
             </div>
             <div style="margin-top: 30px">
                 <h4>Modules</h4>
-                <div class="modules">
+                <a href="{{'/addModule/'.$courseDetail->id}}">
+                    <button type="button" class="btn btn-primary"
+                        style="margin-top: 5px; background-color: #27353F;">Create</button>
+                </a>
+                <div class="modules" style="margin-top:10px">
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -259,6 +314,42 @@
                                 </td>
                                 <td class="cardText">{{$module->description}}</td>
                                 <td>{{$module->kkm}}</td>
+                            </tr>
+                            <?php $i++;?>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px">
+                <h4>Classes</h4>
+                <div class="modules">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Day</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Link</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i=1;?>
+                            @foreach ($classList as $class)
+                            <tr class="table-info">
+                                <th scope="row">{{$i}}</th>
+                                <td>
+                                    <a href="{{'/editClass/'.$class->id}}" style="text-decoration:none; color:black">
+                                        {{$class->name}}
+                                    </a>
+                                </td>
+                                <td>{{$class->day_of_week}}</td>
+                                <td>{{$class->start_time}} - {{$class->end_time}}</td>
+                                <td>{{$class->link}}</td>
+                                <td>In Progress</td>
                             </tr>
                             <?php $i++;?>
                             @endforeach

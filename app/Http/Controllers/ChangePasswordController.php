@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Mentor;
-use App\Mentee;
-use App\Admin;
 use App\User;
 use Illuminate\Support\Facades\DB;
 

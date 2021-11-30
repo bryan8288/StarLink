@@ -13,6 +13,7 @@
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left;  margin-top:5px;">Course</h5>
                 <select name="course" class="form-control input-sm" style="margin-bottom: 5px; width:70%;">
+                    <option selected>{{$chosenCourse->name}}</option>
                     @foreach ($courseList as $course)
                     <option>{{$course->name}}</option>
                     @endforeach

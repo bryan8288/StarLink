@@ -43,7 +43,7 @@ class ViewProfileController extends Controller
         return view('profile',compact('auth','userData','age'));
     }
 
-    public function edit(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+    public function edit(Request $request, $id){
         $this->validate($request,[
             'name' => 'required|min:4',
             'address' => 'required|min:20',

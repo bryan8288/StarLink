@@ -6,7 +6,6 @@ use App\Assignment;
 use App\AssignmentChecklist;
 use App\Course;
 use App\LearningChecklist;
-use App\Mentor;
 use App\Module;
 use App\ProgressMentee;
 use App\SubmittedAssignment;
@@ -18,7 +17,7 @@ use Illuminate\Http\Request;
 
 class ModuleController extends Controller
 {
-    public function getAddModulePage(){ //buat nampilin page AddModule 
+    public function getAddModulePage($courseId){ 
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
@@ -33,11 +32,12 @@ class ModuleController extends Controller
             ->get();
         }
         $auth = Auth::check();
-        $courseList = Course::all();
-        return view('admin/add_module',compact('auth','userData','courseList'));
+        $courseList = Course::where('id','!=',$courseId)->get();
+        $chosenCourse = Course::find($courseId);
+        return view('admin/add_module',compact('auth','userData','courseList','chosenCourse'));
     }
     
-    public function addModule(Request $request){ //buat validasi inputan dan untuk menambahkan produk baru kedalam database sesuai inputan admin
+    public function addModule(Request $request){
         $this->validate($request,[
             'name' => 'required|unique:modules|min:5',
             'course' => 'required',
@@ -52,7 +52,6 @@ class ModuleController extends Controller
         $module->exam_time = $request->time;
         $module->kkm = $request->kkm;
 
-        // dd($request->file->store('learningmaterial'));
         $material_path = $request->file('file')->store('learningmaterial','public');
         $module->learning_material = $material_path;
         $course_id = Course::select('id')->where('name',$request->course)->get();
@@ -62,7 +61,7 @@ class ModuleController extends Controller
         return redirect('/dashboard')->with('status','Modules Added Successfully');
     }
 
-    public function goEditPage($id){ //buat nampilin page EditModule 
+    public function goEditPage($id){ 
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
@@ -90,7 +89,7 @@ class ModuleController extends Controller
         return view('admin/edit_module',compact('course','auth','userData','moduleDetail','courseList'));
     }
 
-    public function editModuleDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+    public function editModuleDetail(Request $request, $id){
         $this->validate($request,[
             'name' => 'required|min:5',
             'course' => 'required',
@@ -111,7 +110,7 @@ class ModuleController extends Controller
         return redirect('/dashboard')->with('status','Module Updated Successfully');
     }
 
-    public function deleteModule($id){ //buat menghapus product sesuai dengan product yang diklik
+    public function deleteModule($id){ 
         $moduleDetail = Module::find($id);
         $moduleDetail->delete();
 
@@ -251,14 +250,17 @@ class ModuleController extends Controller
         $video->module_id = $moduleId;
         $video->save();
         
-        return redirect('/dashboard')->with('status','Video Added Successfully');
+        return redirect('/moduleDetailVideo/'.$moduleId)->with('status','Video Added Successfully');
     }
 
     public function deleteVideo($id){ 
+        $moduleId = DB::table('videos')
+        ->select('videos.module_id')
+        ->where('videos.id',"=",$id)->get()[0]->module_id;
         $video = Video::find($id);
         $video->delete();
 
-        return redirect('/dashboard')->with('status','Video Deleted Successfully');
+        return redirect('/moduleDetailVideo/'.$moduleId)->with('status','Video Deleted Successfully');
     }
 
     public function editVideo(Request $request, $id, $moduleId){ 
@@ -281,7 +283,7 @@ class ModuleController extends Controller
         $video->module_id = $moduleId;
 
         $video->update();
-        return redirect('/dashboard')->with('status','Video Updated Successfully');
+        return redirect('/moduleDetailVideo/'.$moduleId)->with('status','Video Updated Successfully');
     }
 
     public function uploadAssignment(Request $request, $moduleId){
@@ -303,14 +305,17 @@ class ModuleController extends Controller
         $assignment->module_id = $moduleId;
         $assignment->save();
         
-        return redirect('/dashboard')->with('status','Assignment Added Successfully');
+        return redirect('/moduleDetailAssignment/'.$moduleId)->with('status','Assignment Added Successfully');
     }
 
     public function deleteAssignment($id){ 
+        $moduleId = DB::table('assigments')
+        ->select('assigments.module_id')
+        ->where('assigments.id',"=",$id)->get()[0]->module_id;
         $assignment = Assignment::find($id);
         $assignment->delete();
 
-        return redirect('/dashboard')->with('status','Assignment Deleted Successfully');
+        return redirect('/moduleDetailAssignment/'.$moduleId)->with('status','Assignment Deleted Successfully');
     }
 
     public function editAssignment(Request $request, $id, $moduleId){ 
@@ -333,7 +338,7 @@ class ModuleController extends Controller
         $assignment->assignment_file = $assignment_path;
         $assignment->module_id = $moduleId;
         $assignment->update();
-        return redirect('/dashboard')->with('status','Assignment Updated Successfully');
+        return redirect('/moduleDetailAssignment/'.$moduleId)->with('status','Assignment Updated Successfully');
     }
 
     public function getAssignmentDetailPage($id){
@@ -361,12 +366,22 @@ class ModuleController extends Controller
     
     public function rateAssignment(Request $request,$id){
         $this->validate($request,[
-            'score' => 'required|integer'
+            'score' => 'required|integer|max:100'
         ]);
         $submittedAssignment = SubmittedAssignment::find($id);
         $submittedAssignment->score = $request->score;
         $submittedAssignment->update();
-        return redirect('/dashboard')->with('status','Assignment Rated Successfully');
+        return redirect('/assignmentDetail/'.$submittedAssignment->assignment_id)->with('status','Assignment Rated Successfully');
+    }
+
+    public function editRateAssignment(Request $request, $id){
+        $this->validate($request,[
+            'score' => 'required|integer|max:100'
+        ]);
+        $submittedAssignment = SubmittedAssignment::find($id);
+        $submittedAssignment->score = $request->score;
+        $submittedAssignment->update();
+        return redirect('/assignmentDetail/'.$submittedAssignment->assignment_id)->with('status','Assignment Edited Successfully');
     }
 
     public function submitAssignment(Request $request, $assignmentId){

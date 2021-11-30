@@ -8,11 +8,11 @@ use App\Mentee;
 
 class RegisterController extends Controller
 {
-    public function getRegisterPage(){ //buat menampilkan page Register
+    public function getRegisterPage(){
         return view('register');
     }
 
-    public function addRegisterData(Request $request){ //buat validasi inputan dan menambahkan data user yang melakukan register kedalam database
+    public function addRegisterData(Request $request){ 
         $this->validate($request,[
             'username' => 'required|min:5|unique:users',
             'email' => 'required|email',

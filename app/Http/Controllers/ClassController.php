@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\ClassDetail;
 use App\Course;
 use App\Mentor;
-use App\Module;
 use App\Classes;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -67,7 +65,7 @@ class ClassController extends Controller
         return view('admin/view_class',compact('auth','class','userData'));
     }
 
-    public function getProductbySearch(Request $request){ //buat nampilin hasil searching sesuai keyword yang diinput user (keyword akan dicocokkan dengan nama product)
+    public function getProductbySearch(Request $request){
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
@@ -122,7 +120,7 @@ class ClassController extends Controller
         return view('admin/view_class',compact('userData','class','auth'));
     }
 
-    public function goEditPage($id){ //buat nampilin page EditProduct 
+    public function goEditPage($id){ 
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
@@ -180,8 +178,6 @@ class ClassController extends Controller
         $newMenteeList = DB::table('course_transactions')
                             ->join('mentees','mentees.id','=','course_transactions.mentee_id')
                             ->join('classes','classes.course_id','=','course_transactions.course_id')
-                            // ->join('classes','class_details.class_id','=','classes.id')
-                            // ->join('course_transactions','class_details.class_id','=','course_transactions.mentee_id')
                             ->whereNotIn('mentees.id',function($query) use ($id){
                                 $query->select('mentees.id')->from('mentees')
                                 ->join('class_details','mentees.id','=','class_details.mentee_id')
@@ -199,7 +195,7 @@ class ClassController extends Controller
         return view('admin/edit_class',compact('class','auth','userData','mentorList','mentorName','mapDay','courseName','courseList','menteeList','newMenteeList','id'));
     }
 
-    public function editClassDetail(Request $request, $id){ //berisi validasi inputan dan buat melakukan editProduct yang akan mengupdate semua data produk yang diklik sesuai inputan admin
+    public function editClassDetail(Request $request, $id){
         $this->validate($request,[
             'name' => 'required|min:4',
             'mentor' => 'required',
@@ -236,10 +232,10 @@ class ClassController extends Controller
         $class->end_time = $request->end_time;
         $class->link = $request->link;
         $class->update();
-        return redirect('/dashboard')->with('status','Class Updated Successfully');
+        return redirect('/editClass/'.$id)->with('status','Class Updated Successfully');
     }
 
-    public function deleteClass($id){ //buat menghapus product sesuai dengan product yang diklik
+    public function deleteClass($id){ 
         $class = Classes::find($id);
         $class->delete();
 
@@ -247,10 +243,15 @@ class ClassController extends Controller
     }
 
     public function deleteMenteeFromClass($id){
+
+        $classId = DB::table('class_details')
+        ->select('class_details.class_id')
+        ->where('class_details.id','=',$id)->get()[0]->class_id;
+
         $classDetail = ClassDetail::find($id);
         $classDetail->delete();
 
-        return redirect('dashboard')->with('status','Mentee Removed From Class Successfully');
+        return redirect('/editClass/'.$classId)->with('status','Mentee Removed From Class Successfully');
     }
 
     public function addMenteeToClass(Request $request,$classId){
@@ -263,7 +264,7 @@ class ClassController extends Controller
             $classDetail->mentee_id = $key;
             $classDetail->save();
         }
-        return redirect('dashboard')->with('status','Mentee(s) added to Class Successfully');
+        return redirect('/editClass/'.$classId)->with('status','Mentee(s) added to Class Successfully');
     }
 
     public function getAddClassPage(){ //buat nampilin page AddProduct dan list semua stationary_type
