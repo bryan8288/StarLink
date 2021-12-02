@@ -13,7 +13,8 @@
             <br>
             <div class="row justify-content-around">
                 <div class="col-md-5">
-                    <label for="exampleFormControlSelect1" style="color: white;font-weight:bold;">Job Position</label><br>
+                    <label for="exampleFormControlSelect1" style="color: white;font-weight:bold;">Job
+                        Position</label><br>
                     <span>&nbsp;</span>
                     <select class="no-outline" name="jobPosition"
                         style="width: 100%; margin:auto;border-top-style: hidden;border-right-style: hidden;border-left-style: hidden;border-bottom-style: groove;background:none"
@@ -25,14 +26,16 @@
                     </select>
                 </div>
                 <div class="col-md-5">
-                    <label for="exampleFormControlSelect1" style="color: white;font-weight:bold;">Salary Range</label><br>
+                    <label for="exampleFormControlSelect1" style="color: white;font-weight:bold;">Salary
+                        Range</label><br>
                     <span>&nbsp;</span>
                     <select class="no-outline" name="salary"
                         style="width: 100%; margin:auto;border-top-style: hidden;border-right-style: hidden;border-left-style: hidden;border-bottom-style: groove;background:none"
                         id="exampleFormControlSelect1">
                         <option>All</option>
-                        <option>< Rp 10.000.000</option>
-                        <option>Rp 10.000.001 - Rp 20.000.000</option>
+                        <option>
+                            < Rp 10.000.000</option> <option>Rp 10.000.001 - Rp 20.000.000
+                        </option>
                         <option>> Rp 20.000.000</option>
                     </select>
                 </div>
@@ -66,7 +69,7 @@
                 @else
                 <center>
                     <img class="" src="{{url('storage/'.$acceptedCompany[0]->profile_picture)}}"
-                            style="height:100px; border-radius: 50%; border: 6px solid #218EED;margin-top:10px; width: 100px;">
+                        style="height:100px; border-radius: 50%; border: 6px solid #218EED;margin-top:10px; width: 100px;">
                 </center>
                 @endif
                 <div class="card-body">
@@ -74,7 +77,8 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" style="text-align: left;color:red;">{{$acceptedCompany[0]->name}}</li>
-                    <li class="list-group-item text-truncate" style="text-align: justify;">{{$acceptedCompany[0]->description}}</li>
+                    <li class="list-group-item text-truncate" style="text-align: justify;">
+                        {{$acceptedCompany[0]->description}}</li>
                     <li class="list-group-item" style="text-align: left">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
@@ -88,11 +92,11 @@
                         </svg> {{number_format($acceptedCompany[0]->salary,2)}}
                     </li>
                     <li class="list-group-item">
-                        <div class="" style="display: flex">
+                        <div class="" style="display: flex; justify-content: center">
                             <a href="{{'/applyCompany/detail/'.$acceptedCompany[0]->id}}">
-                            <button type="button" class="btn btn-primary"
-                                style="background:#E08C1F; border-color:#08C1F; font-weight:bold; height:50px; width:120px">SEE
-                                DETAIL</button>
+                                <button type="button" class="btn btn-primary"
+                                    style="background:#E08C1F; border-color:#08C1F; font-weight:bold; height:50px; width:120px">SEE
+                                    DETAIL</button>
                             </a>
                             <button type="submit" class="btn btn-primary" disabled
                                 style="font-weight:bold; margin-left: 5px; height:50px; width: 120px">ACCEPTED</button>
@@ -102,7 +106,7 @@
             </div>
         </div>
         @elseif ($countCompletedCourse == 0)
-            <h5>You Have to Complete Minimal One Course to Apply a Job</h5>
+        <h5>You Have to Complete Minimal One Course to Apply a Job</h5>
         @else
         <div class="row" style="display: flex">
             @foreach ($jobList as $job)
@@ -113,7 +117,7 @@
                     @else
                     <center>
                         <img class="" src="{{url('storage/'.$job->profile_picture)}}"
-                                style="height:100px; border-radius: 50%; border: 6px solid #218EED;margin-top:10px; width: 100px;">
+                            style="height:100px; border-radius: 50%; border: 6px solid #218EED;margin-top:10px; width: 100px;">
                     </center>
                     @endif
                     <div class="card-body">
@@ -121,7 +125,8 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item" style="text-align: left;color:red;">{{$job->name}}</li>
-                        <li class="list-group-item text-truncate" style="text-align: justify;">{{$job->description}}</li>
+                        <li class="list-group-item text-truncate" style="text-align: justify;">{{$job->description}}
+                        </li>
                         <li class="list-group-item" style="text-align: left">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
@@ -135,20 +140,20 @@
                             </svg> {{number_format($job->salary,2)}}
                         </li>
                         <li class="list-group-item">
-                            <div class="" style="display: flex">
-                                <a href="{{'/editJob/'.$job->id}}">
-                                <button type="button" class="btn btn-primary"
-                                    style="background:#E08C1F; border-color:#08C1F; font-weight:bold; height:50px; width:120px">SEE
-                                    DETAIL</button>
+                            <div class="" style="display: flex; justify-content: center">
+                                <a href="{{'/applyCompany/detail/'.$job->id}}">
+                                    <button type="button" class="btn btn-primary"
+                                        style="background:#E08C1F; border-color:#08C1F; font-weight:bold; height:50px; width:120px">SEE
+                                        DETAIL</button>
                                 </a>
                                 @if($job->status->count() == 0)
-                                    <form action="{{'/applyCompany/'.$job->id}}" method="POST">
-                                        {{csrf_field()}}
-                                        <button type="submit" class="btn btn-primary"
-                                            style="font-weight:bold; margin-left: 5px; height:50px; width: 100px">APPLY</button>
-                                    </form>
+                                <form action="{{'/applyCompany/'.$job->id}}" method="POST">
+                                    {{csrf_field()}}
+                                    <button type="submit" class="btn btn-primary"
+                                        style="font-weight:bold; margin-left: 5px; height:50px; width: 100px">APPLY</button>
+                                </form>
                                 @else
-                                    <button type="submit" class="btn btn-primary" disabled
+                                <button type="submit" class="btn btn-primary" disabled
                                     style="font-weight:bold; margin-left: 5px; height:50px; width: 100px">APPLIED</button>
                                 @endif
                             </div>
@@ -156,13 +161,13 @@
                     </ul>
                 </div>
             </div>
+            @endforeach
             <p style="text-align: center; color:white; font-weight:bold">{{$countJob}} Available Vacancies</p>
             <div style="margin-top:10px; margin-left: 30px">
                 {{$jobList->withQueryString()->links()}}
             </div>
-            @endforeach
         </div>
         @endif
-       
+
 </section>
 @endsection

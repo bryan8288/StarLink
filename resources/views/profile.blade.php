@@ -7,10 +7,20 @@
             {{method_field('put')}}
             <div class="row">
                 <div class="col-lg-3" style="text-align: left; margin-top:150px">
+                    @if ($userData[0]->profile_picture == null)
+                    <div class="about-avatar">
+                        <i class="fa fa-user-circle-o" style="margin-top:10px; font-size: 200px;"></i>
+                    </div>
+                    @else
                     <div class="about-avatar">
                         <img src="{{url('storage/'.$userData[0]->profile_picture)}}" width="200px" height="200px"
-                            style="border-radius:25px">
+                                style="border-radius:25px">
                     </div>
+                    @endif
+                    {{-- <div class="about-avatar">
+                        <img src="{{url('storage/'.$userData[0]->profile_picture)}}" width="200px" height="200px"
+                            style="border-radius:25px">
+                    </div> --}}
                     <br>
 
                     <input type="file" name="profile_picture" class="profile_picture" id="profile_picture" hidden />
