@@ -81,8 +81,10 @@ class ExamController extends Controller
             ->select('submitted_exams.*')
             ->where('submitted_exams.mentee_id','=',$userData[0]->id)
             ->orderBy('created_at')->get();
-        }else $submittedExamLis = null;
-
+        }else {
+            $submittedExamList = null;
+            $isSubmitted = false;
+        }
         return view('mentee/exam',compact('auth','userData','exam','diffMinutes','isSubmitted','submittedExamList'));
     }
 

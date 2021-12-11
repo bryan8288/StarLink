@@ -50,6 +50,8 @@ Route::group(['middleware' => 'loginAuth'], function () {
     Route::get('schedule','ScheduleController@getScheduleList');
     Route::get('/editJob/{id}','CompanyController@goEditPage');
     Route::get('/profile/{id}','ViewProfileController@show');
+    Route::get('/changePassword/{id}', 'ChangePasswordController@index');
+    Route::post('/changePassword/change/{id}', 'ChangePasswordController@store');
     Route::get('progressmentee/detailByModule/{menteeId}/{classId}','ProgressMenteeController@getModuleDetailByMentee');
 });
 
@@ -88,10 +90,7 @@ Route::group(['middleware' => 'adminAuth'], function () {
     Route::post('editMentee/delete/{id}','ViewMenteeController@deleteMentee');
     #profile
     Route::put('/profile/update/{id}','ViewProfileController@edit');
-    Route::get('/changePassword/{id}', 'ChangePasswordController@index');
-    Route::post('/changePassword/change/{id}', 'ChangePasswordController@store');
     #class
-   
     Route::put('/editClass/update/{id}','ClassController@editClassDetail');
     Route::post('editClass/delete/{id}','ClassController@deleteClass');
     Route::get('/addClass','ClassController@getAddClassPage');

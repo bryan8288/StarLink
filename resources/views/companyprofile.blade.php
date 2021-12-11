@@ -32,6 +32,9 @@
                         <label style="color: white; font-size:16px; width: 200px; text-align:center"
                             class="upload bg-dark" name="profile_picture" for="profile_picture">Change
                             Picture</label><br>
+
+                        <a href="{{'/changePassword/'.$userData[0]->id}}"><button type="button" class="btn btn-dark "
+                                style="text-align: center;width:200px; margin-top:10px">Change Password</button></a>
                     </div>
                     <div class="about-text go-to">
                         <div class="row about-list" style="display: flex; justify-content: center;">
