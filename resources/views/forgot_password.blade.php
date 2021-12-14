@@ -12,9 +12,10 @@
             <h5>Enter your email address and we will send you a link to renew your password</h5>
             <div class="">
                 @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
+                    <div class="alert alert-success alert-dismissible" role="alert" style="margin-top :10px;">
+                        {{session('status')}}
+                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 @endif
 
                 <form method="POST" action="/forgot-password" style="margin:20px;">

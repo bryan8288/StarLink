@@ -33,6 +33,7 @@ Route::post('/forgot-password', 'ForgotPasswordController@postEmail');
 Route::get('/reset-password/{token}', 'ResetPasswordController@getPassword');
 Route::post('/reset-password', 'ResetPasswordController@updatePassword');
 
+Route::get('course/detail/{id}','CourseController@courseDetailForGuest');
 Route::group(['middleware' => 'loginAuth'], function () {
     Route::get('/dashboard','DashboardController@getDashboardPage')->name('dashboard');;
     Route::get('/dashboard/logout','DashboardController@logout');

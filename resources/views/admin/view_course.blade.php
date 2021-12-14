@@ -1,6 +1,6 @@
 @extends('layout.layoutUser')
 @section('content')
-<style>
+{{-- <style>
     .fa {
         font-size: 30px;
         cursor: pointer;
@@ -8,10 +8,10 @@
     }
 
     .card {
-        height: 1000px
+        height: 1000px  
     }
 
-</style>
+</style> --}}
 
 <div class="col-md-12" id="background">
     <div class="container-fluid" style="padding-top: 50px">

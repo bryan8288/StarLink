@@ -64,9 +64,10 @@
                 </form>
             </div>
             @if(session()->has('message'))
-            <div class="alert alert-success" style="text-align: center">
-                <strong>{{session('message')}}</strong>
-            </div>
+                <div class="alert alert-success alert-dismissible" role="alert" style="margin-top :10px;">
+                    {{session('status')}}
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
             @endif
         </div>
     </div>

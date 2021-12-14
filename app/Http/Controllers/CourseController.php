@@ -327,4 +327,10 @@ class CourseController extends Controller
 
         return view('mentee/mycourse_detail',compact('courseDetail','auth','userData','moduleList','scoreboard','exam','isSubmitted','classList'));
     }
+
+    public function courseDetailForGuest($id){
+        $courseDetail = Course::find($id);
+        $moduleList = Module::where('course_id','=',$id)->get();
+        return view('courseDetailForGuest',compact('courseDetail','moduleList'));
+    }
 }

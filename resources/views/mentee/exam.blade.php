@@ -86,8 +86,9 @@
                         </div>
                     </div>
                     @if(session('status'))
-                        <div class="alert alert-success" style="margin-top :10px;">
+                        <div class="alert alert-success alert-dismissible" role="alert" style="margin-top :10px;">
                             {{session('status')}}
+                            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
 
@@ -207,17 +208,44 @@
                                             <form action="{{url('submitexam/'.$exam[0]->id)}}" method="post" enctype="multipart/form-data">
                                                 {{csrf_field()}}
                                                 <div class="modal-body">
-                                                    <div class="courseDetail">
                                                         <h5 style="width: 30%;float:left">Exam File</h5>
-                                                        <input type="file" id="exam_file" hidden name="exam_file" />
-                                                        <label style="color: white; font-size:16px; width: 200px; text-align:center"
-                                                            class="upload bg-dark" for="exam_file">
-                                                            <i class="fa fa-cloud-upload"></i>
-                                                            Upload</label><br>
-                                                    </div>
+                                                        <input type="file" id="exam_file" hidden name="exam_file" onchange="checkFile()" />
+                                                        
+                                                        <div style="display : flex">
+                                                            <label style="color: white; font-size:16px; width: 200px; text-align:center; border-radius:7px;height:30px"
+                                                                class="upload bg-dark" for="exam_file">
+                                                                <i class="fa fa-cloud-upload"></i>
+                                                                Upload</label><br>
+                                                                
+                                                            <label id="downloadBtn" style="color: white; font-size:16px; width: 200px;height:30px; text-align:center; border-radius:7px; margin-left: 10px;display :none"
+                                                                class="upload bg-dark">
+                                                                <a style="color: white; text-decoration: none" id="link" download>
+                                                                    <i class="fa fa-cloud-download"></i>
+                                                                    Download
+                                                                </a>
+                                                            </label><br>
+                                                        </div>
+                                                    <script>
+                                                        var file = document.getElementById("exam_file");
+                                                        const link = document.getElementById('link');
+                                                        console.log(file.files);
+                                                        function checkFile(){
+                                                            console.log(file.files);
+                                                            if(file.files.length!=0){
+                                                                dummyURL = URL.createObjectURL(new Blob(file.files));
+                                                                var downloadButton = document.getElementById('downloadBtn').style.display="block";
+                                                                link.download = file.files[0].name;
+                                                                console.log(link.download);
+                                                                link.href = dummyURL;
+                                                                console.log(dummyURL);
+                                                            }else{
+                                                                var downloadButton = document.getElementById('downloadBtn').style.display="none";
+                                                            } 
+                                                        }
+                                                    </script>
                                                     <div class="form-check" style="margin-top: 10px">
-                                                        <input class="form-check-input" type='hidden' value='0' name='finalized'>
-                                                        <input class="form-check-input" value="1" type="checkbox" name="finalized" id="flexCheckDefault">
+                                                        <input class="form-check-input" type='hidden' value='1' name='finalized'>
+                                                        <input class="form-check-input" value="0" type="checkbox" name="finalized" id="flexCheckDefault">
                                                         <label class="form-check-label" for="flexCheckDefault">
                                                             Finalize
                                                         </label>

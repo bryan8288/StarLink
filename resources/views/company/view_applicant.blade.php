@@ -1,5 +1,11 @@
 @extends('layout.layoutUser')
 @section('content')
+@if(session('status'))
+    <div class="alert alert-success alert-dismissible" role="alert" style="margin-top :10px;">
+        {{session('status')}}
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="col-md-12" id="background" style="display: flex">
     <div style="margin-left: 50px;text-align: center;">
         <img src="{{url('storage/'.$userData[0]->profile_picture)}}"
@@ -89,11 +95,6 @@
         </div>
     </div>
 </div>
-@if(session('status'))
-<div class="alert alert-success" style="margin-top :20px;">
-    {{session('status')}}
-</div>
-@endif
 </div>
 
 </main>

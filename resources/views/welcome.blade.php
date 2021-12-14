@@ -39,7 +39,7 @@
             <div style="display: flex; flex-wrap: wrap">
                 @foreach ($courseList as $course)
                     <div class="col-md-2" style="margin-top:10px">
-                        {{$course->name}}
+                        <a href="{{'/course/detail/'.$course->id}}">{{$course->name}}</a>
                     </div>
                 @endforeach
             </div>
