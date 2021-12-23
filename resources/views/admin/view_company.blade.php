@@ -27,8 +27,14 @@
                 <div style="margin-top: 20px">
                     <h4>{{$item->name}}</h4>
                     <div style="height: 150px; overflow: hidden">
-                        <img src="{{url('storage/'.$item->profile_picture)}}"
+                        @if (empty($item->profile_picture))
+                            <i class="fa fa-user-circle-o card-img-top" style=" font-size: 150px;"></i>
+                            @else
+                            <center>
+                                <img src="{{url('storage/'.$item->profile_picture)}}"
                             style="height: 150px; width: 100px; display: flex; margin-left: auto; margin-right: auto; width: 50%; margin-top: auto; margin-bottom: auto; justify-content: center; align-items: center; position: relative">
+                            </center>
+                        @endif
                     </div>
                     <div style="height: 20px; margin-top: 10px">
                         <p class="cardText"

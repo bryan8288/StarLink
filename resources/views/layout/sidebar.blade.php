@@ -6,7 +6,7 @@
                 <h6 style="margin-top: 5px; font-family: fantasy">Admin</h6>
             </center>
                 <a href="{{'/dashboard/'}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-bootstrap"></i> <span>Dashboard</span> </a>
-                <a href="{{'/admin/discussAdmin/'.$userData[0]->id}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-film"></i> <span>Discussion Room Admin</span></a>
+                <a href="{{'/admin/discussAdmin/'}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-film"></i> <span>Discussion Room Admin</span></a>
                 <a href="{{'/course/'}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-heart"></i> <span>Course</span></a>
                 <a href="{{'/mentor/'}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-bricks"></i> <span>Mentor List</span></a>
                 <a href="{{'/mentee/'}}" class="list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="bi bi-clock"></i> <span>Mentee List</span></a>

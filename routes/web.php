@@ -50,7 +50,7 @@ Route::group(['middleware' => 'loginAuth'], function () {
     Route::get('/discussionRoom','DiscussionRoomController@show');
     Route::get('schedule','ScheduleController@getScheduleList');
     Route::get('/editJob/{id}','CompanyController@goEditPage');
-    Route::get('/profile/{id}','ViewProfileController@show');
+    Route::get('/profile','ViewProfileController@show');
     Route::get('/changePassword/{id}', 'ChangePasswordController@index');
     Route::post('/changePassword/change/{id}', 'ChangePasswordController@store');
     Route::get('progressmentee/detailByModule/{menteeId}/{classId}','ProgressMenteeController@getModuleDetailByMentee');
@@ -99,7 +99,7 @@ Route::group(['middleware' => 'adminAuth'], function () {
     Route::put('/addMenteeToClass/{id}','ClassController@addMenteeToClass');
     Route::post('deleteMenteeFromClass/{id}','ClassController@deleteMenteeFromClass');
     #discussionRoom    
-    Route::get('/admin/discussAdmin/{id}','DiscussionRoomController@showadmin');
+    Route::get('/admin/discussAdmin','DiscussionRoomController@showadmin');
     Route::put('/admin/discussAdmin/update/{id}','DiscussionRoomController@edit');
     Route::put('/admin/discussAdmin/update/','DiscussionRoomController@editMentor');
     #requestMentoring
@@ -117,7 +117,7 @@ Route::group(['middleware' => 'companyAuth'], function () {
     Route::get('/applicantList','CompanyController@getProductbySearch');
     Route::get('/applicantDetail/{id}','ApplicantDetailController@show');
     #profile
-    Route::get('/companyprofile/{id}','CompanyIndexController@show');
+    Route::get('/companyprofile/','CompanyIndexController@show');
     Route::put('/companyprofile/update/{id}','CompanyIndexController@edit');
     #job
     Route::get('/job','CompanyController@getJobList');

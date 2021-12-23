@@ -66,16 +66,16 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="/dashboard/logout">Logout</a>
                                 @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
-                                <a class="dropdown-item" href="{{'/profile/'.$userData[0]->id}}">View Profile</a>
+                                <a class="dropdown-item" href="{{'/profile/'}}">View Profile</a>
                                 @endif
                                 @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentor')
-                                <a class="dropdown-item" href="{{'/profile/'.$userData[0]->id}}">View Profile</a>
+                                <a class="dropdown-item" href="{{'/profile/'}}">View Profile</a>
                                 @endif
                                 @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
-                                <a class="dropdown-item" href="{{'/profile/'.$userData[0]->id}}">View Profile</a>
+                                <a class="dropdown-item" href="{{'/profile/'}}">View Profile</a>
                                 @endif
                                 @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'company')
-                                <a class="dropdown-item" href="{{'/companyprofile/'.$userData[0]->id}}">View Profile</a>
+                                <a class="dropdown-item" href="{{'/companyprofile/'}}">View Profile</a>
                                 @endif
                             </div>
                         </div>
