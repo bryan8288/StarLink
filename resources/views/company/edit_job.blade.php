@@ -29,7 +29,7 @@
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Salary</h5>
                 <input style="width:70%; float: right;" type="text" name="salary" class="form-control"
-                    value="{{number_format($jobDetail->salary,2)}}" style="margin-bottom: 5px">
+                    value="{{$jobDetail->salary}}" style="margin-bottom: 5px">
             </div>
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Type</h5>

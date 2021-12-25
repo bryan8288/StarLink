@@ -1,5 +1,11 @@
 @extends('layout.layoutUser')
 @section('content')
+@if(session('status'))
+    <div class="alert alert-success alert-dismissible" role="alert" style="margin-top :10px;">
+        {{session('status')}}
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <section class="section about-section gray-bg" id="background">
     <div class="container">
         <form action="{{url('companyprofile/update/'.$userData[0]->id)}}" enctype="multipart/form-data" method="post">
@@ -33,7 +39,7 @@
                             class="upload bg-dark" name="profile_picture" for="profile_picture">Change
                             Picture</label><br>
 
-                        <a href="{{'/changePassword/'.$userData[0]->id}}"><button type="button" class="btn btn-dark "
+                        <a href="{{'/changePassword/'}}"><button type="button" class="btn btn-dark "
                                 style="text-align: center;width:200px; margin-top:10px">Change Password</button></a>
                     </div>
                     <div class="about-text go-to">

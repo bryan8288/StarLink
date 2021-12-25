@@ -42,26 +42,26 @@
             
                 <div style="width:20%; float: right; display: flex;">
                 @if($auth && \Illuminate\Support\Facades\Auth::user()->role != 'mentee')
-                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editAssignment"
-                    style="height: 40px; margin-top: 30px; background-color: #27353F">Edit</button>
-                <form action="{{'/deleteAssignment/'.$assignment->id}}" method="post">
-                    {{csrf_field()}}
-                    {{method_field('post')}}
-                    <button type="submit" class="btn btn-danger"
-                        onclick="return confirm('Are you sure to Delete this Assignment?')"
-                        style="height: 40px; margin-left: 20px; margin-top: 30px">Delete</button>
-                </form>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editAssignment-{{$assignment->id}}"
+                        style="height: 40px; margin-top: 30px; background-color: #27353F">Edit</button>
+                    <form action="{{'/deleteAssignment/'.$assignment->id}}" method="post">
+                        {{csrf_field()}}
+                        {{method_field('post')}}
+                        <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Are you sure to Delete this Assignment?')"
+                            style="height: 40px; margin-left: 20px; margin-top: 30px">Delete</button>
+                    </form>
                 @else
                 @if($assignment->isSubmitted == true)
                 <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#submitAssignment" disabled
                     style="height: 40px; margin-left: 20px; margin-top: 30px; background-color: #27353F">Submitted</button>
 
                 @else
-                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#submitAssignment"
+                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#submitAssignment-{{ $assignment->id }}"
                     style="height: 40px; margin-left: 20px; margin-top: 30px; background-color: #27353F">Submit</button>
                 @endif
 
-                <div class="modal fade" id="submitAssignment" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
+                <div class="modal fade" id="submitAssignment-{{ $assignment->id }}" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true" data-id = "assignmentId">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -69,17 +69,17 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <form action="{{'/submitAssignment/'.$assignment->id}}" method="post"
+                            <form action="{{'/submitAssignment/'.$assignment->id.'/'.$id}}" method="post"
                                 enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <div class="modal-body">
                                     <div class="companyDetail">
                                         <h5 style="width: 30%;float:left">File</h5>
-                                        <input type="file" id="assignment_file" hidden name="assignment_file"/>
-                                        <label style="color: white; font-size:16px; width: 200px; text-align:center"
-                                            class="upload bg-dark" for="assignment_file">
+                                        <input type="file" name="assignment_file" id="assignment_file" />
+                                        {{-- <label for="assignment_file" style="color: white; font-size:16px; width: 200px; text-align:center"
+                                            class="upload bg-dark">
                                             <i class="fa fa-cloud-upload"></i>
-                                            Upload</label><br>
+                                            Upload</label><br> --}}
                                         <p style="font-size: 1px"> </p>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
                 @endif
                 
 
-                <div class="modal fade" id="editAssignment" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
+                <div class="modal fade" id="editAssignment-{{$assignment->id}}" tabindex="-1" aria-labelledby="popupmodel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -133,11 +133,11 @@
                                     </div>
                                     <div class="companyDetail">
                                         <h5 style="width: 30%;float:left">File</h5>
-                                        <input type="file" id="file" hidden name="file"  value="{{$assignment->assignment_file}}"/>
-                                        <label style="color: white; font-size:16px; width: 200px; text-align:center"
+                                        <input type="file" id="file" name="file" value="{{$assignment->assignment_file}}"/>
+                                        {{-- <label style="color: white; font-size:16px; width: 200px; text-align:center"
                                             class="upload bg-dark" for="file">
                                             <i class="fa fa-cloud-upload"></i>
-                                            Upload</label><br>
+                                            Upload</label><br> --}}
                                         <p style="font-size: 1px"> </p>
                                     </div>
                                 </div>

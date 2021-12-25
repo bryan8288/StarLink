@@ -17,15 +17,15 @@
         </a>
         <div style="display: flex; margin-top :20px">
             @foreach ($job as $item)
-            <div class="col-md-2 card4">
+            <div class="col-md-2 card4" style="height: auto; padding-bottom: 10px">
                 <div style="margin-top: 20px">
                     <h4>{{$item->name}}</h4>
                     <p class="price">Slot : {{$item->capacity}}</p>
                     <div style="height: 100px;">
-                        <p class="cardText" style="overflow: hidden">{{$item->description}}</p>
+                        <p class="cardText">{{$item->description}}</p>
                     </div>
                     <h4>Salary</h4>
-                    <h4 style="margin-top: 10px">{{$item->salary}}</h4>
+                    <h4 style="margin-top: 10px">{{number_format($item->salary,2)}}</h4>
                     <div style="display: flex">
                         <a href="{{'/editJob/'.$item->id}}">
                             <button class="btn btn-primary" style="margin-left: 30px; margin-top: 10px">Edit</button>

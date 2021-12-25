@@ -8,7 +8,7 @@
                         </div>
                         <div class="col-12" style="text-align:center; width:30%; margin:auto">
                             <div class="card-body">
-                                <form method="POST" action="{{url('changePassword/change/'.$userData[0]->user_id)}}">
+                                <form method="POST" action="{{url('changePassword/change/')}}">
                                     @csrf      
                                     <div class="form-group">
                                         <label for="password" class="col-form-label text-md-right" style="font-size: 25px; line-height:1.2em">Current Password</label>

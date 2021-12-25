@@ -21,7 +21,7 @@ class ClassController extends Controller
             ->get();
 
             $class = DB::table('classes')
-            ->join('class_details','classes.id','=','class_details.class_id')
+            ->Leftjoin('class_details','classes.id','=','class_details.class_id')
             ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
             ->orderBy('classes.name')
             ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
@@ -73,7 +73,7 @@ class ClassController extends Controller
             ->get();
 
             $class = DB::table('classes')
-            ->join('class_details','classes.id','=','class_details.class_id')
+            ->Leftjoin('class_details','classes.id','=','class_details.class_id')
             ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
             ->orderBy('classes.name')
             ->where('classes.name','like',"%{$request->keyword}%")

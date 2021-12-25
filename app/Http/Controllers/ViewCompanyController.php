@@ -87,6 +87,9 @@ class ViewCompanyController extends Controller
     public function addCompany(Request $request){ 
         $auth = Auth::check();
         $this->validate($request,[
+            'username' => 'required|min:5',
+            'password' => 'required|min:5',
+            'email' => 'required|unique:users|email',
             'name' => 'required|min:5',
             'address' => 'required',
             'phone' => 'required',

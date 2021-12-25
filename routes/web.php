@@ -51,8 +51,9 @@ Route::group(['middleware' => 'loginAuth'], function () {
     Route::get('schedule','ScheduleController@getScheduleList');
     Route::get('/editJob/{id}','CompanyController@goEditPage');
     Route::get('/profile','ViewProfileController@show');
-    Route::get('/changePassword/{id}', 'ChangePasswordController@index');
-    Route::post('/changePassword/change/{id}', 'ChangePasswordController@store');
+    Route::put('/profile/update/{id}','ViewProfileController@edit');
+    Route::get('/changePassword', 'ChangePasswordController@index');
+    Route::post('/changePassword/change', 'ChangePasswordController@store');
     Route::get('progressmentee/detailByModule/{menteeId}/{classId}','ProgressMenteeController@getModuleDetailByMentee');
 });
 
@@ -89,8 +90,6 @@ Route::group(['middleware' => 'adminAuth'], function () {
     Route::get('/editMentee/{id}','ViewMenteeController@goEditPage');
     Route::put('editMentee/update/{id}','ViewMenteeController@editMentee');
     Route::post('editMentee/delete/{id}','ViewMenteeController@deleteMentee');
-    #profile
-    Route::put('/profile/update/{id}','ViewProfileController@edit');
     #class
     Route::put('/editClass/update/{id}','ClassController@editClassDetail');
     Route::post('editClass/delete/{id}','ClassController@deleteClass');
@@ -138,8 +137,8 @@ Route::group(['middleware' => 'mentorAuth'], function () {
     Route::post('deleteVideo/{videoId}','ModuleController@deleteVideo');
     Route::put('editVideo/{videoId}/{moduleId}','ModuleController@editVideo');
     Route::post('addAssignment/{moduleId}','ModuleController@uploadAssignment');
-    Route::post('deleteAssignment/{assignmentId}','ModuleController@deleteAssignment');
-    Route::put('editAssignment/{assignmentId}/{moduleId}','ModuleController@editAssignment');
+    Route::post('deleteAssignment/{id}','ModuleController@deleteAssignment');
+    Route::put('editAssignment/{id}/{moduleId}','ModuleController@editAssignment');
     Route::get('assignmentDetail/{id}','ModuleController@getAssignmentDetailPage');
     Route::post('rateAssignment/{id}','ModuleController@rateAssignment');
     Route::post('editRateAssignment/{id}','ModuleController@editRateAssignment');
@@ -162,7 +161,7 @@ Route::group(['middleware' => 'loginAuth'], function () {
     Route::get('/score','ScoreController@getScoreList');
     Route::get('/mycourse','CourseController@getMyCourseForMentee');
     Route::get('/mycourse/detail/{id}','CourseController@getMyCourseDetail');
-    Route::post('/submitAssignment/{assignmentId}','ModuleController@submitAssignment');
+    Route::post('/submitAssignment/{assignmentId}/{moduleId}','ModuleController@submitAssignment');
     Route::post('/learning/done/{moduleId}','ModuleController@doneLearning');
     Route::post('/video/done/{moduleId}/{videoId}','ModuleController@doneVideo');
     Route::get('/exam/{examId}','ExamController@getExamPage');

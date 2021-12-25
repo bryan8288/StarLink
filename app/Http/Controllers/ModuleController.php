@@ -42,14 +42,12 @@ class ModuleController extends Controller
             'name' => 'required|unique:modules|min:5',
             'course' => 'required',
             'description' => 'required|min:10',
-            'time' => 'required',
             'kkm' => 'required|integer|min:2',
             'file' => 'required|mimes:application/pdf,application/x-pdf,ppt,pptx'
         ]);
         $module = new Module();    
         $module->name = $request->name;
         $module->description = $request->description;
-        $module->exam_time = $request->time;
         $module->kkm = $request->kkm;
 
         $material_path = $request->file('file')->store('learningmaterial','public');
@@ -384,7 +382,7 @@ class ModuleController extends Controller
         return redirect('/assignmentDetail/'.$submittedAssignment->assignment_id)->with('status','Assignment Edited Successfully');
     }
 
-    public function submitAssignment(Request $request, $assignmentId){
+    public function submitAssignment(Request $request, $assignmentId, $moduleId){
         $this->validate($request,[
             'assignment_file' => 'required'
         ]);
@@ -410,7 +408,7 @@ class ModuleController extends Controller
 
         $submittedAssignment->uploaded_date = date('Y-m-d');
         $submittedAssignment->save();
-        return redirect('/dashboard')->with('status','Assignment Submitted Successfully');
+        return redirect('/moduleDetailAssignment/'.$moduleId)->with('status','Assignment Submitted Successfully');
     }
 
     public function doneLearning($moduleId){

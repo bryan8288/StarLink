@@ -40,8 +40,8 @@ class ExamController extends Controller
         $exam->save();
 
         if($request->type == 'Coding' || $request->type == 'Essai'){
-            $path = $request->file('file')->getRealPath();
-            $data = Excel::import(new QuestionImport($exam->id), $path);
+            // $path = $request->file('file')->getRealPath();
+            $data = Excel::import(new QuestionImport($exam->id), $request->file('file'));
         }
         
         return redirect('/dashboard')->with('status','Exam Added Successfully');

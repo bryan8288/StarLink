@@ -28,7 +28,7 @@ class CompanyIndexController extends Controller
             'name' => 'required|min:4',
             'address' => 'required|min:20',
             'phone' => 'required|min:12',
-            'profile_picture' => 'image', 'mimes:jpg,jpeg,bmp,png,svg'
+            'profile_picture' => 'nullable|mimes:jpg,jpeg,bmp,png,svg'
         ]);
 
         if(Auth::user()->role == 'company'){
@@ -48,6 +48,6 @@ class CompanyIndexController extends Controller
             $userEmail->update();
         }
 
-        return redirect('/companyprofile/{id}')->with('status','Profile Updated Successfully');
+        return redirect('/companyprofile')->with('status','Profile Updated Successfully');
     }
 }
