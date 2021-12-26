@@ -307,9 +307,9 @@ class ModuleController extends Controller
     }
 
     public function deleteAssignment($id){ 
-        $moduleId = DB::table('assigments')
-        ->select('assigments.module_id')
-        ->where('assigments.id',"=",$id)->get()[0]->module_id;
+        $moduleId = DB::table('assignments')
+        ->select('assignments.module_id')
+        ->where('assignments.id',"=",$id)->get()[0]->module_id;
         $assignment = Assignment::find($id);
         $assignment->delete();
 

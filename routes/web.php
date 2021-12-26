@@ -95,7 +95,7 @@ Route::group(['middleware' => 'adminAuth'], function () {
     Route::post('editClass/delete/{id}','ClassController@deleteClass');
     Route::get('/addClass','ClassController@getAddClassPage');
     Route::post('/addClass/add','ClassController@addClass');
-    Route::put('/addMenteeToClass/{id}','ClassController@addMenteeToClass');
+    Route::put('/addMenteeToClass/{classId}','ClassController@addMenteeToClass');
     Route::post('deleteMenteeFromClass/{id}','ClassController@deleteMenteeFromClass');
     #discussionRoom    
     Route::get('/admin/discussAdmin','DiscussionRoomController@showadmin');
