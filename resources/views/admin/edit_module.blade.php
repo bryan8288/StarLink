@@ -49,7 +49,7 @@
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Description</h5>
                 <textarea class="form-control" style="width:70%; float: right;" name="description"
-                    placeholder="{{$moduleDetail->description}}" rows="5"></textarea>
+                   rows="5">{{$moduleDetail->description}}</textarea>
             </div>
             <div class="courseDetail">
                 <h5 style="width: 30%;float:left">Minimal Grade</h5>

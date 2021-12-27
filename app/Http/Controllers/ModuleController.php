@@ -92,7 +92,6 @@ class ModuleController extends Controller
             'name' => 'required|min:5',
             'course' => 'required',
             'description' => 'required|min:10',
-            'time' => 'required',
             'kkm' => 'required|integer|min:2'
         ]);
         
@@ -102,7 +101,6 @@ class ModuleController extends Controller
         $course_id = Course::where('name','=',$request->course)->get();
         $moduleDetail->course_id = $course_id[0]->id;
         $moduleDetail->description = $request->description;
-        $moduleDetail->exam_time = $request->time;
         $moduleDetail->kkm = $request->kkm;
         $moduleDetail->update();
         return redirect('/dashboard')->with('status','Module Updated Successfully');
