@@ -1,11 +1,9 @@
 @extends('layout.layoutUser')
 @section('content')
 @if(session('status'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top :10px;">
+   <div class="alert alert-success alert-dismissible" role="alert" style="margin-top :10px;">
         {{session('status')}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
 <div class="col-md-12" id="background2">

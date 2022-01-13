@@ -38,7 +38,7 @@
         @foreach ($assignmentList as $assignment)
         <div style="display: flex">
             
-                <h4 style="margin-top:30px; margin-left:2.5%; width: 80%;float:left"><a style="text-decoration: none; color:black" href="{{'/assignmentDetail/'.$assignment->id}}">{{$assignment->title}}</a></h4>
+                <h4 style="margin-top:30px; margin-left:2.5%; width: 80%;float:left"><a style="color:black" href="{{'/assignmentDetail/'.$assignment->id}}">{{$assignment->title}}</a></h4>
             
                 <div style="width:20%; float: right; display: flex;">
                 @if($auth && \Illuminate\Support\Facades\Auth::user()->role != 'mentee')

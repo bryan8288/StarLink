@@ -22,7 +22,7 @@
             @foreach ($class as $item)
             <div class="col-md-2 card">
                 <div style="margin-top: 40px">
-                    <h4>{{$item->name}}</h4>
+                    <h4>{{$item->name}} - {{$item->courseName}}</h4>
                     <p class="price">Total Mentee: {{$item->total}}</p>
                     <h6 style="margin-top:20px">Time : {{$item->start_time}} - {{$item->end_time}}</h6>
                     @if ($item->day_of_week == 0)

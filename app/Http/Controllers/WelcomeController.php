@@ -7,7 +7,7 @@ use App\Course;
 class WelcomeController extends Controller
 {
     public function getCourseList(){
-        $courseList = Course::all();
+        $courseList = Course::paginate(5);
         return view('welcome',compact('courseList'));
     }
 }

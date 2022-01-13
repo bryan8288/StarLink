@@ -22,9 +22,10 @@ class ClassController extends Controller
 
             $class = DB::table('classes')
             ->Leftjoin('class_details','classes.id','=','class_details.class_id')
-            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->join('courses','classes.course_id','=','courses.id')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name as courseName')
             ->orderBy('classes.name')
-            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name')
             ->paginate(3);
         }else if(Auth::user()->role == 'mentor'){
             $userData = DB::table('users')
@@ -35,9 +36,10 @@ class ClassController extends Controller
 
             $class = DB::table('classes')
             ->join('class_details','classes.id','=','class_details.class_id')
-            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->join('courses','classes.course_id','=','courses.id')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name as courseName')
             ->orderBy('classes.name')
-            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name')
             ->where('classes.mentor_id','=',$userData[0]->id)
             ->paginate(3);
         }else if(Auth::user()->role == 'mentee'){
@@ -51,9 +53,9 @@ class ClassController extends Controller
             $class = DB::table('classes')
             ->join('class_details','classes.id','=','class_details.class_id')
             ->join('courses','classes.course_id','=','courses.id')
-            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name as courseName')
             ->orderBy('classes.name')
-            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name')
             ->whereIn('classes.id',function($query) use($menteeId){
                 $query->select('class_id')->from('class_details')
                 ->where('class_details.mentee_id','=',$menteeId);
@@ -74,10 +76,11 @@ class ClassController extends Controller
 
             $class = DB::table('classes')
             ->Leftjoin('class_details','classes.id','=','class_details.class_id')
-            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->join('courses','classes.course_id','=','courses.id')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name as courseName')
             ->orderBy('classes.name')
             ->where('classes.name','like',"%{$request->keyword}%")
-            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name')
             ->paginate(3);
         }else if(Auth::user()->role == 'mentor'){
             $userData = DB::table('users')
@@ -88,9 +91,10 @@ class ClassController extends Controller
 
             $class = DB::table('classes')
             ->join('class_details','classes.id','=','class_details.class_id')
-            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->join('courses','classes.course_id','=','courses.id')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name as courseName')
             ->orderBy('classes.name')
-            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name')
             ->where('classes.mentor_id','=',$userData[0]->id)
             ->where('classes.name','like',"%{$request->keyword}%")
             ->paginate(3);
@@ -105,9 +109,9 @@ class ClassController extends Controller
             $class = DB::table('classes')
             ->join('class_details','classes.id','=','class_details.class_id')
             ->join('courses','classes.course_id','=','courses.id')
-            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name as courseName')
             ->orderBy('classes.name')
-            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link')
+            ->groupBy('classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name')
             ->whereIn('classes.id',function($query) use($menteeId){
                 $query->select('class_id')->from('class_details')
                 ->where('class_details.mentee_id','=',$menteeId);

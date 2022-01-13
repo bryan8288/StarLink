@@ -21,7 +21,7 @@
                         </center>
                     </div>
                 </div>
-                <form method="post" style="text-align: center; background-color: white; padding-bottom: 50px">
+                <form method="post" style="text-align: center; background-color: white; padding-bottom: 20px">
                     <div class="col-md-12"
                         style="background-color: #218EED;background-size: cover; background-position: center; background-repeat: no-repeat; margin-top: 30px; padding-bottom : 50px; padding-top:20px">
                         <div class="col-md-12" style="margin-left:30px; width: 1000px; margin: 0 auto;">
@@ -64,19 +64,19 @@
                             </div>
                             @endif
 
-                            @if(count($errors) > 0)
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach($errors->all() as $error)
-                                    <li>{{$error}}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
                         </div>
-                </form>
-        </div>
-        </main>
+                    </form>
+                </div>
+                @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+            </main>
     </div>
     {{-- <input type="text" name="keyword" class="form-control" placeholder="Search for Stationary"
             style="width: 500px; margin-left: 40px; padding-bottom: 5px">
