@@ -39,6 +39,11 @@ class DashboardController extends Controller
             }else if($today == 'Saturday'){
                 $day_of_week = 5;
             }else $day_of_week = 6;
+
+            $totalRequestedMentoring = DB::table('requested_mentorings')->select('name',DB::raw('count(id) as total'))->groupBy('name')->get();
+                
+            $totalWorkingMentee = DB::table('mentees')->select(DB::raw('count(id) as total'), DB::raw('year(created_at) as year'))->where('is_working','=',1)->groupByRaw('year(created_at)')->get();
+
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
@@ -54,11 +59,7 @@ class DashboardController extends Controller
             $totalMentee = $mentee->count();
                         
             $companyJobs = DB::table('company_jobs')->select('name','capacity')->orderby('capacity','DESC')->limit(5)->get();
-                
-            $totalRequestedMentoring = DB::table('requested_mentorings')->select('name',DB::raw('count(id) as total'))->groupBy('name')->get();
-                
-            $totalWorkingMentee = DB::table('mentees')->select(DB::raw('count(id) as total'), DB::raw('year(created_at) as year'))->where('is_working','=',1)->groupByRaw('year(created_at)')->get();
-                
+                                
         }else if(Auth::user()->role == 'mentor'){
             $userData = DB::table('users')
             ->join('mentors','users.id','=','mentors.user_id')
@@ -111,7 +112,6 @@ class DashboardController extends Controller
             ->get();
 
             #menteeDashboard
-            dd(Auth::id());
             $todayScheduleMentee = DB::table('class_details')
             ->join('classes','class_details.class_id','=','classes.id')
             ->join('mentees','class_details.mentee_id','=','mentees.id')

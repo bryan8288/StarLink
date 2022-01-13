@@ -114,7 +114,7 @@
                 <h4>Today Schedule</h4>
             </center>
             <div class="col-md-3" id="subBackground">
-                @if($todaySchedule->count() == 0)
+                @if($todayScheduleMentee->count() == 0)
                     <h4 style="font-size: 25px; margin-bottom:15px">There is no schedule for today.</h4>
                 @else
                     @foreach ($todayScheduleMentee as $item)
