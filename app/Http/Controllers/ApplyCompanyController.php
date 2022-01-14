@@ -87,7 +87,24 @@ class ApplyCompanyController extends Controller
             ->select('company_jobs.name')->distinct()->get();
 
             $countJob = DB::table('company_jobs')
-            ->select(DB::raw('count(company_jobs.id) as total'))->get()[0]->total;
+            ->join('companies','companies.id','=','company_jobs.company_id')
+            ->select(DB::raw('count(company_jobs.id) as total'))
+            ->where(function($query) use($request){
+                $query->where('companies.name','like',"%{$request->keyword}%")
+                ->orWhere('company_jobs.name','like',"%{$request->keyword}%");
+            })
+            ->where(function($query) use($request){
+                if($request->salary=='< Rp 10.000.000'){
+                    $query->where('company_jobs.salary','<',10000000);
+                }else if($request->salary=='Rp 10.000.001 - Rp 20.000.000'){
+                    $query->whereBetween('company_jobs.salary',[10000001,20000000]);
+                }else if($request->salary=='> Rp 20.000.000'){
+                    $query->where('company_jobs.salary','>',20000000);
+                }else{
+                }
+            })
+            ->where('company_jobs.type','like',"%{$request->type}%")
+            ->where('company_jobs.name','like',"%{$request->jobPosition}%")->get()[0]->total;
 
             $jobList = DB::table('company_jobs')
             ->join('companies','companies.id','=','company_jobs.company_id')
