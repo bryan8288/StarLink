@@ -8,21 +8,21 @@
                     <div style="margin-left:120px">
                         <h1
                             style="text-align:left;font-weight: 700;font-family: 'Inter-Bold', 'Inter', sans-serif;color: #ffffff;font-size: 40px;line-height: 1.2;">
-                            Ruang Diskusi</h1>
+                            Discussion Room</h1>
                         <br>
 
                         <h5 style="text-align:left;">MENTOR</h4>
-                            <h5 style="text-align:left;">Selamat Datang MENTOR</h4>
+                            <h5 style="text-align:left;">Welcome MENTOR</h4>
                                 <h5 style="text-align:left;"><svg xmlns="http://www.w3.org/2000/svg" width="12"
                                         height="12" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                                         <path
                                             d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                    </svg> Mari mendidik tunas bangsa!</h4>
+                                    </svg> Let's educate the budding nation!</h4>
                                     <h5 style="text-align:left;"><svg xmlns="http://www.w3.org/2000/svg" width="12"
                                             height="12" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                                             <path
                                                 d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                        </svg> Diharapkan hadir 15 menit sebelumnya ya <svg
+                                        </svg> Please be there 15 minutes in advance <svg
                                             xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-emoji-laughing" viewBox="0 0 16 16">
                                             <path
@@ -32,9 +32,9 @@
                                         </svg></h4>
                                         <hr style="border-top: 5px solid #ffffff; opacity:1;;width:100%">
                                         <h5 style="text-align:left;">MENTEE</h4>
-                                            <h5 style="text-align:left;">Tanyakan pertanyaan Anda dengan mentor kami
+                                            <h5 style="text-align:left;">Ask your questions with our mentor
                                                 </h4>
-                                                <h5 style="text-align:left;">Ruang terbuka di ruang berikut:</h4>
+                                                <h5 style="text-align:left;">in this discussion room:</h4>
 
 
                     </div>
@@ -53,16 +53,13 @@
 
 
                         <button type="button" class="btn btn-light" style="font-weight: bold;color:#218EED"
-                            data-toggle="modal" data-target="#exampleModal">PERATURAN</button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            data-toggle="modal" data-target="#exampleModal1">RULES</button>
+                        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">PERATURAN</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <h5 class="modal-title" id="exampleModalLabel">RULES</h5>
                                     </div>
                                     <div class="modal-body">
                                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates laudantium
@@ -80,16 +77,13 @@
 
 
                         <button type="button" class="btn btn-light" style="font-weight: bold;color:#218EED"
-                            data-toggle="modal" data-target="#exampleModal">PETUNJUK</button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            data-toggle="modal" data-target="#exampleModal2">INSTRUCTION</button>
+                        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">PETUNJUK</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <h5 class="modal-title" id="exampleModalLabel">INSTRUCTION</h5>
                                     </div>
                                     <div class="modal-body">
                                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates laudantium
@@ -123,9 +117,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">EDIT</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
 
 
@@ -171,7 +162,7 @@
         @foreach ($clockMentor as $dataClockMentor)
         <a href="{{$dataClockMentor->url}}"><button type="button" class="btn btn-warning"
                 style="margin:10px;width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#{{$i}}
-                Diskusi | {{$dataClockMentor->start_time}} - {{$dataClockMentor->end_time}} <h5>Mentor:
+                Discussion | {{$dataClockMentor->start_time}} - {{$dataClockMentor->end_time}} <h5>Mentor:
                     {{$dataClockMentor->name}}</button></a>
         <?php $i++;?>
         @endforeach
@@ -189,9 +180,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">EDIT</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <form action="{{url('admin/discussAdmin/update/'.$userData[0]->id)}}" enctype="multipart/form-data"
                     method="post">
@@ -224,7 +212,7 @@
             <div class="col-sm" style=" text-align:center">
                 <a href="{{$dataClock->url}}"><button type="button" class="btn btn-warning"
                         style="width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#1
-                        Diskusi | {{$dataClock->start_time}} - {{$dataClock->end_time}} <h5>Admin: {{$dataClock->name}}
+                        Discussion | {{$dataClock->start_time}} - {{$dataClock->end_time}} <h5>Admin: {{$dataClock->name}}
                         </h5></button></a>
             </div>
         </div>

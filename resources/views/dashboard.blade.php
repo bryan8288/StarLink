@@ -128,6 +128,9 @@
                 <h4>Your Score</h4>
             </center>
             <div class="col-md-1" id="subBackground">
+            @if($score->count() == 0)
+                <h4 style="font-size: 25px; margin-bottom:15px">There is no score yet.</h4>
+            @endif
             @foreach ($score as $item)
             <div class="col-md-12" style="display: flex; justify-content: center; margin-bottom:2px">
                 <h4 style="width:30%;float: left;">{{$item->name}}</h4>
@@ -143,6 +146,11 @@
                 <h4>Assignment</h4>
             </center>
             <div class="col-md-12" style="background-color: #99eeff; border-radius: 10px;">
+                @if($assignmentMentee->count() == 0)
+                <div class="col-md-2" id="subBackground">
+                    <h4 style="font-size: 25px; margin-bottom:15px">There is no assignment yet.</h4>
+                </div>
+                @endif
                 @foreach ($assignmentMentee as $course)
                 <div style="margin-top: 10px">
                     <h4 style="margin-left:2.5%;"><b>{{$course->name}}</b></h4>
