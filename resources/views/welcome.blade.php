@@ -37,7 +37,7 @@
         </div>
         <div style="display: flex">
             @foreach ($courseList as $item)
-            <div class="col-md-2 card" style="display: flex; align-items: center;">
+            <div class="col-md-2 card" style="display: flex; align-items: center; height:auto; padding-bottom:10px">
                 <h4 style="color:black;">{{$item->name}}</h4>
                 <p class="price">Rp.{{$item->price}}</p>
                 <div style="height: 100px;">

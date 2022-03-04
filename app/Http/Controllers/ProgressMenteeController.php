@@ -26,7 +26,7 @@ class ProgressMenteeController extends Controller
         
         foreach ($courseList as $key ) {
             $classList = DB::table('classes')
-            ->join('class_details','classes.id','=','class_details.class_id')
+            ->leftJoin('class_details','classes.id','=','class_details.class_id')
             ->select('classes.name','classes.id',DB::raw('count(class_details.mentee_id) as totalMentee'))->distinct()
             ->groupBy('classes.name','classes.id')
             ->where('classes.mentor_id','=',$userData[0]->id)
@@ -126,6 +126,7 @@ class ProgressMenteeController extends Controller
         ->where('progress_mentees.status','=','In Progress')
         ->where('progress_mentees.mentee_id','=',$menteeId)
         ->where('classes.id','=',$classId)->paginate(3);
+        
         return view('progress_mentee_detail_module',compact('auth','userData','mentee','completedModule','inProgressModule'));
     }
 

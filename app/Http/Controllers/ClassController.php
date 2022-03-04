@@ -35,7 +35,7 @@ class ClassController extends Controller
             ->get();
 
             $class = DB::table('classes')
-            ->join('class_details','classes.id','=','class_details.class_id')
+            ->leftJoin('class_details','classes.id','=','class_details.class_id')
             ->join('courses','classes.course_id','=','courses.id')
             ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name as courseName')
             ->orderBy('classes.name')
@@ -90,7 +90,7 @@ class ClassController extends Controller
             ->get();
 
             $class = DB::table('classes')
-            ->join('class_details','classes.id','=','class_details.class_id')
+            ->leftJoin('class_details','classes.id','=','class_details.class_id')
             ->join('courses','classes.course_id','=','courses.id')
             ->select(DB::raw('count(class_details.mentee_id) as total'),'classes.name','classes.id','classes.day_of_week','classes.start_time','classes.end_time','classes.link','courses.name as courseName')
             ->orderBy('classes.name')

@@ -43,7 +43,7 @@ class ModuleController extends Controller
             'course' => 'required',
             'description' => 'required|min:10',
             'kkm' => 'required|integer|min:2',
-            'file' => 'required|mimes:application/pdf,application/x-pdf,ppt,pptx'
+            'file' => 'required'
         ]);
         $module = new Module();    
         $module->name = $request->name;
@@ -55,6 +55,18 @@ class ModuleController extends Controller
         $course_id = Course::select('id')->where('name',$request->course)->get();
         $module->course_id = $course_id[0]->id;
         $module->save();
+
+        $menteeList = DB::table('course_transactions')
+                    ->select('course_transactions.*')
+                    ->where('course_transactions.course_id','=',$course_id[0]->id)->get();
+
+        foreach ($menteeList as $mentee) {
+            $progressMentee = new ProgressMentee;
+            $progressMentee->mentee_id = $mentee->mentee_id;
+            $progressMentee->module_id = $module->id;
+            $progressMentee->status = 'In Progress';
+            $progressMentee->save();
+        }
         
         return redirect('/dashboard')->with('status','Modules Added Successfully');
     }
@@ -134,8 +146,7 @@ class ModuleController extends Controller
             ->get();
         }
         $auth = Auth::check();
-        $module = Module::find($id)->get();
-
+        $module = Module::where('id','=',$id)->get();
         $checkModule = DB::table('learning_checklists')
         ->where('learning_checklists.module_id','=',$id)
         ->where('learning_checklists.mentee_id','=',$userData[0]->id)
@@ -261,7 +272,7 @@ class ModuleController extends Controller
 
     public function editVideo(Request $request, $id, $moduleId){ 
         $this->validate($request,[
-            'name' => 'required|unique:videos|min:5',
+            'name' => 'required|min:5',
             'description' => 'required|min:5',
             'reference' => '', 
             'video' => 'mimes:mp4,mov,zip'
@@ -288,7 +299,7 @@ class ModuleController extends Controller
             'description' => 'required|min:5',
             'start_date' => 'required', 
             'end_date' => 'required',
-            'assignment_file' => 'required|mimes:docx,ppt,doc,pptx,'
+            'assignment_file' => 'required|mimes:docx,ppt,doc,pptx'
         ]);
         $assignment = new Assignment();    
         $assignment->title = $request->title;
@@ -316,7 +327,7 @@ class ModuleController extends Controller
 
     public function editAssignment(Request $request, $id, $moduleId){ 
         $this->validate($request,[
-            'title' => 'required|unique:assignments|min:5',
+            'title' => 'required|min:5',
             'description' => 'required|min:5',
             'start_date' => 'required', 
             'end_date' => 'required',
@@ -406,35 +417,23 @@ class ModuleController extends Controller
 
         $submittedAssignment->uploaded_date = date('Y-m-d');
         $submittedAssignment->save();
-        return redirect('/moduleDetailAssignment/'.$moduleId)->with('status','Assignment Submitted Successfully');
-    }
 
-    public function doneLearning($moduleId){
-        $userData = DB::table('users')
-        ->join('mentees','users.id','=','mentees.user_id')
-        ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
-        ->where('users.id','=',Auth::id())
-        ->get();
-
-        $done = new LearningChecklist();
-        $done->mentee_id = $userData[0]->id;
-        $done->module_id = $moduleId;
-        $done->status = 'Completed';
-        $done->save();
-
-        $countLearningComplete = DB::table('learning_checklists')->where('learning_checklists.mentee_id','=',$userData[0]->id)->where('learning_checklists.status','=','Completed')->where('learning_checklists.module_id','=',$moduleId)->count();
+        $countLearningComplete = DB::table('learning_checklists')
+                                ->where('learning_checklists.module_id','=',$moduleId)
+                                ->where('learning_checklists.mentee_id','=',$userData[0]->id)
+                                ->where('learning_checklists.status','=','Completed')->count();
         
         $countAssignmentComplete = DB::table('assignment_checklists')
-        ->join('assignments','assignment_checklists.assignment_id','assignments.id')
-        ->where('assignment_checklists.mentee_id','=',$userData[0]->id)
-        ->where('assignments.module_id','=',$moduleId)
-        ->where('assignment_checklists.status','=','Completed')->count();
+                                ->join('assignments','assignment_checklists.assignment_id','=','assignments.id')
+                                ->where('assignments.module_id','=',$moduleId)
+                                ->where('assignment_checklists.mentee_id','=',$userData[0]->id)
+                                ->where('assignment_checklists.status','=','Completed')->count();
 
         $countVideoComplete = DB::table('video_checklists')
-        ->join('videos','video_checklists.video_id','videos.id')
-        ->where('video_checklists.mentee_id','=',$userData[0]->id)
-        ->where('videos.module_id','=',$moduleId)
-        ->where('video_checklists.status','=','Completed')->count();
+                            ->join('videos','video_checklists.video_id','=','videos.id')
+                            ->where('videos.module_id','=',$moduleId)
+                            ->where('video_checklists.mentee_id','=',$userData[0]->id)
+                            ->where('video_checklists.status','=','Completed')->count();
 
         $countProgressMentee = $countLearningComplete + $countAssignmentComplete + $countVideoComplete;
 
@@ -453,7 +452,63 @@ class ModuleController extends Controller
             ->select('progress_mentees.id')
             ->where('progress_mentees.mentee_id','=',$userData[0]->id)
             ->where('progress_mentees.module_id','=',$moduleId)->get();
-            if($progressMenteeId->count()>0){
+            if($progressMenteeId->count()>0 == true){
+               $progressMentee = ProgressMentee::find($progressMenteeId[0]->id); 
+               $progressMentee->status = 'Completed';
+               $progressMentee->update();
+            }
+        }
+        return redirect('/moduleDetailAssignment/'.$moduleId)->with('status','Assignment Submitted Successfully');
+    }
+
+    public function doneLearning($moduleId){
+        $userData = DB::table('users')
+        ->join('mentees','users.id','=','mentees.user_id')
+        ->select('users.username','mentees.name','mentees.profile_picture','mentees.id')
+        ->where('users.id','=',Auth::id())
+        ->get();
+
+        $done = new LearningChecklist();
+        $done->mentee_id = $userData[0]->id;
+        $done->module_id = $moduleId;
+        $done->status = 'Completed';
+        $done->save();
+
+        $countLearningComplete = DB::table('learning_checklists')
+                                ->where('learning_checklists.module_id','=',$moduleId)
+                                ->where('learning_checklists.mentee_id','=',$userData[0]->id)
+                                ->where('learning_checklists.status','=','Completed')->count();
+        
+        $countAssignmentComplete = DB::table('assignment_checklists')
+                                ->join('assignments','assignment_checklists.assignment_id','=','assignments.id')
+                                ->where('assignments.module_id','=',$moduleId)
+                                ->where('assignment_checklists.mentee_id','=',$userData[0]->id)
+                                ->where('assignment_checklists.status','=','Completed')->count();
+
+        $countVideoComplete = DB::table('video_checklists')
+                            ->join('videos','video_checklists.video_id','=','videos.id')
+                            ->where('videos.module_id','=',$moduleId)
+                            ->where('video_checklists.mentee_id','=',$userData[0]->id)
+                            ->where('video_checklists.status','=','Completed')->count();
+
+        $countProgressMentee = $countLearningComplete + $countAssignmentComplete + $countVideoComplete;
+
+        $countModuleComponent = DB::table('modules')
+        ->join('videos','videos.module_id','=','modules.id')
+        ->join('assignments','assignments.module_id','=','modules.id')
+        ->select(DB::raw('count(DISTINCT assignments.id) as countAssignment'),DB::raw('count(DISTINCT videos.id) as countVideo'))
+        ->where('modules.id','=',$moduleId)->get();
+
+        $countModuleComponent[0]->countLearning = 1;
+
+        $countTotalComponentModule = $countModuleComponent[0]->countAssignment + $countModuleComponent[0]->countVideo + $countModuleComponent[0]->countLearning;
+
+        if($countProgressMentee == $countTotalComponentModule){
+            $progressMenteeId = DB::table('progress_mentees')
+            ->select('progress_mentees.id')
+            ->where('progress_mentees.mentee_id','=',$userData[0]->id)
+            ->where('progress_mentees.module_id','=',$moduleId)->get();
+            if($progressMenteeId->count()>0 == true){
                $progressMentee = ProgressMentee::find($progressMenteeId[0]->id); 
                $progressMentee->status = 'Completed';
                $progressMentee->update();
@@ -476,11 +531,22 @@ class ModuleController extends Controller
         $done->status = 'Completed';
         $done->save();
 
-        $countLearningComplete = DB::table('learning_checklists')->where('learning_checklists.mentee_id','=',$userData[0]->id)->where('learning_checklists.status','=','Completed')->count();
+        $countLearningComplete = DB::table('learning_checklists')
+                                ->where('learning_checklists.module_id','=',$moduleId)
+                                ->where('learning_checklists.mentee_id','=',$userData[0]->id)
+                                ->where('learning_checklists.status','=','Completed')->count();
         
-        $countAssignmentComplete = DB::table('assignment_checklists')->where('assignment_checklists.mentee_id','=',$userData[0]->id)->where('assignment_checklists.status','=','Completed')->count();
+        $countAssignmentComplete = DB::table('assignment_checklists')
+                                ->join('assignments','assignment_checklists.assignment_id','=','assignments.id')
+                                ->where('assignments.module_id','=',$moduleId)
+                                ->where('assignment_checklists.mentee_id','=',$userData[0]->id)
+                                ->where('assignment_checklists.status','=','Completed')->count();
 
-        $countVideoComplete = DB::table('video_checklists')->where('video_checklists.mentee_id','=',$userData[0]->id)->where('video_checklists.status','=','Completed')->count();
+        $countVideoComplete = DB::table('video_checklists')
+                            ->join('videos','video_checklists.video_id','=','videos.id')
+                            ->where('videos.module_id','=',$moduleId)
+                            ->where('video_checklists.mentee_id','=',$userData[0]->id)
+                            ->where('video_checklists.status','=','Completed')->count();
 
         $countProgressMentee = $countLearningComplete + $countAssignmentComplete + $countVideoComplete;
 
@@ -499,7 +565,7 @@ class ModuleController extends Controller
             ->select('progress_mentees.id')
             ->where('progress_mentees.mentee_id','=',$userData[0]->id)
             ->where('progress_mentees.module_id','=',$moduleId)->get();
-            if($progressMenteeId->count()>0){
+            if($progressMenteeId->count()>0 == true){
                $progressMentee = ProgressMentee::find($progressMenteeId[0]->id); 
                $progressMentee->status = 'Completed';
                $progressMentee->update();

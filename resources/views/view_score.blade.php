@@ -26,7 +26,7 @@
                     @endif
                     <hr>
                     <h5><b>Exam</b></h5>
-                    @if ($item->assignments->count() == 0)
+                    @if ($item->exams->count() == 0)
                         <h6 style="width: 70%">No Score Yet</h6>
                     @else
                     @foreach ($item->exams as $exam)

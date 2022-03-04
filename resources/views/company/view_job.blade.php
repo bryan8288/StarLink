@@ -26,15 +26,15 @@
                     </div>
                     <h4>Salary</h4>
                     <h4 style="margin-top: 10px">{{number_format($item->salary,2)}}</h4>
-                    <div style="display: flex">
+                    <div style="display: flex; justify-content : center;">
                         <a href="{{'/editJob/'.$item->id}}">
-                            <button class="btn btn-primary" style="margin-left: 30px; margin-top: 10px">Edit</button>
+                            <button class="btn btn-primary" style="margin-top: 10px">Edit</button>
                         </a>
                         <form action="{{'/editJob/delete/'.$item->id}}" method="post">
                             {{csrf_field()}}
                             {{method_field('post')}}
                             <button class="btn btn-danger" onclick="return confirm('Are you sure to Delete this Job?')"
-                                style="margin-left: 30px;margin-top: 10px">Delete</button>
+                                style="margin-left: 15px;margin-top: 10px">Delete</button>
                         </form>
                     </div>
                 </div>

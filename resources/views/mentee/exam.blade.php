@@ -279,12 +279,25 @@
                                     window.onload = function () {
                                         const buttonSubmit = document.getElementById('submitButton');
 
-                                        var hour = Math.floor({{$diffMinutes}} / 60);
-                                        var minute = {{$diffMinutes}} % 60;
-                                        var sec = 1;
+                                        if(localStorage.getItem("hour")){
+                                            var hour = localStorage.getItem("hour");
+                                            var minute = localStorage.getItem("min");
+                                            var sec = localStorage.getItem("sec");
+                                        }
+                                        else{
+                                            var hour = Math.floor({{$diffMinutes}} / 60);
+                                            var minute = {{$diffMinutes}} % 60;
+                                            var sec = 1;
+                                        }
+                                       
                                         setInterval(function () {
-                                            document.getElementById("timer").innerHTML =
-                                                "Time Left " + hour + " h " + minute + " m " + sec + " s";
+                                            localStorage.setItem("timer", "Time Left " + hour + " h " + minute + " m " + sec + " s");
+                                            localStorage.setItem("hour",hour);
+                                            localStorage.setItem("min",minute);
+                                            localStorage.setItem("sec",sec);
+
+                                            var timer = localStorage.getItem("timer");
+
                                             sec--;
                                             if (hour != -1) {
                                                 if (sec == 00) {
@@ -302,9 +315,9 @@
                                                     "Your Exam Time is Over.";
                                                 buttonSubmit.disabled = true;
                                             }
+                                            document.getElementById("timer").innerHTML = timer;
                                         }, 1000);
                                     };
-
                                 </script>
 
                     </div>

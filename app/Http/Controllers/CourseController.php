@@ -6,6 +6,7 @@ use App\Course;
 use App\CourseTransaction;
 use App\Mentor;
 use App\Module;
+use App\ProgressMentee;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -158,7 +159,7 @@ class CourseController extends Controller
         $courseDetail = Course::find($id);
         $exam = DB::table('exams')
                 ->select('exams.*')
-                ->where('exams.course_id','=',$id)->get();
+                ->where('exams.course_id','=',$id)->orderByDesc('exams.created_at')->get();
 
         $completedMenteeList = [];
         if($exam->count() !=0){
@@ -168,7 +169,17 @@ class CourseController extends Controller
                     ->join('mentees','submitted_exams.mentee_id','=','mentees.id')
                     ->join('exams','submitted_exams.exam_id','=','exams.id')
                     ->select('submitted_exams.id','submitted_exams.file','mentees.name','submitted_exams.score','mentees.id as menteeId')
-                    ->where('exams.course_id','=',$id)->get();
+                    ->where('exams.course_id','=',$id)
+                    ->where('submitted_exams.is_finalized','=','1')->get();
+
+                    foreach ($completedMenteeList as $key) {
+                        $courseTransaction = DB::table('course_transactions')
+                                            ->select('course_transactions.mentor_feedback')
+                                            ->where('course_transactions.mentee_id','=',$key->menteeId)
+                                            ->where('course_transactions.course_id','=',$id)->get();
+                                    
+                        $key->feedback = $courseTransaction[0]->mentor_feedback;
+                    }
                 }else if($exam[0]->type == 'Essai'){
                     $completedMenteeList = DB::table('responses')
                     ->join('mentees','responses.mentee_id','=','mentees.id')
@@ -177,6 +188,15 @@ class CourseController extends Controller
                     ->leftJoin('submitted_exams','submitted_exams.exam_id','=','exams.id')
                     ->select('submitted_exams.id','submitted_exams.file','mentees.name','submitted_exams.score','mentees.id as menteeId')->distinct()
                     ->where('exams.course_id','=',$id)->get();
+                    // dd($completedMenteeList);
+                    foreach ($completedMenteeList as $key) {
+                        $courseTransaction = DB::table('course_transactions')
+                                            ->select('course_transactions.mentor_feedback')
+                                            ->where('course_transactions.mentee_id','=',$key->menteeId)
+                                            ->where('course_transactions.course_id','=',$id)->get();
+                                    
+                        $key->feedback = $courseTransaction[0]->mentor_feedback;
+                    }
                 }
             }
         }
@@ -255,12 +275,25 @@ class CourseController extends Controller
     }
 
     public function buyCourse($menteeId,$courseId){
+
+        $moduleList = DB::table('modules')
+                    ->select('modules.*')
+                    ->where('modules.course_id','=',$courseId)->get();
+        foreach ($moduleList as $module ) {
+            $progressMentee = new ProgressMentee();
+            $progressMentee->mentee_id = $menteeId;
+            $progressMentee->module_id = $module->id;
+            $progressMentee->status = 'In Progress';
+            $progressMentee->save();
+        }
+
         $courseTransaction = new CourseTransaction();
         $courseTransaction->mentee_id = $menteeId;
         $courseTransaction->course_id = $courseId;
         $courseTransaction->status = 'In Progress';
         $courseTransaction->save();
-
+        
+        
         return redirect('/dashboard')->with('status','Course Bought Successfully');
     }
 
@@ -300,7 +333,7 @@ class CourseController extends Controller
 
         $exam = DB::table('exams')
                 ->select('exams.*')
-                ->where('exams.course_id','=',$id)->get();
+                ->where('exams.course_id','=',$id)->orderByDesc('exams.created_at')->get();
 
         $classList = DB::table('classes')
         ->join('class_details','class_details.class_id','=','classes.id')

@@ -46,10 +46,10 @@ class ViewProfileController extends Controller
     public function edit(Request $request, $id){
         $this->validate($request,[
             'name' => 'required|min:4',
-            'address' => 'required|min:20',
-            'phone' => 'required|min:12',
-            'birth_date' => 'required',
-            'birth_place' => 'required|min:4',
+            'address' => 'nullable|min:10',
+            'phone' => 'nullable|min:12',
+            'birth_date' => 'nullable',
+            'birth_place' => 'nullable|min:4',
             'gender' => 'required',
             'age' => 'nullable',
             'email' => 'required|min:13',

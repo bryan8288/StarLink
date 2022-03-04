@@ -35,14 +35,14 @@
 
         <div style="display: flex; margin-top :20px">
             @foreach ($applicantList as $item)
-            <div class="col-md-2 card3">
+            <div class="col-md-2 card3" style="height:auto; padding-bottom:10px;">
                 <div style="margin-top: 20px">
                     <div>
                         @if ($item->profile_picture == null)
-                        <i class="fa fa-user-circle-o" style="margin-top:10px; font-size: 100px;"></i>
+                        <i class="fa fa-user-circle-o" style="font-size: 100px;"></i>
                         @else
                         <img class="" src="{{url('storage/'.$item->profile_picture)}}"
-                            style="height:100px; border-radius: 50%; border: 6px solid #218EED;margin-top:10px; width: 100px;">
+                            style="height:100px; border-radius: 50%; border: 6px solid #218EED; width: 100px;">
                         @endif
                     </div>
                     <h6><b>{{$item->name}}</b></h6>
@@ -63,16 +63,22 @@
                     @else
                     <h6>Portofolio<i class="fa fa-close" style="margin-left: 10px"></i></h6>
                     @endif
+
+                    @if ($item->status == 'Accepted')
+                        <h6 style="color: #7D7878">*Accepted For Interview*</h6>
+                    @endif
                     <a href="{{'/applicantDetail/'.$item->id}}">
                         <button class="btn btn-primary"
-                            style="background-color: #FF8C00; width:200px; margin-top: 10px; border-color: white">See
+                            style="background-color: #FF8C00; width:200px; border-color: white">See
                             Detail</button>
                     </a>
                     @if ($item->status == 'In Progress')
                     <div style="display: flex; margin-top: 10px; justify-content: center">
                         <form action="{{'/applicantList/approve/'.$item->applicantId}}" method="post">
                             {{csrf_field()}}
-                            <button class="btn btn-primary" style="width:95px">Accept</button>
+                            <button class="btn btn-primary" 
+                            onclick="return confirm('Are you sure you want to Accept This Applicant?')"
+                            style="width:95px">Accept</button>
                         </form>
                         <form action="{{'/applicantList/reject/'.$item->applicantId}}" method="post">
                             {{csrf_field()}}

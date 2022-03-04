@@ -64,7 +64,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 style="color: black; background-color: white">{{$userData[0]->username}}</button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/dashboard/logout">Logout</a>
+                                <a class="dropdown-item" href="/dashboard/logout" id="logoutButton">Logout</a>
                                 @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
                                 <a class="dropdown-item" href="{{'/profile/'}}">View Profile</a>
                                 @endif
@@ -85,6 +85,14 @@
     @section('content')
     @show
 </body>
+
+<script>
+    document.getElementById("logoutButton").addEventListener("click", clearLocal);
+
+    function clearLocal() {
+        localStorage.clear();
+    }
+</script>
 
 <style>
     .modules {
@@ -111,7 +119,7 @@
         overflow: hidden;
         -webkit-line-clamp: 4;
         height: 100px;
-        display: -webkit-box;
+        /* display: -webkit-box; */
         max-width: 200;
         text-overflow: ellipsis;
     }

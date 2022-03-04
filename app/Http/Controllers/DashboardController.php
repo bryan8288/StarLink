@@ -68,7 +68,7 @@ class DashboardController extends Controller
             ->get();
             #mentorDashboard
             $classList = DB::table('classes')
-            ->join('class_details','classes.id','=','class_details.class_id')
+            ->leftJoin('class_details','classes.id','=','class_details.class_id')
             ->join('courses','classes.course_id','=','courses.id')
             ->select('classes.name as className','courses.name as courseName',DB::raw('count(class_details.mentee_id) as totalMentee'))
             ->groupBy('classes.name','courses.name')
@@ -88,7 +88,9 @@ class DashboardController extends Controller
             ->join('submitted_assignments','submitted_assignments.assignment_id','=','assignments.id')
             ->select('courses.name','courses.id')->distinct()
             ->whereNull('submitted_assignments.score')
-            ->whereNotNull('submitted_assignments.file')->get();
+            ->whereNotNull('submitted_assignments.file')
+            ->where('classes.mentor_id','=',$userData[0]->id)
+            ->get();
 
             $assignment = [];
             foreach ($pendingAssignment as $key) {
@@ -97,8 +99,8 @@ class DashboardController extends Controller
                 ->join('courses','modules.course_id','=','courses.id')
                 ->join('classes','classes.course_id','=','courses.id')
                 ->join('submitted_assignments','submitted_assignments.assignment_id','=','assignments.id')
-                ->select('assignments.title','assignments.id',DB::raw('count(submitted_assignments.mentee_id) as totalPending'))
-                ->groupBy('assignments.title','assignments.id')
+                ->select('modules.id as moduleId','assignments.title','assignments.id',DB::raw('count(submitted_assignments.mentee_id) as totalPending'))
+                ->groupBy('assignments.title','assignments.id','modules.id')
                 ->where('courses.id','=',$key->id)
                 ->whereNull('submitted_assignments.score')
                 ->whereNotNull('submitted_assignments.file')->get();
@@ -144,7 +146,7 @@ class DashboardController extends Controller
             foreach ($assignmentMentee as $key) {
                 $assignment = DB::table('modules')
                 ->join('assignments','modules.id','=','assignments.module_id')
-                ->select('assignments.title','assignments.id',DB::raw('DATEDIFF(assignments.end_date,current_date) as dateDiff'))
+                ->select('modules.id as moduleId','assignments.title','assignments.id',DB::raw('DATEDIFF(assignments.end_date,current_date) as dateDiff'))
                 ->where('modules.course_id','=',$key->id)
                 ->whereRaw('DATEDIFF(assignments.end_date,current_date) > 0')
                 ->whereNotIn('assignments.id',function($query) use ($menteeId){

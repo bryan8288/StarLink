@@ -42,7 +42,7 @@
         @else
         <div style="display: flex; margin-top :20px">
             @foreach ($course as $item)
-            <div class="col-md-2 card">
+            <div class="col-md-2 card" style="height:auto; padding-bottom: 10px">
                 <div style="margin-top: 20px">
                     <h4>{{$item->name}}</h4>
                     <p class="price">Rp.{{$item->price}}</p>
@@ -50,28 +50,28 @@
                         <p class="cardText" style="overflow: hidden">{{$item->description}}</p>
                     </div>
                     @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
-                    <div style="display: flex">
+                    <div style="display: flex; justify-content: center">
                         <a href="{{'/editCourse/'.$item->id}}">
-                            <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
+                            <button class="btn btn-primary" style="margin-top: 20px">Edit</button>
                         </a>
                         <form action="{{'/editCourse/delete/'.$item->id}}" method="post">
                             {{csrf_field()}}
                             {{method_field('post')}}
                             <button class="btn btn-danger"
                                 onclick="return confirm('Are you sure to Delete this Course?')"
-                                style="margin-left: 30px;margin-top: 20px">Delete</button>
+                                style="margin-left: 15px;margin-top: 20px">Delete</button>
                         </form>
                     </div>
                     @else
                     @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
 
-                    <form action="{{url('buyCourse/'.$userData[0]->id.'/'.$item->id)}}" method="post">
-                        {{csrf_field()}}
                         <a class="btn" style="width: 180px; margin-top: 5px; background-color:#EE8F1B"
-                            data-toggle="modal" data-target="#exampleModal">Buy Course</a>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            data-toggle="modal" data-target="#exampleModal-{{$item->id}}">Buy Course</a>
+                        <div class="modal fade" id="exampleModal-{{$item->id}}" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
+                                <form action="{{url('buyCourse/'.$userData[0]->id.'/'.$item->id)}}" method="post">
+                                    {{csrf_field()}}
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel"><strong>Payment Method</strong>

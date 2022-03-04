@@ -37,7 +37,6 @@ class DiscussionRoomController extends Controller
         $AdminRoomData = DB::table('discussion_admins')
         ->join('admins', 'discussion_admins.admin_id','=','admins.id')
         ->select('discussion_admins.url', 'admins.name','discussion_admins.id')
-        ->where('admins.id','=',$userData[0]->id)
         ->get();
         $MentorRoomData = DB::table('discussion_mentors')
         ->join('mentors', 'discussion_mentors.mentor_id','=','mentors.id')
@@ -47,7 +46,6 @@ class DiscussionRoomController extends Controller
         $clockAdmin = DB::table('discussion_admins')
         ->join('admins', 'discussion_admins.admin_id','=','admins.id')
         ->select('discussion_admins.url', 'admins.name','discussion_admins.start_time', 'discussion_admins.end_time')
-        ->where('admins.id','=',$userData[0]->id)
         ->get();
 
         $clockMentor = DB::table('discussion_mentors')
@@ -56,7 +54,6 @@ class DiscussionRoomController extends Controller
         ->get();
 
         $mentorList= Mentor::all();
-
         $auth = Auth::check();
         return view('discussionRoom',compact('auth','userData','AdminRoomData','MentorRoomData','clockAdmin','clockMentor','mentorList'));
     }

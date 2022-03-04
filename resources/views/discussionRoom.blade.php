@@ -114,7 +114,7 @@
         <div class="container">
           <?php $i=1;?> 
           @foreach ($clockMentor as $dataClockMentor)
-         <a href="{{$dataClockMentor->url}}"><button type="button" class="btn btn-warning" style="margin:10px;width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#{{$i}} Diskusi | {{$dataClockMentor->start_time}} - {{$dataClockMentor->end_time}} <h5>Mentor: {{$dataClockMentor->name}}</h1></button></a>
+         <a href="{{$dataClockMentor->url}}"><button type="button" class="btn btn-warning" style="margin:10px;width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#{{$i}} Discussion | {{$dataClockMentor->start_time}} - {{$dataClockMentor->end_time}} <h5>Mentor: {{$dataClockMentor->name}}</h1></button></a>
           <?php $i++;?>
         @endforeach
           </div>
@@ -144,11 +144,13 @@
               </div>              
             @endif
           
-            <div class="container">
+            <div class="container" style="display: flex; justify-content: center">
+              <?php $i=1;?>
               @foreach ($clockAdmin as $dataClock)
               <div class="row">
-                <div class="col-sm" style=" text-align:center" >
-                 <a href="{{$dataClock->url}}"><button type="button" class="btn btn-warning" style="width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#1 Diskusi | {{$dataClock->start_time}} - {{$dataClock->end_time}} <h5>Admin: {{$dataClock->name}}</h5></button></a> 
+                <div class="col-sm" style=" text-align:center; margin-left: 25px" >
+                  <a href="{{$dataClock->url}}"><button type="button" class="btn btn-warning" style="width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#{{$i}} Discussion | {{$dataClock->start_time}} - {{$dataClock->end_time}} <h5>Admin: {{$dataClock->name}}</h5></button></a> 
+                 <?php $i++;?>
                 </div>
               </div>
             

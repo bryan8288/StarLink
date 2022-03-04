@@ -11,6 +11,7 @@ use App\Imports\QuestionImport;
 use App\SubmittedExam;
 use Carbon\Carbon;
 use App\Response;
+use App\CourseTransaction;
 
 
 class ExamController extends Controller
@@ -117,7 +118,7 @@ class ExamController extends Controller
         $submittedExam->file = $file_path;
         $submittedExam->save();
 
-        return redirect('/exam/'.$courseId)->with('status','Exam Submitted Successfully');
+        return redirect('/exam/'.$examId)->with('status','Exam Submitted Successfully');
     }
 
     public function getEssaiExamPage($examId){
@@ -182,11 +183,28 @@ class ExamController extends Controller
 
     public function rateExam(Request $request,$id){
         $this->validate($request,[
-            'score' => 'required|integer'
+            'score' => 'required|integer',
+            'feedback' => 'required'
         ]);
+
         $submittedExam = SubmittedExam::find($id);
         $submittedExam->score = $request->score;
         $submittedExam->update();
+
+        $menteeId = $submittedExam->mentee_id;
+        $exam = Exam::find($submittedExam->exam_id);
+
+        $ratedMentee = DB::table('course_transactions')
+                    ->select('course_transactions.id')
+                    ->where('mentee_id','=',$menteeId)
+                    ->where('course_id','=',$exam->course_id)->get();
+
+        $courseTransaction = CourseTransaction::find($ratedMentee[0]->id);
+        $courseTransaction->status = "Completed";
+        $courseTransaction->mentor_feedback = $request->feedback;
+        $courseTransaction->graduated_date = date('Y-m-d');
+        $courseTransaction->save();
+
         return redirect('/dashboard')->with('status','Exam Rated Successfully');
     }
 
@@ -206,7 +224,7 @@ class ExamController extends Controller
         ->where('responses.mentee_id','=',$menteeId)
         ->where('exams.course_id','=',$courseId)->get();
 
-        $exam = Exam::where('course_id','=',$courseId)->get();
+        $exam = Exam::where('course_id','=',$courseId)->orderByDesc('exams.created_at')->get();
 
         return view('rate_essai',compact('auth','userData','menteeAnswer','exam','menteeId'));
     }
@@ -219,7 +237,20 @@ class ExamController extends Controller
         $submittedExam->mentee_id = $menteeId;
         $submittedExam->exam_id = $examId;
         $submittedExam->score = $request->score;
+        $submittedExam->is_finalized = true;
         $submittedExam->save();
+
+        $exam = Exam::find($examId);
+
+        $ratedMentee = DB::table('course_transactions')
+                    ->select('course_transactions.id')
+                    ->where('mentee_id','=',$menteeId)
+                    ->where('course_id','=',$exam->course_id)->get();
+
+        $courseTransaction = CourseTransaction::find($ratedMentee[0]->id);
+        $courseTransaction->status = "Completed";
+        $courseTransaction->save();
+
         return redirect('/dashboard')->with('status','Exam Rated Successfully');
     }
 

@@ -20,7 +20,7 @@
         @endif
         <div style="display: flex; margin-top :20px">
             @foreach ($class as $item)
-            <div class="col-md-2 card">
+            <div class="col-md-2 card" style="height:auto; padding-bottom:10px;">
                 <div style="margin-top: 40px">
                     <h4>{{$item->name}} - {{$item->courseName}}</h4>
                     <p class="price">Total Mentee: {{$item->total}}</p>
@@ -40,16 +40,16 @@
                     @else
                     @endif
                     @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'admin')
-                    <div style="display: flex">
+                    <div style="display: flex; justify-content: center">
                         <a href="{{'/editClass/'.$item->id}}">
-                            <button class="btn btn-primary" style="margin-left: 30px; margin-top: 20px">Edit</button>
+                            <button class="btn btn-primary" style="margin-top: 20px">Edit</button>
                         </a>
                         <form action="{{'/editClass/delete/'.$item->id}}" method="post">
                             {{csrf_field()}}
                             {{method_field('post')}}
                             <button class="btn btn-danger"
                                 onclick="return confirm('Are you sure to Delete this Class?')"
-                                style="margin-left: 30px;margin-top: 20px">Delete</button>
+                                style="margin-left: 15px;margin-top: 20px">Delete</button>
                         </form>
                     </div>
                     @else

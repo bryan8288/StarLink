@@ -35,6 +35,10 @@ Route::post('/reset-password', 'ResetPasswordController@updatePassword');
 
 Route::get('course/detail/{id}','CourseController@courseDetailForGuest');
 Route::group(['middleware' => 'loginAuth'], function () {
+    Route::post('deleteAssignment/{id}','ModuleController@deleteAssignment');
+    Route::put('editAssignment/{id}/{moduleId}','ModuleController@editAssignment');
+    Route::post('deleteVideo/{id}','ModuleController@deleteVideo');
+    Route::put('editVideo/{id}/{moduleId}','ModuleController@editVideo');
     Route::get('/dashboard','DashboardController@getDashboardPage')->name('dashboard');;
     Route::get('/dashboard/logout','DashboardController@logout');
     Route::get('/course','CourseController@getCourseList');
@@ -134,11 +138,7 @@ Route::group(['middleware' => 'mentorAuth'], function () {
     Route::get('progressmentee/detail/{id}','ProgressMenteeController@getProgressMentee');
     #course
     Route::post('addVideo/{moduleId}','ModuleController@uploadVideo');
-    Route::post('deleteVideo/{videoId}','ModuleController@deleteVideo');
-    Route::put('editVideo/{videoId}/{moduleId}','ModuleController@editVideo');
     Route::post('addAssignment/{moduleId}','ModuleController@uploadAssignment');
-    Route::post('deleteAssignment/{id}','ModuleController@deleteAssignment');
-    Route::put('editAssignment/{id}/{moduleId}','ModuleController@editAssignment');
     Route::get('assignmentDetail/{id}','ModuleController@getAssignmentDetailPage');
     Route::post('rateAssignment/{id}','ModuleController@rateAssignment');
     Route::post('editRateAssignment/{id}','ModuleController@editRateAssignment');
@@ -153,7 +153,7 @@ Route::group(['middleware' => 'mentorAuth'], function () {
 Route::group(['middleware' => 'loginAuth'], function () {
     Route::get('/applyCompany','ApplyCompanyController@show');
     Route::get('/applyCompany/search/','ApplyCompanyController@showBySearch');
-    Route::get('/applyCompany/{jobId}','ApplyCompanyController@applyCompany');
+    Route::post('/applyCompany/{jobId}','ApplyCompanyController@applyCompany');
     Route::get('/applyCompany/detail/{jobId}','ApplyCompanyController@getDetailCompanyJob');
     Route::get('/courseList','CourseController@getCourseListForMentee');
     Route::post('/buyCourse/{menteeId}/{courseId}','CourseController@buyCourse');

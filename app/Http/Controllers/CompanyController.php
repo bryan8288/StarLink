@@ -38,7 +38,7 @@ class CompanyController extends Controller
         return view('company/view_applicant',compact('auth','userData','applicantList','jobList'));
     }
 
-    public function getApplicantListMapped($jobId){
+    public function getApplicantListMapped($id){
         if(Auth::user()->role == 'company'){
             $userData = DB::table('users')
             ->join('companies','users.id','=','companies.user_id')
@@ -61,7 +61,7 @@ class CompanyController extends Controller
         ->join('users','mentees.user_id','=','users.id')
         ->select('mentees.name as name','mentees.id','mentees.profile_picture','mentees.phone','users.email','mentees.cv','mentees.portofolio','applicants.id as applicantId','applicants.status')
         ->where('company_jobs.company_id','=',$userData[0]->id)
-        ->where('company_jobs.id','=',$jobId)->paginate(3);
+        ->where('company_jobs.id','=',$id)->paginate(3);
 
        
         return view('company/view_applicant',compact('auth','userData','applicantList','jobList'));

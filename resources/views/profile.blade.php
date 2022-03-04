@@ -91,8 +91,15 @@
                                 </div>
                                 <div class="media">
                                     <label>Gender</label>
+                                    @if($userData[0]->gender !=null)
                                     <input type="text" name="gender" class="form-control" id="inputGender"
                                         value="{{$userData[0]->gender}}">
+                                    @else
+                                    <select class="form-select" id="gender" name="gender">
+                                        <option value="Female">Female</option>
+                                        <option value="Male">Male</option>
+                                    </select>
+                                    @endif
                                 </div>
                                 <div class="media">
                                     <label>Email</label>

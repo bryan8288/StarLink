@@ -26,7 +26,7 @@
         @else
         <div style="display: flex; margin-top :20px">
             @foreach ($course as $item)
-            <div class="col-md-2 card">
+            <div class="col-md-2 card" style="height:auto; padding-bottom:10px">
                 <div style="margin-top: 20px">
                     <h4>{{$item->name}}</h4>
                     <p class="price">Rp.{{$item->price}}</p>
