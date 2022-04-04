@@ -12,7 +12,9 @@ use App\DiscussionMentor;
 class DiscussionRoomController extends Controller
 {
     public function show(){
-        
+        $clockMentorForMentor = [];
+        $clockMentorForMentee = [];
+
         if(Auth::user()->role == 'admin'){
             $userData = DB::table('users')
             ->join('admins','users.id','=','admins.user_id')
@@ -26,6 +28,27 @@ class DiscussionRoomController extends Controller
             ->select('users.username','mentees.name','mentees.id','mentees.birth_date','mentees.gender','users.email','mentees.phone','mentees.birth_place','mentees.address','mentees.portofolio','mentees.cv','mentees.profile_picture')
             ->where('users.id','=',Auth::id())
             ->get();
+
+            $clockMentorForMentee = DB::table('discussion_mentors')
+            ->join('mentors', 'discussion_mentors.mentor_id','=','mentors.id')
+            ->join('classes','mentors.id','=','classes.mentor_id')
+            ->join('class_details','classes.id','=','class_details.class_id')
+            ->select('discussion_mentors.url', 'mentors.name','discussion_mentors.start_time', 'discussion_mentors.end_time', 'discussion_mentors.id','mentors.id as mentorId')->distinct()
+            ->where('class_details.mentee_id','=',$userData[0]->id)
+            ->get();
+            
+            foreach ($clockMentorForMentee as $key) {
+                $courseByMentor = DB::table('classes')
+                ->join('courses','courses.id','=','classes.course_id')
+                ->join('course_transactions','courses.id','=','course_transactions.course_id')
+                ->join('class_details','classes.id','=','class_details.class_id')
+                ->select('courses.name as name')
+                ->where('classes.mentor_id','=',$key->mentorId)
+                ->where('class_details.mentee_id','=',$userData[0]->id)
+                ->where('course_transactions.mentee_id','=',$userData[0]->id)->get();
+
+                $key->courseList = $courseByMentor;
+            }
         }
         if(Auth::user()->role == 'mentor'){
             $userData = DB::table('users')
@@ -33,29 +56,31 @@ class DiscussionRoomController extends Controller
             ->select('users.username','mentors.name','mentors.id','mentors.birth_date','mentors.gender','users.email','mentors.phone','mentors.birth_place','mentors.address','mentors.profile_picture')
             ->where('users.id','=',Auth::id())
             ->get();
+
+            $clockMentorForMentor = DB::table('discussion_mentors')
+            ->join('mentors', 'discussion_mentors.mentor_id','=','mentors.id')
+            ->select('discussion_mentors.url', 'mentors.name','discussion_mentors.start_time', 'discussion_mentors.end_time', 'discussion_mentors.id','mentors.id as mentorId')
+            ->get();
+
+            foreach ($clockMentorForMentor as $key) {
+                $courseByMentor = DB::table('classes')
+                ->join('courses','courses.id','=','classes.course_id')
+                ->select('courses.name as name')
+                ->where('classes.mentor_id','=',$userData[0]->id)
+                ->get();
+
+                $key->courseList = $courseByMentor;
+            }
         }
-        $AdminRoomData = DB::table('discussion_admins')
-        ->join('admins', 'discussion_admins.admin_id','=','admins.id')
-        ->select('discussion_admins.url', 'admins.name','discussion_admins.id')
-        ->get();
-        $MentorRoomData = DB::table('discussion_mentors')
-        ->join('mentors', 'discussion_mentors.mentor_id','=','mentors.id')
-        ->select('discussion_mentors.url', 'mentors.name','discussion_mentors.id','mentors.id as mentorId')
-        ->get();
         
         $clockAdmin = DB::table('discussion_admins')
         ->join('admins', 'discussion_admins.admin_id','=','admins.id')
         ->select('discussion_admins.url', 'admins.name','discussion_admins.start_time', 'discussion_admins.end_time')
         ->get();
 
-        $clockMentor = DB::table('discussion_mentors')
-        ->join('mentors', 'discussion_mentors.mentor_id','=','mentors.id')
-        ->select('discussion_mentors.url', 'mentors.name','discussion_mentors.start_time', 'discussion_mentors.end_time', 'discussion_mentors.id','mentors.id as mentorId')
-        ->get();
-
         $mentorList= Mentor::all();
         $auth = Auth::check();
-        return view('discussionRoom',compact('auth','userData','AdminRoomData','MentorRoomData','clockAdmin','clockMentor','mentorList'));
+        return view('discussionRoom',compact('auth','userData','clockAdmin','clockMentorForMentee','clockMentorForMentor','mentorList'));
     }
 
     public function showadmin(){

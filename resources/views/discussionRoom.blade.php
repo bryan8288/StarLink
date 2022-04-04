@@ -111,13 +111,39 @@
           </div>              
         @endif
         
+        @if($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentee')
         <div class="container">
           <?php $i=1;?> 
-          @foreach ($clockMentor as $dataClockMentor)
-         <a href="{{$dataClockMentor->url}}"><button type="button" class="btn btn-warning" style="margin:10px;width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#{{$i}} Discussion | {{$dataClockMentor->start_time}} - {{$dataClockMentor->end_time}} <h5>Mentor: {{$dataClockMentor->name}}</h1></button></a>
+          @foreach ($clockMentorForMentee as $dataClockMentor)
+            <a href="{{$dataClockMentor->url}}"><button type="button" class="btn btn-warning" style="margin:10px;width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#{{$i}} Discussion | {{$dataClockMentor->start_time}} - {{$dataClockMentor->end_time}} 
+            <h5>Mentor: {{$dataClockMentor->name}}</h5>
+            <h5>Course : </h5>
+            <div style="display: flex;">
+              @foreach ($dataClockMentor->courseList as $course)
+              <h5 style="margin-left: 20px">{{$course->name}}</h5>
+              @endforeach
+            </div>
+            </button></a>
           <?php $i++;?>
-        @endforeach
+          @endforeach
+        </div>
+          @elseif($auth && \Illuminate\Support\Facades\Auth::user()->role == 'mentor')
+          <div class="container">
+            <?php $i=1;?> 
+            @foreach ($clockMentorForMentor as $dataClockMentor)
+              <a href="{{$dataClockMentor->url}}"><button type="button" class="btn btn-warning" style="margin:10px;width: auto; background-color:#E08C1F;border-color:#E08C1F; color:white;  border-radius: 30px;font-weight: bold">#{{$i}} Discussion | {{$dataClockMentor->start_time}} - {{$dataClockMentor->end_time}} 
+              <h5>Mentor: {{$dataClockMentor->name}}</h5>
+              <h5>Course : </h5>
+              <div style="display: flex;">
+                @foreach ($dataClockMentor->courseList as $course)
+                <h5 style="margin-left: 20px">{{$course->name}}</h5>
+                @endforeach
+              </div>
+              </button></a>
+            <?php $i++;?>
+            @endforeach
           </div>
+          @endif
           <br>
           <div style="text-align: center; line-height: 1.2; color:white">
             <h4>General Question</h4>

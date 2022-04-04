@@ -67,7 +67,7 @@
         <div class="row" style="display: flex">
             @foreach ($jobList as $job)
             <div class="col-3">
-                <div class="card border-0" style="height: 430px; margin-bottom:20px;">
+                <div class="card border-0" style="height: auto; margin-bottom:20px;">
                     @if (empty($job->profile_picture))
                     <i class="fa fa-user-circle-o card-img-top" style=" font-size: 100px;"></i>
                     @else
@@ -118,6 +118,10 @@
                                 <button type="submit" class="btn btn-primary" disabled
                                     style="font-weight:bold; margin-left: 5px; height:50px; width: 100px">APPLIED</button>    
                                 @endif
+
+                                <div>
+                                    
+                                </div>
                             </div>
                         </li>
                     </ul>
